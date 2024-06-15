@@ -1,25 +1,44 @@
-import { decreaseHabitCount, increaseHabitCount } from '@/api/habit'
-import { revalidatePath } from 'next/cache'
-import React from 'react'
+'use client'
+import { decreaseHabitCount, increaseHabitCount } from '@/api/habitClient'
+import { useRouter } from 'next/navigation'
+import React, { FormEvent, useEffect, useState } from 'react'
 
 export default function HabitController({ id, count }: { id: number, count: number }) {
 
+    const router = useRouter()
+
+    const [countRapid, setCountRapid] = useState(count)
+    const [loading, setLoading] = useState(false)
+
+    const decrease = async (e: FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+        if (countRapid === 0) {
+            setLoading(false)
+            return
+        }
+        setCountRapid(curr => curr - 1)
+        await decreaseHabitCount({ id: id, count: countRapid })
+        router.refresh()
+        setLoading(false)
+    }
+
+    const increase = async (e: FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+        setCountRapid(curr => curr + 1)
+        await increaseHabitCount({ id: id, count: countRapid })
+        router.refresh()
+        setLoading(false)
+    }
+
     return (
         <form className='flex item-center justify-between'>
-            <button formAction={async () => {
-                "use server"
-                if (count === 0) return
-                await decreaseHabitCount({ id: id, count: count })
-                revalidatePath("/dashboard/main")
-            }} className='w-10 h-10 border-gray-600 rounded-full bg-gray-200 hover:bg-gray-300'>
+            <button disabled={loading} onClick={decrease} className='w-10 h-10 border-gray-600 rounded-full bg-gray-200 hover:bg-gray-300 disabled:bg-red-300'>
                 -
             </button>
-            <div className='text-center flex justify-center items-center text-xl'>{count}</div>
-            <button formAction={async () => {
-                "use server"
-                await increaseHabitCount({ id: id, count: count })
-                revalidatePath("/dashboard/main")
-            }} className='w-10 h-10 border-gray-600 rounded-full bg-gray-200 hover:bg-gray-300'>
+            <div className='text-center flex justify-center items-center text-xl'>{countRapid}</div>
+            <button disabled={loading} onClick={increase} className='w-10 h-10 border-gray-600 rounded-full bg-gray-200 hover:bg-gray-300 disabled:bg-red-300'>
                 +
             </button>
         </form>

@@ -16,8 +16,8 @@ export default function SubmitCreateHabit() {
 
     return (
         <form action={createHabit}>
-            <input type="text" name='habit' className='border-2 border-gray-400' />
-            <button type='submit'>Create</button>
+            <input type="text" name='habit' className='border-2 p-1 border-gray-400' />
+            <button className='ml-4 p-2 bg-emerald-100' type='submit'>Create</button>
         </form>
     )
 }
