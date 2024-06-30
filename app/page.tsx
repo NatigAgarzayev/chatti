@@ -1,16 +1,18 @@
 import { getUserData } from "@/api/auth";
+import { Store } from "@/types";
 import { redirect } from "next/navigation";
+import { create } from 'zustand'
+
 
 export default async function Index() {
 
   const userData = await getUserData()
-  // console.log("user_data = ", userData)
 
   if (!userData) {
-    return redirect("/login")
+    redirect("/login")
   }
   else {
-    return redirect("/dashboard/main")
+    redirect("/dashboard/main")
   }
 
 }

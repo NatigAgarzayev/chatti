@@ -5,3 +5,10 @@ export interface Habit {
     author_id: string
     count: number
 }
+
+export interface Store {
+    createModal: boolean,
+    habitLoading: boolean,
+    updateCreateModal: (createModal: boolean) => void,
+    updateHabitLoading: (habitLoading: boolean) => void,
+}
