@@ -7,3 +7,8 @@ export const getUserData = async () => {
 
     return user
 }
+
+export const userLogOut = async () => {
+    const supabase = createClient()
+    const { error } = await supabase.auth.signOut()
+}
