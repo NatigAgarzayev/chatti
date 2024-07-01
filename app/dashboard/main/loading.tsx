@@ -1,7 +1,12 @@
+import MainSkeleton from '@/components/MainSkeleton'
 import React from 'react'
 
 export default function loading() {
     return (
-        <div className='p-4 text-3xl'>Loading...</div>
+        <div className='flex'>
+            <MainSkeleton />
+            <MainSkeleton />
+            <MainSkeleton />
+        </div>
     )
 }

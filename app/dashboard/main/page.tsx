@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import GetUsers from '@/components/GetUsers'
 import { getUserData } from '@/api/auth'
 import { getUserHabits } from '@/api/habit'
 import { Habit } from '@/types'
+import MainSkeleton from '@/components/MainSkeleton'
 
 export default async function page() {
     const user: any = await getUserData()
