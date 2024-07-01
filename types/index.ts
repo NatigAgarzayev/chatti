@@ -12,3 +12,8 @@ export interface Store {
     updateCreateModal: (createModal: boolean) => void,
     updateHabitLoading: (habitLoading: boolean) => void,
 }
+
+export interface User {
+    user: any,
+    setUser: (user: any) => void
+}

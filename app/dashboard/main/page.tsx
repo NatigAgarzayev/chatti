@@ -3,10 +3,11 @@ import GetUsers from '@/components/GetUsers'
 import { getUserData } from '@/api/auth'
 import { getUserHabits } from '@/api/habit'
 import { Habit } from '@/types'
-import MainSkeleton from '@/components/MainSkeleton'
+import { useUser } from '@/store/store'
 
 export default async function page() {
     const user: any = await getUserData()
+    console.log("user", user)
     const habitsAll: Habit[] = await getUserHabits({ id: user.id }) || []
 
     return (
