@@ -6,6 +6,7 @@ import Image from 'next/image'
 import deleteIcon from "../images/delete.svg"
 import { deleteHabit } from '@/api/habitClient'
 import { useRouter } from 'next/navigation'
+import HabitStopwatch from './HabitStopwatch'
 
 export default function HabitInterface({ data }: { data: Habit }) {
 
@@ -15,12 +16,17 @@ export default function HabitInterface({ data }: { data: Habit }) {
         await deleteHabit({ id: data.id })
         router.refresh()
     }
-
+    // whitespace-nowrap w-3/4 overflow-hidden text-ellipsis
     return (
-        <div className='relative w-60 m-6 p-4 border-2 border-gray-600 rounded-3xl'>
-            <h3 className='text-lg mb-4'>{data.title}:</h3>
+        <div className='relative w-60 h-fit m-6 p-4 border-2 border-gray-500 rounded-3xl'>
+            <h3 className='text-lg mb-4'>{data.title}</h3>
             <Image onClick={deleteFromDb} className='absolute right-4 top-4 cursor-pointer' src={deleteIcon} width={20} height={20} alt='del' />
-            <HabitController id={data.id} count={data.count} />
+            {
+                data.type === "count" ?
+                    <HabitController id={data.id} count={data.count} />
+                    :
+                    <HabitStopwatch timer={data.created_at} />
+            }
         </div>
     )
 }

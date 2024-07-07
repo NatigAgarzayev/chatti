@@ -7,8 +7,6 @@ import { useState } from 'react'
 export default function CreateHabit({ children }: { children: ReactElement }) {
     const createModalCondition = useStore(state => state.createModal)
     const updateCreateModal = useStore(state => state.updateCreateModal)
-    const [isOpen, setIsOpen] = useState(createModalCondition)
-    // const [title, setTitle] = useState("")
 
     return (
         <>
