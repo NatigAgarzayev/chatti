@@ -12,13 +12,13 @@ export default function SubmitCreateHabit() {
     const router = useRouter()
 
     const createHabit = async (formData: FormData) => {
-        updateHabitLoading(true)
         const user: any = await getUserData()
         const { habit, type } = Object.fromEntries(formData)
         if (habit.toString().trim() === "") {
             alert("Please enter a habit")
             return
         }
+        updateHabitLoading(true)
         await createUserHabit({ title: habit + "", user: user.id, type: type + "" })
         router.refresh()
         updateHabitLoading(false)

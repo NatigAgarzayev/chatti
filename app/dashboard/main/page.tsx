@@ -7,7 +7,6 @@ import { useUser } from '@/store/store'
 
 export default async function page() {
     const user: any = await getUserData()
-    console.log("user", user)
     const habitsAll: Habit[] = await getUserHabits({ id: user.id }) || []
 
     return (

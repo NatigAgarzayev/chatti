@@ -3,7 +3,8 @@ export interface Habit {
     title: string
     created_at: string
     author_id: string
-    count: number
+    count: number,
+    type: string
 }
 
 export interface Store {
