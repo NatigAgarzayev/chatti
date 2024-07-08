@@ -13,7 +13,7 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
         <ul className='flex flex-wrap'>
             {
                 habitsAll
-                    ?.sort((a, b) => a.created_at < b.created_at ? -1 : 1)
+                    ?.sort((a, b) => a.id < b.id ? -1 : 1)
                     ?.map((item: Habit) => (
                         <HabitInterface key={item.id} data={item} />
                     ))

@@ -16,7 +16,7 @@ export default function HabitInterface({ data }: { data: Habit }) {
                 visible &&
                 <HabitOverlay habitId={data.id} />
             }
-            <h3 className='text-lg mb-4 w-[90%]'>{data.title}</h3>
+            <h3 className='text-lg mb-4'>{data.title}</h3>
             {
                 data.type === "count" ?
                     <HabitController id={data.id} count={data.count} />

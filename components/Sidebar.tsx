@@ -32,7 +32,7 @@ export default function Sidebar() {
                     <NavLink link={"/dashboard/main"} content={"Main"} />
                 </li>
             </ul>
-            <li onClick={logoutUser} className='absolute bottom-10 left-1/2 -translate-x-1/2 mt-4 list-none text-center p-4 text-gray-700 font-bold w-[80%] mx-auto rounded-full bg-indigo-300 hover:bg-indigo-400 cursor-pointer'>
+            <li onClick={logoutUser} className='absolute bottom-10 left-1/2 -translate-x-1/2 mt-4 list-none text-center p-2 text-gray-700 font-bold w-[80%] mx-auto rounded-full bg-indigo-300 hover:bg-indigo-400 cursor-pointer'>
                 Logout
             </li>
             <div className='absolute bottom-2 left-1/2 -translate-x-1/2 text-gray-700'>
