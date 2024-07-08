@@ -21,7 +21,7 @@ export default function SubmitCreateHabit() {
             return
         }
         updateHabitLoading(true)
-        await createUserHabit({ title: habit + "", user: user.id, type: type + "", count: +count, timer: timer === "" ? moment() : timer })
+        await createUserHabit({ title: habit + "", user: user.id, type: type + "", count: +count, timer: timer === "" ? moment() + "" : timer })
         router.refresh()
         updateHabitLoading(false)
         updateCreateModal(false)

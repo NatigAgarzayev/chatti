@@ -26,7 +26,7 @@ export const deleteHabit = async ({ id }: { id: number }) => {
     const { error } = await supabase.from('habits').delete().eq('id', id)
 }
 
-export const createUserHabit = async ({ title, user, type, count, timer }: { title: string, user: string, type: string, count?: number | undefined, timer?: Moment | FormDataEntryValue | undefined }) => {
+export const createUserHabit = async ({ title, user, type, count, timer }: { title: string, user: string, type: string, count?: number | undefined, timer?: Moment | FormDataEntryValue }) => {
     const supabase = createClient()
 
     const { data } = await supabase
