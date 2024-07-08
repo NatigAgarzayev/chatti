@@ -14,7 +14,7 @@ export default function HabitInterface({ data }: { data: Habit }) {
         <div onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className='relative w-60 h-fit m-6 p-4 border-2 border-gray-700 rounded-3xl'>
             {
                 visible &&
-                <HabitOverlay habitId={data.id} />
+                <HabitOverlay habitType={data.type} habitId={data.id} />
             }
             <h3 className='text-lg mb-4'>{data.title}</h3>
             {

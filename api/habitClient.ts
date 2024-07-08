@@ -36,7 +36,7 @@ export const createUserHabit = async ({ title, user, type, count, timer }: { tit
                 title: title,
                 author_id: user,
                 type: type,
-                created_at: type === 'timer' ? timer : moment(),
+                created_at: type === 'timer' ? timer : moment().format(),
                 count: type === 'timer' ? 0 : count,
             }
         ])
@@ -51,4 +51,10 @@ export const getUserHabits = async ({ id }: { id: number }) => {
         .eq('author_id', id)
 
     return data
+}
+
+
+export const resetTimerHabit = async ({ id }: { id: number }) => {
+    const supabase = createClient()
+    const { error } = await supabase.from('habits').update({ created_at: moment().format() }).eq('id', id)
 }
