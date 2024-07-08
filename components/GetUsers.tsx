@@ -18,9 +18,12 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
                         <HabitInterface key={item.id} data={item} />
                     ))
             }
-            <CreateHabit>
-                <SubmitCreateHabit />
-            </CreateHabit>
+            {
+                habitsAll.length < 5 &&
+                <CreateHabit>
+                    <SubmitCreateHabit />
+                </CreateHabit>
+            }
         </ul>
     )
 }

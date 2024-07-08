@@ -18,8 +18,8 @@ export default function HabitInterface({ data }: { data: Habit }) {
     }
     // whitespace-nowrap w-3/4 overflow-hidden text-ellipsis
     return (
-        <div className='relative w-60 h-fit m-6 p-4 border-2 border-gray-500 rounded-3xl'>
-            <h3 className='text-lg mb-4'>{data.title}</h3>
+        <div className='relative w-60 h-fit m-6 p-4 border-2 border-gray-700 rounded-3xl'>
+            <h3 className='text-lg mb-4 w-[90%]'>{data.title}</h3>
             <Image onClick={deleteFromDb} className='absolute right-4 top-4 cursor-pointer' src={deleteIcon} width={20} height={20} alt='del' />
             {
                 data.type === "count" ?

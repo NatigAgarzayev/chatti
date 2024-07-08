@@ -1,7 +1,13 @@
-import { GeistSans } from "geist/font/sans";
+// import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import { Montserrat } from "next/font/google"
 
+const montserrat = Montserrat({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
@@ -12,13 +18,14 @@ export const metadata = {
   description: "The fastest way to build apps with Next.js and Supabase",
 };
 
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en" className={montserrat.className}>
       <body className=" text-foreground">
         {children}
       </body>
