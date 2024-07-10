@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/client"
-import moment from "moment"
 import Moment from "react-moment"
+import moment from 'moment-timezone'
 
 export const increaseHabitCount = async ({ id, count }: { id: number, count: number }) => {
     const supabase = createClient()
@@ -26,7 +26,7 @@ export const deleteHabit = async ({ id }: { id: number }) => {
     const { error } = await supabase.from('habits').delete().eq('id', id)
 }
 
-export const createUserHabit = async ({ title, user, type, count, timer }: { title: string, user: string, type: string, count?: number | undefined, timer?: Moment | FormDataEntryValue }) => {
+export const createUserHabit = async ({ title, user, type, count, timer, timezone }: { title: string, user: string, type: string, count?: number | undefined, timer?: Moment | FormDataEntryValue, timezone: string }) => {
     const supabase = createClient()
 
     const { data } = await supabase
@@ -36,7 +36,7 @@ export const createUserHabit = async ({ title, user, type, count, timer }: { tit
                 title: title,
                 author_id: user,
                 type: type,
-                created_at: type === 'timer' ? timer : moment().format(),
+                created_at: type === 'timer' ? moment.tz(timer, timezone).format() : moment().format(),
                 count: type === 'timer' ? 0 : count,
             }
         ])

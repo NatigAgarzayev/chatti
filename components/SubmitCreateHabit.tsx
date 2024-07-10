@@ -4,7 +4,12 @@ import { createUserHabit } from '@/api/habitClient'
 import { useStore } from '@/store/store'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
+export const getUserTimezone = () => {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+};
+
 
 export default function SubmitCreateHabit() {
     const updateCreateModal = useStore(state => state.updateCreateModal)
@@ -21,7 +26,8 @@ export default function SubmitCreateHabit() {
             return
         }
         updateHabitLoading(true)
-        await createUserHabit({ title: habit + "", user: user.id, type: type + "", count: +count, timer: timer === "" ? moment().format() + "" : timer })
+        const timezoneDefine = getUserTimezone()
+        await createUserHabit({ title: habit + "", user: user.id, type: type + "", count: +count, timer: timer === "" ? moment().format() + "" : timer, timezone: timezoneDefine })
         router.refresh()
         updateHabitLoading(false)
         updateCreateModal(false)
