@@ -4,7 +4,7 @@ import { createUserHabit } from '@/api/habitClient'
 import { useStore } from '@/store/store'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 export const getUserTimezone = () => {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;

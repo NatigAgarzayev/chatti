@@ -2,7 +2,6 @@
 import { useStore } from '@/store/store'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import React, { ReactElement } from 'react'
-import { useState } from 'react'
 
 export default function CreateHabit({ children }: { children: ReactElement }) {
     const createModalCondition = useStore(state => state.createModal)

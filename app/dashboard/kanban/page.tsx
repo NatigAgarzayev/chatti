@@ -1,7 +1,15 @@
-import React from 'react'
+import { getUserData } from '@/api/auth'
+import { getUserKanban } from '@/api/kanban'
+import Kanban from '@/components/Kanban'
+import React, { Suspense } from 'react'
 
-export default function page() {
+export default async function page() {
+    const user: any = await getUserData()
+    const kanbanData = await getUserKanban({ id: user.id })
+
     return (
-        <div>Kanban will be soon</div>
+        <div className='flex-auto p-4 h-full'>
+            <Kanban kanbanData={kanbanData ?? []} />
+        </div>
     )
 }

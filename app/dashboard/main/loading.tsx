@@ -6,7 +6,6 @@ export default function loading() {
         <div className='flex'>
             <MainSkeleton />
             <MainSkeleton />
-            <MainSkeleton />
         </div>
     )
 }
