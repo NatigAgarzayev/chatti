@@ -21,7 +21,7 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
             index={index}
         >
             {
-                (provided: { draggableProps: React.JSX.IntrinsicAttributes & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>; dragHandleProps: React.JSX.IntrinsicAttributes & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>; innerRef: React.LegacyRef<HTMLDivElement> | undefined }) => (
+                (provided: any) => (
                     <div className='flex-1 rounded-3xl mb-4 p-4 bg-indigo-200' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} draggable={true}>
                         <div className='flex justify-between'>
                             <p className='flex-95'>{cardInfo?.content}</p>

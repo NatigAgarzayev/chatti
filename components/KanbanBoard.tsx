@@ -8,7 +8,7 @@ export default function KanbanBoard({ dropId, innerItems }: { dropId: string, in
             droppableId={dropId}
         >
             {
-                (provided: { innerRef: React.LegacyRef<HTMLDivElement> | undefined; droppableProps: React.JSX.IntrinsicAttributes & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>; placeholder: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined }) => (
+                (provided: any) => (
                     <div className='bg-gray-100 h-full p-4 rounded-3xl ' ref={provided.innerRef} {...provided.droppableProps}>
                         {
                             innerItems?.map((item, index) => (
