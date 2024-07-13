@@ -24,7 +24,7 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
                 (provided: { draggableProps: React.JSX.IntrinsicAttributes & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>; dragHandleProps: React.JSX.IntrinsicAttributes & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>; innerRef: React.LegacyRef<HTMLDivElement> | undefined }) => (
                     <div className='flex-1 rounded-3xl mb-4 p-4 bg-indigo-200' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} draggable={true}>
                         <div className='flex justify-between'>
-                            <p className='flex-95 overflow-hidden text-ellipsiss'>{cardInfo?.content}</p>
+                            <p className='flex-95'>{cardInfo?.content}</p>
                             <Image className='cursor-pointer' onClick={deleteTaskHandler} src={deleteIcon} width={16} height={16} alt='' />
                         </div>
                     </div>
