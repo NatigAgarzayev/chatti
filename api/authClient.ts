@@ -12,3 +12,12 @@ export const userLogOut = async () => {
     const supabase = createClient()
     const { error } = await supabase.auth.signOut()
 }
+
+export const resetUserPass = async (email: string) => {
+    const supabase = createClient()
+
+    let { data, error } = await supabase.auth.resetPasswordForEmail(email)
+
+    console.log("data", data)
+    console.log("error", error)
+}

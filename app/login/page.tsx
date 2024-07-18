@@ -51,6 +51,7 @@ export default function Login({
     return redirect("/login?message=Check email to continue sign in process");
   };
 
+
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md h-screen mx-auto justify-center gap-2">
       <Link
@@ -88,16 +89,18 @@ export default function Login({
           Password
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          className="rounded-md px-4 py-2 bg-inherit border"
           type="password"
           name="password"
           placeholder="••••••••"
           required
           autoComplete="on"
         />
+
+        <Link href="/resetpass" className="text-blue-500 flex justify-end mr-2 my-2">Forgot password</Link>
         <SubmitButton
           formAction={signIn}
-          className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
+          className="bg-indigo-400 rounded-md px-4 py-2 text-foreground mb-2"
           pendingText="Signing In..."
         >
           Sign In
