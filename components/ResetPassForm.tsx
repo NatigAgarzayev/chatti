@@ -18,7 +18,7 @@ export default function ResetPassForm() {
 
     return (
         <form action={resetPassHandler} className='relative flex flex-col w-[400px] h-screen justify-center mx-auto'>
-            <h2 className='font-bold text-xl mb-2 text-center'>Reset your password</h2>
+            <h2 className='font-bold text-xl mb-2 text-center'>Send link to the email</h2>
             <input
                 className="rounded-md px-4 py-2 bg-inherit border mb-6"
                 name="email"

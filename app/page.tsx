@@ -7,7 +7,7 @@ export default async function Index() {
   const userData = await getUserData()
 
   if (!userData) {
-    // redirect("/login")
+    redirect("/login")
   }
   else {
     redirect("/dashboard/main")

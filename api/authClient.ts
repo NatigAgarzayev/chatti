@@ -16,6 +16,6 @@ export const userLogOut = async () => {
 export const resetUserPass = async (email: string) => {
     const supabase = createClient()
 
-    let { data, error } = await supabase.auth.resetPasswordForEmail(email)
+    let { data, error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: 'https://chatti-jade.vercel.app/reset' })
 
 }

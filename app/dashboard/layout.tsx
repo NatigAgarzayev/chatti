@@ -7,7 +7,7 @@ export default async function layout({ children }: { children: React.ReactNode }
     const userData = await getUserData()
 
     if (!userData) {
-        // redirect("/login")
+        redirect("/login")
     }
     else {
         return (
