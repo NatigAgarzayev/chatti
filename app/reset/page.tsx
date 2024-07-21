@@ -7,21 +7,21 @@ export default function page() {
     const resetPassword = async (formData: FormData) => {
         'use server'
         const supabase = createClient()
-        const { new_password, confirm_new_password } = Object.fromEntries(formData)
-        if (new_password.toString().trim() === "") {
+        const { newPassword, confirmNewPassword } = Object.fromEntries(formData)
+        if (newPassword.toString().trim() === "") {
             alert("Please enter your new password")
             return
         }
-        if (confirm_new_password.toString().trim() === "") {
+        if (confirmNewPassword.toString().trim() === "") {
             alert("Please confirm your new password")
             return
         }
-        if (new_password.toString() !== confirm_new_password.toString()) {
+        if (newPassword.toString() !== confirmNewPassword.toString()) {
             alert("Passwords do not match")
             return
         }
         const { data, error } = await supabase.auth.updateUser({
-            password: new_password.toString()
+            password: newPassword.toString()
         })
         redirect("/")
     }
@@ -33,13 +33,13 @@ export default function page() {
                 type='password'
                 className="rounded-md px-4 py-2 bg-inherit border mb-6"
                 name="new_password"
-                placeholder="New password"
+                placeholder="newPassword"
                 required
             />
             <input
                 type='password'
                 className="rounded-md px-4 py-2 bg-inherit border mb-6"
-                name="confirm_new_password"
+                name="confirmNewPassword"
                 placeholder="Confirm new password"
                 required
             />
