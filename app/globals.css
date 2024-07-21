@@ -34,3 +34,21 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Color of the scrollbar thumb on hover */
 }
+
+.ql-toolbar{
+  border-radius: 12px !important;
+}
+
+.ql-container {
+  margin-top: 5px !important;
+  border: 0 !important;
+  height: 200px !important;
+}
+
+.ql-editor {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 12px !important;
+}
+
+
+

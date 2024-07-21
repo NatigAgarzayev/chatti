@@ -1,3 +1,7 @@
+.formattedText p{
+  word-break: break-all;
+}
+
 .formattedText ol{
   all: revert;
   margin: 0;
