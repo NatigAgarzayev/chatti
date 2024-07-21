@@ -36,6 +36,7 @@ export default function CreateTask() {
             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
             ['bold', 'italic', 'underline'],
             ['link'],
+            // ['code-block']
         ]
     };
 
@@ -44,6 +45,7 @@ export default function CreateTask() {
         'bold', 'italic', 'underline',
         'list', 'bullet',
         'link',
+        // 'code-block'
     ];
 
     return (
