@@ -9,7 +9,6 @@ export default function HabitInterface({ data }: { data: Habit }) {
 
     const [visible, setVisible] = useState(false)
 
-    // whitespace-nowrap w-3/4 overflow-hidden text-ellipsis
     return (
         <div onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className='relative w-60 h-fit m-6 p-4 border-2 border-gray-700 rounded-3xl'>
             {

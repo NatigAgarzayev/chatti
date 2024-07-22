@@ -69,15 +69,15 @@ export default function Kanban({ kanbanData }: { kanbanData: KanbanType[] }) {
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className='flex h-sfit gap-5 justify-between'>
                     <div className='flex-33'>
-                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[0]}</h3>
+                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[0]}({storage?.filter(x => x.progress === 1).length})</h3>
                         <KanbanBoard dropId={`droppable1`} innerItems={storage?.filter(x => x.progress === 1)} />
                     </div>
                     <div className='flex-33'>
-                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[1]}</h3>
+                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[1]}({storage?.filter(x => x.progress === 2).length})</h3>
                         <KanbanBoard dropId={`droppable2`} innerItems={storage?.filter(x => x.progress === 2)} />
                     </div>
                     <div className='flex-33'>
-                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[2]}</h3>
+                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[2]}({storage?.filter(x => x.progress === 3).length})</h3>
                         <KanbanBoard dropId={`droppable3`} innerItems={storage?.filter(x => x.progress === 3)} />
                     </div>
 

@@ -4,7 +4,8 @@ export interface Habit {
     created_at: string
     author_id: string
     count: number,
-    type: string
+    type: string,
+    records: NivoDataset[]
 }
 
 export interface Store {
@@ -12,10 +13,14 @@ export interface Store {
     habitLoading: boolean,
     createTaskModal: boolean,
     createTaskLoading: boolean,
+    statisticModal: boolean,
+    modalId: number
     updateCreateModal: (createModal: boolean) => void,
     updateHabitLoading: (habitLoading: boolean) => void,
     updateTaskModal: (createTaskModal: boolean) => void,
     updateTaskLoading: (createTaskLoading: boolean) => void,
+    updateStatisticModal: (statisticModal: boolean) => void,
+    updateModalId: (modalId: number) => void
 }
 
 export interface User {
@@ -29,4 +34,9 @@ export default interface Kanban {
     created_at: string
     author_id: string
     progress: number
+}
+
+export interface NivoDataset {
+    day: string,
+    value: number
 }

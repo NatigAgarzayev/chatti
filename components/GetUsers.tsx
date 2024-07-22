@@ -1,13 +1,16 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import HabitInterface from './HabitInterface'
 import CreateHabit from './CreateHabit'
 import SubmitCreateHabit from './SubmitCreateHabit'
 import { Habit } from '@/types'
 import { useStore } from '@/store/store'
+import StatisticModal from './StatisticModal'
 
 export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
 
+    const statisticModal = useStore(state => state.statisticModal)
+    const modalId = useStore(state => state.modalId)
 
     return (
         <ul className='flex flex-wrap'>
@@ -23,6 +26,10 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
                 <CreateHabit>
                     <SubmitCreateHabit />
                 </CreateHabit>
+            }
+            {
+                statisticModal &&
+                <StatisticModal data={habitsAll.filter(item => item.id === modalId)[0]} />
             }
         </ul>
     )

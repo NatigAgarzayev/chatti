@@ -1,5 +1,6 @@
 'use client'
 import { decreaseHabitCount, increaseHabitCount } from '@/api/habitClient'
+import moment from 'moment'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useEffect, useState } from 'react'
 
@@ -18,7 +19,7 @@ export default function HabitController({ id, count }: { id: number, count: numb
             return
         }
         setCountRapid(curr => curr - 1)
-        await decreaseHabitCount({ id: id, count: countRapid })
+        await decreaseHabitCount({ id: id, count: countRapid, time: moment().format() })
         router.refresh()
         setLoading(false)
     }
@@ -27,7 +28,7 @@ export default function HabitController({ id, count }: { id: number, count: numb
         e.preventDefault()
         setLoading(true)
         setCountRapid(curr => curr + 1)
-        await increaseHabitCount({ id: id, count: countRapid })
+        await increaseHabitCount({ id: id, count: countRapid, time: moment().format() })
         router.refresh()
         setLoading(false)
     }
