@@ -80,9 +80,7 @@ export const createUserHabit = async ({ title, user, type, count, timer, timezon
             }
         ])
         .select()
-    // Здесь какая-от хуйня не дает ему создать запись
-    console.log("data", count)
-    if (data && type === 'count' && count) {
+    if (data && type === 'count') {
         const offeredTime = moment.tz(timer, timezone).format('YYYY-MM-DD')
         handleArrayOfObjects(data[0].records, data[0].id, offeredTime, count, 0)
     }
