@@ -1,7 +1,6 @@
 import { getUserData } from '@/api/auth'
 import { getUserKanban } from '@/api/kanban'
 import Kanban from '@/components/Kanban'
-import React, { Suspense } from 'react'
 
 export default async function page() {
     const user: any = await getUserData()
