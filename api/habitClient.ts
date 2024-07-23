@@ -80,7 +80,7 @@ export const createUserHabit = async ({ title, user, type, count, timer, timezon
             }
         ])
         .select()
-    if (data && type === 'count') {
+    if (data && type === 'count' && count > 0) {
         const offeredTime = moment.tz(timer, timezone).format('YYYY-MM-DD')
         handleArrayOfObjects(data[0].records, data[0].id, offeredTime, count, 0)
     }
