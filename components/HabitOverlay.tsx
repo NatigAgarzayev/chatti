@@ -13,10 +13,14 @@ export default function HabitOverlay({ habitId, habitType }: { habitId: number, 
     const updateStatisticModal = useStore(state => state.updateStatisticModal)
     const updateModalId = useStore(state => state.updateModalId)
 
+    const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteModal)
 
-    const deleteFromDb = async () => {
-        await deleteHabit({ id: habitId })
-        router.refresh()
+
+
+    const deleteFromDb = () => {
+        updateConfirmDeleteModal(true)
+        updateModalId(habitId)
+
     }
 
     const resetFromDb = async () => {

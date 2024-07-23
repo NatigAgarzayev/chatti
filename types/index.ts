@@ -14,13 +14,15 @@ export interface Store {
     createTaskModal: boolean,
     createTaskLoading: boolean,
     statisticModal: boolean,
-    modalId: number
+    modalId: number,
+    confirmDeleteModal: boolean,
     updateCreateModal: (createModal: boolean) => void,
     updateHabitLoading: (habitLoading: boolean) => void,
     updateTaskModal: (createTaskModal: boolean) => void,
     updateTaskLoading: (createTaskLoading: boolean) => void,
     updateStatisticModal: (statisticModal: boolean) => void,
-    updateModalId: (modalId: number) => void
+    updateModalId: (modalId: number) => void,
+    updateConfirmDeleteModal: (confirmDeleteModal: boolean) => void
 }
 
 export interface User {

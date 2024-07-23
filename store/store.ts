@@ -10,12 +10,14 @@ export const useStore = create<Store>((set) => ({
     createTaskLoading: false,
     statisticModal: false,
     modalId: 0,
+    confirmDeleteModal: false,
     updateCreateModal: (createModal) => set({ createModal }),
     updateHabitLoading: (habitLoading) => set({ habitLoading }),
     updateTaskModal: (createTaskModal) => set({ createTaskModal }),
     updateTaskLoading: (createTaskLoading) => set({ createTaskLoading }),
     updateStatisticModal: (statisticModal) => set({ statisticModal }),
     updateModalId: (modalId) => set({ modalId }),
+    updateConfirmDeleteModal: (confirmDeleteModal) => set({ confirmDeleteModal }),
 
 }))
 
