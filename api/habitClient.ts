@@ -12,11 +12,9 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
 
     if (arr[dataRecordsLength - 1]?.day === offeredTime) {
         let newArray = arr
-        console.log("count + operation =", count + operation)
-        if (count + operation === 0) {
-            console.log("before", newArray)
+        const val = newArray[dataRecordsLength - 1]?.value
+        if (val + operation === 0) {
             newArray.pop()
-            console.log("after", newArray)
         }
         else {
             newArray[dataRecordsLength - 1].value += operation
@@ -28,7 +26,16 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
     }
     else {
         let newArray = arr
-        newArray.push({ day: offeredTime, value: count + operation })
+        if (count === 0 && newArray[dataRecordsLength - 1]?.day === offeredTime) {
+            const val = newArray[dataRecordsLength - 1]?.value
+            newArray.push({ day: offeredTime, value: val + operation })
+        }
+        else if (count > 0) {
+            newArray.push({ day: offeredTime, value: count })
+        }
+        else {
+            newArray.push({ day: offeredTime, value: 1 })
+        }
         const { data: recordResponse, error: recordError } = await supabase
             .from('habits')
             .update({ records: newArray })

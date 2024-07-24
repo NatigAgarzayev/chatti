@@ -31,7 +31,7 @@ export default function ConfirmDelete() {
                     <DialogTitle className="font-bold text-xl">Delete?</DialogTitle>
                     <div className="flex gap-6 justify-center">
                         <button disabled={loadingDelete} onClick={deleteHandler} className='px-4 py-2 bg-red-600 text-white font-bold rounded-3xl disabled:bg-red-300' >{loadingDelete ? "Processing..." : "Delete"}</button>
-                        <button onClick={() => updateConfirmDeleteModal(false)}>Cancel</button>
+                        <button className='font-bold' onClick={() => updateConfirmDeleteModal(false)}>Cancel</button>
                     </div>
                 </DialogPanel>
             </div>
