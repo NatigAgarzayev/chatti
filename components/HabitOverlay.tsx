@@ -13,7 +13,7 @@ export default function HabitOverlay({ habitId, habitType }: { habitId: number, 
     const updateStatisticModal = useStore(state => state.updateStatisticModal)
     const updateModalId = useStore(state => state.updateModalId)
 
-    const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteModal)
+    const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteHabitModal)
 
 
 

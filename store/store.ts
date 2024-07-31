@@ -10,15 +10,16 @@ export const useStore = create<Store>((set) => ({
     createTaskLoading: false,
     statisticModal: false,
     modalId: 0,
-    confirmDeleteModal: false,
+    confirmDeleteHabitModal: false,
+    confirmDeleteTaskModal: false,
     updateCreateModal: (createModal) => set({ createModal }),
     updateHabitLoading: (habitLoading) => set({ habitLoading }),
     updateTaskModal: (createTaskModal) => set({ createTaskModal }),
     updateTaskLoading: (createTaskLoading) => set({ createTaskLoading }),
     updateStatisticModal: (statisticModal) => set({ statisticModal }),
     updateModalId: (modalId) => set({ modalId }),
-    updateConfirmDeleteModal: (confirmDeleteModal) => set({ confirmDeleteModal }),
-
+    updateConfirmDeleteHabitModal: (confirmDeleteHabitModal) => set({ confirmDeleteHabitModal }),
+    updateConfirmDeleteTaskModal: (confirmDeleteTaskModal) => set({ confirmDeleteTaskModal }),
 }))
 
 export const useUser = create<User>((set) => ({

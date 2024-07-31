@@ -7,6 +7,7 @@ import { deleteTask } from '@/api/kanbanClient';
 import { useRouter } from 'next/navigation';
 import { Parser as HtmlToReactParser } from 'html-to-react';
 import classes from "../styles/quill-styles.module.css"
+import { useStore } from '@/store/store';
 
 export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: number }) {
 
@@ -14,9 +15,13 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
 
     const router = useRouter()
 
+    const updateConfirmDeleteTaskModal = useStore(state => state.updateConfirmDeleteTaskModal)
+    const updateModalId = useStore(state => state.updateModalId)
+
     const htmlToReactParser = HtmlToReactParser()
     const deleteTaskHandler = async () => {
-        await deleteTask(cardInfo.id)
+        updateConfirmDeleteTaskModal(true)
+        updateModalId(cardInfo.id)
         router.refresh()
     }
 
@@ -32,7 +37,9 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
                             <div className={`${classes.formattedText} flex-95`}>{htmlToReactParser.parse(cardInfo?.content)}</div>
                             {
                                 visible &&
-                                <Image className='cursor-pointer absolute right-5 top-5' onClick={deleteTaskHandler} src={deleteIcon} width={16} height={16} alt='' />
+                                <div onClick={deleteTaskHandler} className='cursor-pointer absolute right-3 top-3 bg-white p-3 rounded-full'>
+                                    <Image src={deleteIcon} width={16} height={16} alt='' />
+                                </div>
                             }
                         </div>
                     </div>

@@ -8,7 +8,6 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
     const supabase = createClient()
 
     const dataRecordsLength = arr.length
-    console.log('dataRecordsLength', dataRecordsLength)
 
     if (arr[dataRecordsLength - 1]?.day === offeredTime) {
         let newArray = arr
