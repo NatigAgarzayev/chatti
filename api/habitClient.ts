@@ -113,5 +113,12 @@ export const getUserHabits = async ({ id }: { id: number }) => {
 
 export const resetTimerHabit = async ({ id }: { id: number }) => {
     const supabase = createClient()
-    const { error } = await supabase.from('habits').update({ created_at: moment().format() }).eq('id', id)
+    const { data, error } = await supabase.from('habits').update({ created_at: moment().format() }).eq('id', id).select()
+    console.log("data == ", data)
+    const timezone = getUserTimezone()
+    const timer = moment().format()
+    const offeredTime = moment.tz(timer, timezone).format('YYYY-MM-DD')
+    if (data) {
+        handleArrayOfObjects(data[0].records, id, offeredTime, data[0].count, 1)
+    }
 }

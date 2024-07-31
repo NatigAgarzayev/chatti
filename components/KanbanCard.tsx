@@ -37,7 +37,7 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
                             <div className={`${classes.formattedText} flex-95`}>{htmlToReactParser.parse(cardInfo?.content)}</div>
                             {
                                 visible &&
-                                <div onClick={deleteTaskHandler} className='cursor-pointer absolute right-3 top-3 bg-white p-3 rounded-full'>
+                                <div onClick={deleteTaskHandler} className='cursor-pointer absolute right-2 top-2 bg-white p-3 rounded-full'>
                                     <Image src={deleteIcon} width={16} height={16} alt='' />
                                 </div>
                             }
