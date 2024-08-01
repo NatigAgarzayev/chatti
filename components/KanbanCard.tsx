@@ -32,8 +32,8 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
         >
             {
                 (provided: any) => (
-                    <div className='relative flex-1 rounded-3xl mb-4 p-4 bg-indigo-200' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} draggable={true}>
-                        <div onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className='flex justify-between'>
+                    <div onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className='relative flex-1 rounded-3xl mb-4 p-4 bg-indigo-200' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} draggable={true}>
+                        <div className='flex justify-between'>
                             <div className={`${classes.formattedText} flex-95`}>{htmlToReactParser.parse(cardInfo?.content)}</div>
                             {
                                 visible &&
