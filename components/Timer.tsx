@@ -10,6 +10,8 @@ import editIcon from "../images/edit-icon.svg"
 import "moment-duration-format"
 export default function Timer() {
 
+    const endSound = new Audio("/audio/Alarm-Clock.mp3")
+
     const [detail, setDetail] = useState<MaskEventDetail | null>(null);
     const [val, setVal] = useState('')
     const fRef = useRef<HTMLInputElement>(null)
@@ -30,8 +32,11 @@ export default function Timer() {
         if (!isPaused) {
             interval = setInterval(() => {
                 setCount(prevCount => {
-                    if (prevCount <= 1) {
+                    if (prevCount <= 0) {
                         clearInterval(interval)
+                        endSound.play()
+                        setIsPaused(true)
+                        setCount(initialTime)
                         return 0
                     }
                     return prevCount - 1
@@ -42,13 +47,8 @@ export default function Timer() {
     }, [isPaused]);
 
     const handleReset = () => {
-        // setIsTimerOn(false)
         setCount(initialTime)
         setIsPaused(true)
-        // setDetail({ value: '', isValid: false })
-        // if (fRef.current) {
-        //     fRef.current.focus()
-        // }
     }
 
     const handlePlay = () => {
