@@ -8,12 +8,14 @@
   "dependencies": {
     "@headlessui/react": "^2.0.4",
     "@nivo/calendar": "^0.87.0",
+    "@react-input/mask": "^1.2.5",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "autoprefixer": "10.4.17",
     "geist": "^1.2.1",
     "html-to-react": "^1.7.0",
     "moment": "^2.30.1",
+    "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.45",
     "next": "latest",
     "postcss": "8.4.33",
@@ -28,6 +30,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/moment-duration-format": "^2.2.6",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-beautiful-dnd": "^13.1.8",
