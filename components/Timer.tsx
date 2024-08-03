@@ -2,11 +2,11 @@
 import { InputMask, type MaskEventDetail } from '@react-input/mask'
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react'
-import resetBtn from "../images/reset.svg"
+import resetBtn from "../public/images/reset.svg"
 import Image from 'next/image';
-import pauseIcon from "../images/pause-icon.svg"
-import playIcon from "../images/play-icon.svg"
-import editIcon from "../images/edit-icon.svg"
+import pauseIcon from "../public/images/pause-icon.svg"
+import playIcon from "../public/images/play-icon.svg"
+import editIcon from "../public/images/edit-icon.svg"
 import "moment-duration-format"
 export default function Timer() {
 
@@ -19,7 +19,6 @@ export default function Timer() {
     const [isPaused, setIsPaused] = useState(true)
     const [count, setCount] = useState(60)
     const [initialTime, setInitialTime] = useState(0)
-
 
     useEffect(() => {
         if (fRef.current) {
@@ -72,7 +71,7 @@ export default function Timer() {
         setIsTimerOn(false)
         setIsPaused(true)
         setCount(0)
-        setDetail({ value: '', isValid: false })
+        setDetail(null)
         if (fRef.current) {
             fRef.current.focus()
         }

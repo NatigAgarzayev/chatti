@@ -4,7 +4,7 @@ import NavLink from './NavLink'
 import { usePathname, useRouter } from 'next/navigation'
 import { getUserData, userLogOut } from '@/api/authClient'
 import { useStore, useUser } from '@/store/store'
-import addTaskIcon from "../images/add-task.svg"
+import addTaskIcon from "../public/images/add-task.svg"
 import Image from 'next/image'
 
 export default function Sidebar() {

@@ -1,10 +1,10 @@
 'use client'
 import moment from 'moment';
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import resetBtn from "../images/reset.svg"
+import React, { useEffect, useState } from 'react'
+import resetBtn from "../public/images/reset.svg"
 import Image from 'next/image';
-import pauseIcon from "../images/pause-icon.svg"
-import playIcon from "../images/play-icon.svg"
+import pauseIcon from "../public/images/pause-icon.svg"
+import playIcon from "../public/images/play-icon.svg"
 
 export default function Stopwatch() {
 

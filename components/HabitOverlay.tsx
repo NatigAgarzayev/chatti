@@ -2,9 +2,9 @@
 import { deleteHabit, resetTimerHabit } from '@/api/habitClient'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import deleteIcon from "../images/delete.svg"
-import resetIcon from "../images/reset.svg"
-import statIcon from "../images/chart.svg"
+import deleteIcon from "../public/images/delete.svg"
+import resetIcon from "../public/images/reset.svg"
+import statIcon from "../public/images/chart.svg"
 import React from 'react'
 import { useStore } from '@/store/store'
 

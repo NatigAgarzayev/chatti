@@ -2,8 +2,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react'
 import { Draggable } from "react-beautiful-dnd"
-import deleteIcon from "../images/delete.svg"
-import { deleteTask } from '@/api/kanbanClient';
+import deleteIcon from "../public/images/delete.svg"
 import { useRouter } from 'next/navigation';
 import { Parser as HtmlToReactParser } from 'html-to-react';
 import classes from "../styles/quill-styles.module.css"
