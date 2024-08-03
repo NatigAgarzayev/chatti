@@ -37,6 +37,7 @@ export default function Timer() {
                         endSound.play()
                         setIsPaused(true)
                         setCount(initialTime)
+                        document.title = "End - Chatti"
                         return 0
                     }
                     return prevCount - 1
