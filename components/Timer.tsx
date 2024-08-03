@@ -8,6 +8,7 @@ import pauseIcon from "../public/images/pause-icon.svg"
 import playIcon from "../public/images/play-icon.svg"
 import editIcon from "../public/images/edit-icon.svg"
 import "moment-duration-format"
+import Head from 'next/head';
 export default function Timer() {
 
     const endSound = new Audio("/audio/Alarm-Clock.mp3")
@@ -84,11 +85,16 @@ export default function Timer() {
 
     const DisplayTime = () => {
         // return moment().hour(0).minute(0).second(count).format('HH : mm : ss')
-        return moment.duration(count, 'seconds').format('HH : mm : ss', { trim: false })
+        const res = moment.duration(count, 'seconds').format('HH : mm : ss', { trim: false })
+        document.title = res + " - Chatti"
+        return res
     }
 
     return (
         <div>
+            <Head>
+                <title>My page title</title>
+            </Head>
             {
                 !isTimerOn ?
                     <InputMask

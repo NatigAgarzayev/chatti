@@ -38,7 +38,9 @@ export default function Stopwatch() {
     }
 
     const DisplayTime = () => {
-        return moment().hour(0).minute(0).second(count).format('HH : mm : ss')
+        const res = moment().hour(0).minute(0).second(count).format('HH : mm : ss')
+        document.title = res + " - Chatti"
+        return res
     }
 
 
