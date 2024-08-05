@@ -23,10 +23,6 @@ export default function Timer() {
     const valRef3 = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        console.log(values)
-    }, [values])
-
-    useEffect(() => {
         if (valRef1.current) {
             valRef1.current.focus()
         }
@@ -128,6 +124,7 @@ export default function Timer() {
                                 valRef1.current?.focus()
                             }
                         }} ref={valRef2} value={values.val2} onChange={(e) => {
+
                             setValues(prev => ({ ...prev, val2: e.target.value.replace(/[^0-9]/g, '') }))
                             if (e.target.value.length === 2) {
                                 valRef3.current?.focus()
@@ -135,6 +132,7 @@ export default function Timer() {
                         }} type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700' placeholder='00' />
                         <div className='text-[48px]'>:</div>
                         <input onKeyDown={(event) => {
+                            console.log(event.key)
                             if (event.key === 'Enter' && isPaused && (values.val1 || values.val2 || values.val3)) {
                                 handlePlay()
                             }

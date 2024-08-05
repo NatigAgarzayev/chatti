@@ -29,6 +29,7 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
             const val = newArray[dataRecordsLength - 1]?.value
             newArray.push({ day: offeredTime, value: val + operation })
         }
+        //не правильно делаем
         else if (count > 0) {
             newArray.push({ day: offeredTime, value: count })
         }
