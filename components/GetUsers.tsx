@@ -18,11 +18,15 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
     return (
         <ul className='flex flex-wrap'>
             {
-                habitsAll
+                habitsAll.length > 0 ? habitsAll
                     ?.sort((a, b) => a.id < b.id ? -1 : 1)
                     ?.map((item: Habit) => (
                         <HabitInterface key={item.id} data={item} />
                     ))
+                    :
+                    <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 rounded-3xl'>
+                        Let's create new habit!
+                    </div>
             }
             {
                 habitsAll.length < 5 &&

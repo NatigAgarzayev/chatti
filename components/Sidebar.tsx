@@ -32,12 +32,12 @@ export default function Sidebar() {
             <h1 className="text-center mt-4 font-bold text-2xl text-gray-700">Chatti Tracking</h1>
             <ul className='mt-8'>
                 <li className='mt-4'>
-                    <NavLink link={"/dashboard/main"} content={"Main"} pathname={pathname} />
+                    <NavLink link={"/dashboard/habits"} content={"Habits"} pathname={pathname} />
                 </li>
                 <li className='mt-4'>
-                    <NavLink link={"/dashboard/kanban"} content={"Kanban"} pathname={pathname} />
+                    <NavLink link={"/dashboard/tasks"} content={"Tasks"} pathname={pathname} />
                     {
-                        pathname === "/dashboard/kanban" &&
+                        pathname === "/dashboard/tasks" &&
                         <ul className='mx-6 mt-2'>
                             <li onClick={() => updateTaskModal(true)} className='ml-8 text-gray-500 font-semibold cursor-pointer flex items-center gap-1'>
                                 <Image src={addTaskIcon} alt="add task" width={18} height={18} />

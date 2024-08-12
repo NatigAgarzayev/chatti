@@ -9,14 +9,17 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
 
     const dataRecordsLength = arr.length
 
+    console.log(count)
+
     if (arr[dataRecordsLength - 1]?.day === offeredTime) {
+        // when we already have record for the same day
         let newArray = arr
         const val = newArray[dataRecordsLength - 1]?.value
-        if (val + operation === 0) {
-            newArray.pop()
+        if (val + operation <= 0) {
+            return
         }
         else {
-            newArray[dataRecordsLength - 1].value += operation
+            newArray[dataRecordsLength - 1].value = val + operation
         }
         const { data: recordResponse, error: recordError } = await supabase
             .from('habits')
@@ -25,17 +28,30 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
     }
     else {
         let newArray = arr
-        if (count === 0 && newArray[dataRecordsLength - 1]?.day === offeredTime) {
+        console.log("asd1", newArray)
+        if (newArray.length === 0) {
+            console.log("asd2")
+            newArray.push({ day: offeredTime, value: count + operation })
+        }
+        else if (newArray.length > 0 && newArray[dataRecordsLength - 1]?.day !== offeredTime) {
+            console.log("asd3")
+            newArray.push({ day: offeredTime, value: 1 })
+        }
+        //when u created new habit
+        /* if (count === 0 && newArray[dataRecordsLength - 1]?.day !== offeredTime) {
+            console.log("w1")
             const val = newArray[dataRecordsLength - 1]?.value
             newArray.push({ day: offeredTime, value: val + operation })
         }
-        //не правильно делаем
-        else if (count > 0) {
+        //error
+        else if (count >= 0 && newArray.length === 0) {
+            console.log("w2")
             newArray.push({ day: offeredTime, value: count })
         }
         else {
-            newArray.push({ day: offeredTime, value: 1 })
-        }
+            console.log("w3")
+            newArray.push({ day: offeredTime, value: 0 })
+        } */
         const { data: recordResponse, error: recordError } = await supabase
             .from('habits')
             .update({ records: newArray })
@@ -70,7 +86,22 @@ export const decreaseHabitCount = async ({ id, count, time }: { id: number, coun
         .select()
     const offeredTime = moment.tz(time, timezone).format('YYYY-MM-DD')
     if (data) {
-        handleArrayOfObjects(data[0].records, id, offeredTime, count, -1)
+        const newArray = data[0].records
+        const dataRecordsLength = newArray.length
+
+        const val = newArray[dataRecordsLength - 1]?.value
+        if (val - 1 <= 0) {
+            newArray.pop()
+        }
+        else {
+            newArray[dataRecordsLength - 1].value = val - 1
+        }
+
+        const { data: recordResponse, error: recordError } = await supabase
+            .from('habits')
+            .update({ records: newArray })
+            .eq('id', id)
+        // handleArrayOfObjects(data[0].records, id, offeredTime, count, -1)
     }
 }
 
