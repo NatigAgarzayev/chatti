@@ -1,16 +1,16 @@
-import { getUserData } from "@/api/auth";
 import { redirect } from "next/navigation";
-
+import { auth } from '@clerk/nextjs/server';
 
 export default async function Index() {
 
-  const userData = await getUserData()
+  const { userId }: { userId: string | null } = auth();
 
-  if (!userData) {
-    redirect("/login")
+  console.log(userId)
+
+  if (!userId) {
+    redirect("/sign-in")
   }
   else {
-    redirect("/dashboard/main")
+    redirect("/dashboard/habits")
   }
-
 }

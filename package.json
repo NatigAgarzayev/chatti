@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.3.0",
     "@headlessui/react": "^2.0.4",
     "@nivo/calendar": "^0.87.0",
     "@react-input/mask": "^1.2.5",

@@ -1,8 +1,7 @@
 'use client'
-import { deleteHabit } from '@/api/habitClient'
 import { deleteTask } from '@/api/kanbanClient'
 import { useStore } from '@/store/store'
-import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 

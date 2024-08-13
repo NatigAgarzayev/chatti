@@ -2,7 +2,7 @@
 import { decreaseHabitCount, increaseHabitCount } from '@/api/habitClient'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 
 export default function HabitController({ id, count }: { id: number, count: number }) {
 

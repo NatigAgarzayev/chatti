@@ -1,6 +1,7 @@
 'use client'
 import { createTask } from '@/api/kanbanClient'
-import { useStore, useUser } from '@/store/store'
+import { useStore } from '@/store/store'
+import { useAuth } from '@clerk/nextjs'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -9,12 +10,12 @@ import 'react-quill/dist/quill.snow.css';
 
 export default function CreateTask() {
 
+    const { userId } = useAuth()
     const createTaskModal = useStore(state => state.createTaskModal)
     const updateTaskModal = useStore(state => state.updateTaskModal)
     const createTaskLoading = useStore(state => state.createTaskLoading)
     const updateTaskLoading = useStore(state => state.updateTaskLoading)
     const [quillText, setQuillText] = useState('')
-    const user = useUser(state => state.user)
     const router = useRouter()
 
     const createTaskHandler = async () => {
@@ -23,7 +24,7 @@ export default function CreateTask() {
             return
         }
         updateTaskLoading(true)
-        await createTask(quillText + '', user.id)
+        await createTask(quillText + '', userId + "")
         setQuillText('')
         router.refresh()
         updateTaskLoading(false)

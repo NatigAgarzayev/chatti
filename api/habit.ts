@@ -13,7 +13,7 @@ export const createUserHabit = async ({ title, user }: { title: string, user: st
         ])
 }
 
-export const getUserHabits = async ({ id }: { id: number }) => {
+export const getUserHabits = async ({ id }: { id: string }) => {
     const supabase = createClient()
 
     const { data } = await supabase
@@ -22,23 +22,4 @@ export const getUserHabits = async ({ id }: { id: number }) => {
         .eq('author_id', id)
 
     return data
-}
-
-export const increaseHabitCount = async ({ id, count }: { id: number, count: number }) => {
-    const supabase = createClient()
-
-    const { error } = await supabase
-        .from('habits')
-        .update({ count: count + 1 })
-        .eq('id', id)
-
-}
-export const decreaseHabitCount = async ({ id, count }: { id: number, count: number }) => {
-    const supabase = createClient()
-
-    const { error } = await supabase
-        .from('habits')
-        .update({ count: count - 1 })
-        .eq('id', id)
-
 }

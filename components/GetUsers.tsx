@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import HabitInterface from './HabitInterface'
 import CreateHabit from './CreateHabit'
 import SubmitCreateHabit from './SubmitCreateHabit'
@@ -7,7 +7,6 @@ import { Habit } from '@/types'
 import { useStore } from '@/store/store'
 import StatisticModal from './StatisticModal'
 import ConfirmDeleteHabit from './ConfirmDeleteHabit'
-import ConfirmDeleteTask from './ConfirmDeleteTask'
 
 export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
 
@@ -25,7 +24,7 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
                     ))
                     :
                     <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 rounded-3xl'>
-                        Let's create new habit!
+                        Let's create a new habit!
                     </div>
             }
             {

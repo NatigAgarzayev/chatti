@@ -1,6 +1,6 @@
 'use client'
 import { useStore } from '@/store/store'
-import { Button, Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import React from 'react'
 import NivoResponsiveCalendar from './NivoResponsiveCalendar'
 import { Habit } from '@/types'

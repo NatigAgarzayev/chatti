@@ -1,5 +1,5 @@
 'use client'
-import { deleteHabit, resetTimerHabit } from '@/api/habitClient'
+import { resetTimerHabit } from '@/api/habitClient'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import deleteIcon from "../public/images/delete.svg"

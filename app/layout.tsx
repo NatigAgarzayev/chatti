@@ -1,4 +1,5 @@
 // import { GeistSans } from "geist/font/sans";
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import "./globals.css";
 import { Montserrat } from "next/font/google"
 
@@ -24,10 +25,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={montserrat.className}>
-      <body className=" text-foreground">
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={montserrat.className}>
+        <body className=" text-foreground">
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
+
+    /*  <html lang="en" className={montserrat.className}>
+       <body className=" text-foreground">
+         {children}
+       </body>
+     </html> */
   );
 }

@@ -27,11 +27,6 @@ export interface Store {
     updateConfirmDeleteTaskModal: (confirmDeleteModal: boolean) => void
 }
 
-export interface User {
-    user: any,
-    setUser: (user: any) => void
-}
-
 export default interface Kanban {
     id: number
     content: string

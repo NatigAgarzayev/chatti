@@ -1,5 +1,5 @@
 'use client'
-import { Store, User } from '@/types'
+import { Store } from '@/types'
 import { create } from 'zustand'
 
 
@@ -20,9 +20,4 @@ export const useStore = create<Store>((set) => ({
     updateModalId: (modalId) => set({ modalId }),
     updateConfirmDeleteHabitModal: (confirmDeleteHabitModal) => set({ confirmDeleteHabitModal }),
     updateConfirmDeleteTaskModal: (confirmDeleteTaskModal) => set({ confirmDeleteTaskModal }),
-}))
-
-export const useUser = create<User>((set) => ({
-    user: {},
-    setUser: (user: Object) => set({ user })
 }))

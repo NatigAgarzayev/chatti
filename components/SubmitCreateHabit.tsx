@@ -1,7 +1,7 @@
 'use client'
-import { getUserData } from '@/api/authClient'
 import { createUserHabit } from '@/api/habitClient'
 import { useStore } from '@/store/store'
+import { useAuth } from '@clerk/nextjs'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -16,10 +16,10 @@ export default function SubmitCreateHabit() {
     const habitLoading = useStore(state => state.habitLoading)
     const updateHabitLoading = useStore(state => state.updateHabitLoading)
     const [radioValue, setRadioValue] = useState("count")
+    const { userId } = useAuth()
     const router = useRouter()
 
     const createHabit = async (formData: FormData) => {
-        const user: any = await getUserData()
         const { habit, type, count, timer } = Object.fromEntries(formData)
         if (habit.toString().trim() === "") {
             alert("Please enter a habit")
@@ -27,7 +27,7 @@ export default function SubmitCreateHabit() {
         }
         updateHabitLoading(true)
         const timezoneDefine = getUserTimezone()
-        await createUserHabit({ title: habit + "", user: user.id, type: type + "", count: +count, timer: timer === "" ? moment().format() + "" : timer, timezone: timezoneDefine })
+        await createUserHabit({ title: habit + "", user: userId + "", type: type + "", count: +count, timer: timer === "" ? moment().format() + "" : timer, timezone: timezoneDefine })
         router.refresh()
         updateHabitLoading(false)
         updateCreateModal(false)
