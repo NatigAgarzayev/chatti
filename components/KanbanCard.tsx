@@ -64,23 +64,7 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
                                         </ul>
                                     </PopoverPanel>
                                 </Popover>
-                                /* <div onClick={() => { updateMenuOpen(true), setOpenedId(cardInfo.id) }} className='cursor-pointer absolute -right-2 -top-2 bg-white p-3 rounded-full'>
-                                    <Image src={menuIcon} width={16} height={16} alt='' />
-                                </div> */
                             }
-                            {/* {
-                                menuOpen && cardInfo.id === openedId &&
-                                <ul className='cursor-pointer absolute z-20 right-2 top-2 bg-white rounded-3xl border overflow-hidden'>
-                                    <li onClick={deleteTaskHandler} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
-                                        <Image src={deleteIcon} width={16} height={16} alt='' />
-                                        <p>Delete</p>
-                                    </li>
-                                    <li onClick={updateTaskHandler} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
-                                        <Image src={editIcon} width={18} height={18} alt='' />
-                                        <p>Edit</p>
-                                    </li>
-                                </ul>
-                            } */}
                         </div>
                     </div>
                 )

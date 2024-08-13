@@ -12,14 +12,14 @@ import EditTask from './EditTask'
 const boards = ["Todo", "Doing", "Done"]
 
 export default function Kanban({ loading, kanbanData }: { loading?: boolean, kanbanData: KanbanType[] }) {
-    const [storage, setStorage] = useState<KanbanType[]>(kanbanData)
+    const [storage, setStorage] = useState<KanbanType[]>(kanbanData.sort((a, b) => a.id < b.id ? -1 : 1))
     const [, forceUpdate] = useReducer(x => x + 1, 0)
     const confirmDeleteTaskModal = useStore(state => state.confirmDeleteTaskModal)
     const editTask = useStore(state => state.editTask)
 
     useEffect(() => {
         if (kanbanData !== storage) {
-            setStorage(kanbanData)
+            setStorage(kanbanData.sort((a, b) => a.id < b.id ? -1 : 1))
         }
     }, [kanbanData])
 
