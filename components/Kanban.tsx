@@ -7,6 +7,7 @@ import CreateTask from './CreateTask'
 import { updateTaskProgress } from '@/api/kanbanClient'
 import { useStore } from '@/store/store'
 import ConfirmDeleteTask from './ConfirmDeleteTask'
+import EditTask from './EditTask'
 
 const boards = ["Todo", "Doing", "Done"]
 
@@ -14,7 +15,7 @@ export default function Kanban({ loading, kanbanData }: { loading?: boolean, kan
     const [storage, setStorage] = useState<KanbanType[]>(kanbanData)
     const [, forceUpdate] = useReducer(x => x + 1, 0)
     const confirmDeleteTaskModal = useStore(state => state.confirmDeleteTaskModal)
-
+    const editTask = useStore(state => state.editTask)
 
     useEffect(() => {
         if (kanbanData !== storage) {
@@ -90,6 +91,10 @@ export default function Kanban({ loading, kanbanData }: { loading?: boolean, kan
             {
                 confirmDeleteTaskModal &&
                 <ConfirmDeleteTask />
+            }
+            {
+                editTask &&
+                <EditTask />
             }
         </>
     )

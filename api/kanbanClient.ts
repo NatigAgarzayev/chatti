@@ -39,3 +39,26 @@ export const updateTaskProgress = async (id: number, progress: number) => {
         })
         .eq('id', id)
 }
+
+export const getQuillContent = async (id: number) => {
+    const supabase = createClient()
+
+    const { data, error } = await supabase
+        .from("kanban")
+        .select("*")
+        .eq("id", id)
+
+    if (data) {
+        return data[0].content
+    }
+}
+
+export const updateQuillContent = async (id: number, content: string) => {
+    const supabase = createClient()
+    const { error } = await supabase
+        .from('kanban')
+        .update({
+            content: content,
+        })
+        .eq('id', id)
+}

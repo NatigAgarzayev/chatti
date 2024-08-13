@@ -17,6 +17,8 @@ export interface Store {
     modalId: number,
     confirmDeleteHabitModal: boolean,
     confirmDeleteTaskModal: boolean,
+    editTask: boolean,
+    editTaskId: number
     updateCreateModal: (createModal: boolean) => void,
     updateHabitLoading: (habitLoading: boolean) => void,
     updateTaskModal: (createTaskModal: boolean) => void,
@@ -25,6 +27,8 @@ export interface Store {
     updateModalId: (modalId: number) => void,
     updateConfirmDeleteHabitModal: (confirmDeleteModal: boolean) => void
     updateConfirmDeleteTaskModal: (confirmDeleteModal: boolean) => void
+    updateEditTask: (editTask: boolean) => void
+    updateEditTaskId: (editTaskId: number) => void
 }
 
 export default interface Kanban {
