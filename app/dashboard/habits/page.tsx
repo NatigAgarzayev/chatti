@@ -3,6 +3,7 @@ import GetUsers from '@/components/GetUsers'
 import { getUserHabits } from '@/api/habit'
 import { Habit } from '@/types'
 import { auth } from '@clerk/nextjs/server'
+import Loading from "./loading"
 
 export default async function page() {
     const { userId }: { userId: string | null } = auth()
@@ -14,8 +15,10 @@ export default async function page() {
     }
 
     return (
-        <div className='p-4 flex items-center gap-5 h-fit'>
-            <GetUsers habitsAll={habitsAll} />
-        </div>
+        <Suspense fallback={<Loading />}>
+            <div className='p-4 flex items-center gap-5 h-fit'>
+                <GetUsers habitsAll={habitsAll} />
+            </div>
+        </Suspense>
     )
 }
