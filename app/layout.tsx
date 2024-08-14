@@ -2,6 +2,7 @@
 import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import "./globals.css";
 import { Montserrat } from "next/font/google"
+import NextTopLoader from "nextjs-toploader";
 
 const montserrat = Montserrat({
   weight: '400',
@@ -28,6 +29,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className={montserrat.className}>
         <body className=" text-foreground">
+          <NextTopLoader color="rgb(129 140 248)" />
           {children}
         </body>
       </html>

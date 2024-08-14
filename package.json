@@ -19,6 +19,7 @@
     "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.45",
     "next": "latest",
+    "nextjs-toploader": "^1.6.12",
     "postcss": "8.4.33",
     "react": "^18.3.1",
     "react-beautiful-dnd": "^13.1.1",
