@@ -34,11 +34,5 @@ export default function RootLayout({
         </body>
       </html>
     </ClerkProvider>
-
-    /*  <html lang="en" className={montserrat.className}>
-       <body className=" text-foreground">
-         {children}
-       </body>
-     </html> */
   );
 }

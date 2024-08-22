@@ -9,8 +9,10 @@ import classes from "../styles/quill-styles.module.css"
 import { useStore } from '@/store/store';
 import menuIcon from "../public/images/menu.svg"
 import editIcon from "../public/images/edit-icon.svg"
+import copyIcon from "../public/images/copy.svg"
 
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
+import { motion } from 'framer-motion';
 
 export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: number }) {
 
@@ -34,6 +36,11 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
         setVisible(false)
     }
 
+    const copyContentHandler = () => {
+        navigator.clipboard.writeText(htmlToReactParser.parse(cardInfo?.content))
+        setVisible(false)
+    }
+
     return (
         <Draggable
             draggableId={cardInfo.id.toString()}
@@ -52,16 +59,30 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
                                         <Image src={menuIcon} width={16} height={16} alt='' />
                                     </PopoverButton>
                                     <PopoverPanel anchor="bottom">
-                                        <ul className='cursor-pointer right-2 top-2 bg-white rounded-3xl border overflow-hidden'>
-                                            <li onClick={deleteTaskHandler} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
-                                                <Image src={deleteIcon} width={16} height={16} alt='' />
-                                                <p>Delete</p>
-                                            </li>
-                                            <li onClick={updateTaskHandler} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
-                                                <Image src={editIcon} width={18} height={18} alt='' />
-                                                <p>Edit</p>
-                                            </li>
-                                        </ul>
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.5 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{
+                                                duration: 0.3,
+                                                delay: 0,
+                                                ease: [0, 0.71, 0.2, 1.01]
+                                            }}
+                                        >
+                                            <ul className='cursor-pointer right-2 top-2 bg-white rounded-3xl border overflow-hidden'>
+                                                <li onClick={copyContentHandler} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
+                                                    <Image src={copyIcon} width={16} height={16} alt='' />
+                                                    <p>Copy</p>
+                                                </li>
+                                                <li onClick={updateTaskHandler} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
+                                                    <Image src={editIcon} width={18} height={18} alt='' />
+                                                    <p>Edit</p>
+                                                </li>
+                                                <li onClick={deleteTaskHandler} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
+                                                    <Image src={deleteIcon} width={16} height={16} alt='' />
+                                                    <p>Delete</p>
+                                                </li>
+                                            </ul>
+                                        </motion.div>
                                     </PopoverPanel>
                                 </Popover>
                             }
