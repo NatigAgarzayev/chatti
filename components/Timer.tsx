@@ -1,5 +1,4 @@
 'use client'
-import { InputMask, type MaskEventDetail } from '@react-input/mask'
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react'
 import resetBtn from "../public/images/reset.svg"
@@ -8,7 +7,7 @@ import pauseIcon from "../public/images/pause-icon.svg"
 import playIcon from "../public/images/play-icon.svg"
 import editIcon from "../public/images/edit-icon.svg"
 import "moment-duration-format"
-import Head from 'next/head';
+import { motion } from "framer-motion"
 export default function Timer() {
 
     const endSound = new Audio("/audio/notify.mp3")
@@ -75,9 +74,11 @@ export default function Timer() {
         setIsPaused(true)
         setCount(0)
         setValues({ val1: '', val2: '', val3: '' })
-        if (valRef1.current) {
-            valRef1.current.focus()
-        }
+        setTimeout(() => {
+            if (valRef1.current) {
+                valRef1.current.focus()
+            }
+        }, 100)
     }
 
     const handlePause = () => {
@@ -93,10 +94,15 @@ export default function Timer() {
     }
 
     return (
-        <div>
-            <Head>
-                <title>My page title</title>
-            </Head>
+        <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+                duration: 0.3,
+                delay: 0,
+                ease: [0, 0.71, 0.2, 1.01]
+            }}
+        >
             {
                 !isTimerOn ?
                     <div className='flex gap-4 items-center'>
@@ -166,6 +172,6 @@ export default function Timer() {
                         </div>
                 }
             </div>
-        </div>
+        </motion.div >
     )
 }

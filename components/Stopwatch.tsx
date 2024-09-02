@@ -5,6 +5,7 @@ import resetBtn from "../public/images/reset.svg"
 import Image from 'next/image';
 import pauseIcon from "../public/images/pause-icon.svg"
 import playIcon from "../public/images/play-icon.svg"
+import { motion } from "framer-motion"
 
 export default function Stopwatch() {
 
@@ -45,7 +46,15 @@ export default function Stopwatch() {
 
 
     return (
-        <div>
+        <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+                duration: 0.3,
+                delay: 0,
+                ease: [0, 0.71, 0.2, 1.01]
+            }}
+        >
             <div className='text-[96px] text-center text-gray-700'>
                 {
                     <DisplayTime />
@@ -66,7 +75,7 @@ export default function Stopwatch() {
                         </div>
                 }
             </div>
-        </div>
+        </motion.div>
     )
 
 }

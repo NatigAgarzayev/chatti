@@ -8,6 +8,8 @@ import { updateTaskProgress } from '@/api/kanbanClient'
 import { useStore } from '@/store/store'
 import ConfirmDeleteTask from './ConfirmDeleteTask'
 import EditTask from './EditTask'
+import { motion } from 'framer-motion';
+
 
 const boards = ["Todo", "Doing", "Done"]
 
@@ -71,23 +73,33 @@ export default function Kanban({ loading, kanbanData }: { loading?: boolean, kan
     return (
         <>
             <CreateTask />
-            <DragDropContext onDragEnd={onDragEnd}>
-                <div className='flex h-sfit gap-5 justify-between'>
-                    <div className='flex-33'>
-                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[0]}({storage?.filter(x => x.progress === 1).length})</h3>
-                        <KanbanBoard loading={loading} dropId={`droppable1`} innerItems={storage?.filter(x => x.progress === 1)} />
-                    </div>
-                    <div className='flex-33'>
-                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[1]}({storage?.filter(x => x.progress === 2).length})</h3>
-                        <KanbanBoard loading={loading} dropId={`droppable2`} innerItems={storage?.filter(x => x.progress === 2)} />
-                    </div>
-                    <div className='flex-33'>
-                        <h3 className='text-xl font-semibold text-center mb-2'>{boards[2]}({storage?.filter(x => x.progress === 3).length})</h3>
-                        <KanbanBoard loading={loading} dropId={`droppable3`} innerItems={storage?.filter(x => x.progress === 3)} />
-                    </div>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 0.3,
+                    delay: 0,
+                    ease: [0, 0.71, 0.2, 1.01]
+                }}
+            >
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <div className='flex h-sfit gap-5 justify-between'>
+                        <div className='flex-33'>
+                            <h3 className='text-xl font-semibold text-center mb-2'>{boards[0]}({storage?.filter(x => x.progress === 1).length})</h3>
+                            <KanbanBoard loading={loading} dropId={`droppable1`} innerItems={storage?.filter(x => x.progress === 1)} />
+                        </div>
+                        <div className='flex-33'>
+                            <h3 className='text-xl font-semibold text-center mb-2'>{boards[1]}({storage?.filter(x => x.progress === 2).length})</h3>
+                            <KanbanBoard loading={loading} dropId={`droppable2`} innerItems={storage?.filter(x => x.progress === 2)} />
+                        </div>
+                        <div className='flex-33'>
+                            <h3 className='text-xl font-semibold text-center mb-2'>{boards[2]}({storage?.filter(x => x.progress === 3).length})</h3>
+                            <KanbanBoard loading={loading} dropId={`droppable3`} innerItems={storage?.filter(x => x.progress === 3)} />
+                        </div>
 
-                </div>
-            </DragDropContext>
+                    </div>
+                </DragDropContext>
+            </motion.div>
             {
                 confirmDeleteTaskModal &&
                 <ConfirmDeleteTask />
