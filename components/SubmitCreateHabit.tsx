@@ -36,7 +36,7 @@ export default function SubmitCreateHabit() {
     return (
         <form action={createHabit}>
             <div className='flex flex-col gap-4'>
-                <input placeholder='max 26 letters' maxLength={26} type="text" name='habit' className='border-2 p-1 pl-3 py-2 outline-none border-gray-700 rounded-3xl' />
+                <input placeholder='max 20 letters' maxLength={20} type="text" name='habit' className='border-2 p-1 pl-3 py-2 outline-none border-gray-700 rounded-3xl' />
                 <button disabled={habitLoading} className='p-2 bg-indigo-400 text-gray-700 font-bold rounded-3xl disabled:bg-indigo-200' type='submit'>{habitLoading ? "Creating..." : "Create"}</button>
             </div>
             <div className='mt-4'>

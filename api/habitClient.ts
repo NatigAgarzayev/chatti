@@ -9,8 +9,6 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
 
     const dataRecordsLength = arr.length
 
-    console.log(count)
-
     if (arr[dataRecordsLength - 1]?.day === offeredTime) {
         // when we already have record for the same day
         let newArray = arr
@@ -28,7 +26,6 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
     }
     else {
         let newArray = arr
-        console.log("asd1", newArray)
         if (newArray.length === 0) {
             console.log("asd2")
             newArray.push({ day: offeredTime, value: count + operation })
@@ -37,21 +34,6 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
             console.log("asd3")
             newArray.push({ day: offeredTime, value: 1 })
         }
-        //when u created new habit
-        /* if (count === 0 && newArray[dataRecordsLength - 1]?.day !== offeredTime) {
-            console.log("w1")
-            const val = newArray[dataRecordsLength - 1]?.value
-            newArray.push({ day: offeredTime, value: val + operation })
-        }
-        //error
-        else if (count >= 0 && newArray.length === 0) {
-            console.log("w2")
-            newArray.push({ day: offeredTime, value: count })
-        }
-        else {
-            console.log("w3")
-            newArray.push({ day: offeredTime, value: 0 })
-        } */
         const { data: recordResponse, error: recordError } = await supabase
             .from('habits')
             .update({ records: newArray })
@@ -142,6 +124,17 @@ export const getUserHabits = async ({ id }: { id: number }) => {
     return data
 }
 
+export const getUserHabitById = async ({id}: {id: number}) => {
+    const supabase = createClient()
+
+    const {data} = await supabase
+    .from('habits')
+    .select()
+    .eq('id', id)
+
+    return data
+}
+
 
 export const resetTimerHabit = async ({ id }: { id: number }) => {
     const supabase = createClient()
@@ -153,4 +146,13 @@ export const resetTimerHabit = async ({ id }: { id: number }) => {
     if (data) {
         handleArrayOfObjects(data[0].records, id, offeredTime, data[0].count, 1)
     }
+}
+
+export const updateHabit = async ({id, title}: {id:number, title: string}) => {
+    const supabase = createClient()
+        const {data, error} = await supabase.from('habits')
+        .update({
+            title: title,
+        })
+        .eq("id", id)
 }

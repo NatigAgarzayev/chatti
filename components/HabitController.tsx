@@ -11,6 +11,8 @@ import deleteIcon from "../public/images/delete.svg"
 import undoIcon from "../public/images/undo.svg"
 import { useStore } from '@/store/store'
 import statIcon from "../public/images/chart.svg"
+import editIcon from "../public/images/edit-icon.svg"
+
 export default function HabitController({ visible, id, count }: { visible: boolean, id: number, count: number }) {
 
     const router = useRouter()
@@ -21,6 +23,8 @@ export default function HabitController({ visible, id, count }: { visible: boole
     const updateStatisticModal = useStore(state => state.updateStatisticModal)
     const updateModalId = useStore(state => state.updateModalId)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteHabitModal)
+    const updateEditHabit = useStore(state => state.updateEditHabit)
+    const updateEditHabitId = useStore(state => state.updateEditHabitId)
 
     const deleteFromDb = () => {
         updateConfirmDeleteModal(true)
@@ -53,6 +57,11 @@ export default function HabitController({ visible, id, count }: { visible: boole
         await increaseHabitCount({ id: id, count: countRapid, time: moment().format() })
         router.refresh()
         setLoading(false)
+    }
+
+    const editHabit = () => {
+        updateEditHabit(true)
+        updateEditHabitId(id)
     }
 
     return (
@@ -88,6 +97,10 @@ export default function HabitController({ visible, id, count }: { visible: boole
                                         <li onClick={decrease} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
                                             <Image src={undoIcon} width={16} height={16} alt='' />
                                             <p>-1</p>
+                                        </li>
+                                        <li onClick={editHabit} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
+                                            <Image onClick={editHabit} className='cursor-pointer' src={editIcon} width={20} height={20} alt='stat' />
+                                            <p>Edit</p>
                                         </li>
                                         <li onClick={showStat} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
                                             <Image onClick={showStat} className='cursor-pointer' src={statIcon} width={20} height={20} alt='stat' />

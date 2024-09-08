@@ -11,7 +11,6 @@ import 'react-quill/dist/quill.snow.css';
 
 export default function EditTask() {
 
-    const { userId } = useAuth()
     const editTask = useStore(state => state.editTask)
     const updateEditTask = useStore(state => state.updateEditTask)
     const editTaskLoading = useStore(state => state.createTaskLoading)

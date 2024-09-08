@@ -9,26 +9,30 @@ export interface Habit {
 }
 
 export interface Store {
-    createModal: boolean,
-    habitLoading: boolean,
-    createTaskModal: boolean,
-    createTaskLoading: boolean,
-    statisticModal: boolean,
-    modalId: number,
-    confirmDeleteHabitModal: boolean,
-    confirmDeleteTaskModal: boolean,
-    editTask: boolean,
+    createModal: boolean
+    habitLoading: boolean
+    createTaskModal: boolean
+    createTaskLoading: boolean
+    statisticModal: boolean
+    modalId: number
+    confirmDeleteHabitModal: boolean
+    confirmDeleteTaskModal: boolean
+    editTask: boolean
     editTaskId: number
-    updateCreateModal: (createModal: boolean) => void,
-    updateHabitLoading: (habitLoading: boolean) => void,
-    updateTaskModal: (createTaskModal: boolean) => void,
-    updateTaskLoading: (createTaskLoading: boolean) => void,
-    updateStatisticModal: (statisticModal: boolean) => void,
-    updateModalId: (modalId: number) => void,
+    editHabit: boolean
+    editHabitId: number
+    updateCreateModal: (createModal: boolean) => void
+    updateHabitLoading: (habitLoading: boolean) => void
+    updateTaskModal: (createTaskModal: boolean) => void
+    updateTaskLoading: (createTaskLoading: boolean) => void
+    updateStatisticModal: (statisticModal: boolean) => void
+    updateModalId: (modalId: number) => void
     updateConfirmDeleteHabitModal: (confirmDeleteModal: boolean) => void
     updateConfirmDeleteTaskModal: (confirmDeleteModal: boolean) => void
     updateEditTask: (editTask: boolean) => void
     updateEditTaskId: (editTaskId: number) => void
+    updateEditHabit: (editHabit: boolean) => void
+    updateEditHabitId: (editHabitId: number) => void
 }
 
 export default interface Kanban {

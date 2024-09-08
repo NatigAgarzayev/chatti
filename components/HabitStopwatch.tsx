@@ -13,6 +13,9 @@ import { resetTimerHabit } from '@/api/habitClient'
 import resetIcon from "../public/images/reset.svg"
 import { useRouter } from 'next/navigation'
 import { useStore } from '@/store/store'
+import editIcon from "../public/images/edit-icon.svg"
+
+
 export default function HabitStopwatch({ visible, id, timer }: { visible: boolean, id: number, timer: string }) {
     const [now, setNow] = useState(moment())
     const [loading, setLoading] = useState(false)
@@ -21,6 +24,8 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
     const updateStatisticModal = useStore(state => state.updateStatisticModal)
     const updateModalId = useStore(state => state.updateModalId)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteHabitModal)
+    const updateEditHabit = useStore(state => state.updateEditHabit)
+    const updateEditHabitId = useStore(state => state.updateEditHabitId)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -49,6 +54,11 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
         await resetTimerHabit({ id: id })
         router.refresh()
         setLoading(false)
+    }
+
+    const editHabit = () => {
+        updateEditHabit(true)
+        updateEditHabitId(id)
     }
 
     return (
@@ -83,6 +93,10 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
                                     }}
                                 >
                                     <ul className='cursor-pointer right-2 top-2 bg-white rounded-3xl border overflow-hidden'>
+                                        <li onClick={editHabit} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
+                                            <Image onClick={editHabit} className='cursor-pointer' src={editIcon} width={20} height={20} alt='stat' />
+                                            <p>Edit</p>
+                                        </li>
                                         <li onClick={showStat} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
                                             <Image onClick={showStat} className='cursor-pointer' src={statIcon} width={20} height={20} alt='stat' />
                                             <p>Statistic</p>

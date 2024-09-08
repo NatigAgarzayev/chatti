@@ -7,12 +7,14 @@ import { Habit } from '@/types'
 import { useStore } from '@/store/store'
 import StatisticModal from './StatisticModal'
 import ConfirmDeleteHabit from './ConfirmDeleteHabit'
+import EditHabit from './EditHabit'
 
 export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
 
     const statisticModal = useStore(state => state.statisticModal)
     const modalId = useStore(state => state.modalId)
     const confirmDeleteHabitModal = useStore(state => state.confirmDeleteHabitModal)
+    const editHabit = useStore(state => state.editHabit)
 
     return (
         <ul className='flex flex-wrap'>
@@ -40,6 +42,9 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
             {
                 confirmDeleteHabitModal &&
                 <ConfirmDeleteHabit />
+            }
+            {
+                editHabit && <EditHabit />
             }
 
         </ul>
