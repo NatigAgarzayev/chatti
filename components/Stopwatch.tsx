@@ -55,22 +55,22 @@ export default function Stopwatch() {
                 ease: [0, 0.71, 0.2, 1.01]
             }}
         >
-            <div className='text-[96px] text-center text-gray-700'>
+            <div className='text-[96px] text-center text-gray-700 dark:text-gray-200'>
                 {
                     <DisplayTime />
                 }
             </div>
             <div className='flex gap-4 items-center justify-center mt-5'>
-                <div onClick={handleReset} className='p-4 rounded-3xl bg-indigo-400 w-fit cursor-pointer'>
+                <div onClick={handleReset} className='p-4 rounded-3xl bg-indigo-400 dark:bg-gray-200 w-fit cursor-pointer'>
                     <Image src={resetBtn} width={32} height={32} alt='' className='text-4xl' />
                 </div>
                 {
                     isPaused ?
-                        <div onClick={handlePlay} className='p-4 rounded-3xl bg-indigo-400 w-fit cursor-pointer'>
+                        <div onClick={handlePlay} className='p-4 rounded-3xl bg-indigo-400 dark:bg-gray-200 w-fit cursor-pointer'>
                             <Image src={playIcon} width={32} height={32} alt='' className='text-4xl' />
                         </div>
                         :
-                        <div onClick={handlePause} className='p-4 rounded-3xl bg-indigo-400 w-fit cursor-pointer'>
+                        <div onClick={handlePause} className='p-4 rounded-3xl bg-indigo-400 dark:bg-gray-200 w-fit cursor-pointer'>
                             <Image src={pauseIcon} width={32} height={32} alt='' className='text-4xl' />
                         </div>
                 }

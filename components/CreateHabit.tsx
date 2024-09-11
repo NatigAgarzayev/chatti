@@ -24,12 +24,9 @@ export default function CreateHabit({ children }: { children: ReactElement }) {
                             ease: [0, 0.71, 0.2, 1.01]
                         }}
                     >
-                        <DialogPanel className="max-w-lg space-y-4 border bg-white p-6 rounded-3xl">
-                            <DialogTitle className="text-gray-700 font-bold text-center text-xl">Create habit</DialogTitle>
-                            {/* <input value={title} onChange={(e) => setTitle(e.target.value)} className='border-2 border-gray-600' type="text" name='habit' /> */}
+                        <DialogPanel className="max-w-lg space-y-4 border bg-white p-6 rounded-3xl dark:bg-gray-800">
+                            <DialogTitle className="text-gray-700 font-bold text-center text-xl dark:text-gray-100">Create habit</DialogTitle>
                             <div className='w-80'>
-                                {/* <button onClick={() => setIsOpen(false)}>Cancel</button> */}
-                                {/* {React.cloneElement(children, { title: title })} */}
                                 {children}
                             </div>
                         </DialogPanel>

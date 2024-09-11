@@ -16,8 +16,10 @@ export default async function page() {
 
     return (
         <Suspense fallback={<Loading />}>
-            <div className='p-4 flex items-center gap-5 h-fit'>
-                <GetUsers habitsAll={habitsAll} />
+            <div className='w-full h-screen bg-white rounded-l-3xl dark:bg-gray-900 dark:rounded-none'>
+                <div className='p-4 flex items-center gap-5 h-fit'>
+                    <GetUsers habitsAll={habitsAll} />
+                </div>
             </div>
         </Suspense>
     )

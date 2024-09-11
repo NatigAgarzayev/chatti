@@ -19,8 +19,8 @@ export default function HabitInterface({ data }: { data: Habit }) {
                 ease: [0, 0.71, 0.2, 1.01]
             }}
         >
-            <div onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className='relative w-60 h-fit m-6 p-4 border-2 border-gray-700 rounded-3xl'>
-                <h3 className='text-lg'>{data.title}</h3>
+            <div onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className='relative w-60 h-fit m-6 p-4 border-2 border-gray-700 dark:border-gray-200 rounded-3xl'>
+                <h3 className='text-lg dark:text-white'>{data.title}</h3>
                 {
                     data.type === "count" ?
                         <HabitController visible={visible} id={data.id} count={data.count} />

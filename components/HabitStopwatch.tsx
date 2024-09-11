@@ -63,7 +63,7 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
 
     return (
         <>
-            <div className='h-10 flex items-center justify-center text-xl'>
+            <div className='h-10 flex items-center justify-center text-xl dark:text-white'>
                 <Moment duration={timer} date={now} format="HH : mm : ss" />
             </div>
             {
@@ -79,7 +79,7 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
                 >
                     <form className='flex item-center justify-between gap-2 mt-2'>
                         <Popover>
-                            <PopoverButton className="cursor-pointer outline-none bg-indigo-400 p-3 rounded-full">
+                            <PopoverButton className="cursor-pointer outline-none bg-indigo-400 dark:bg-white p-3 rounded-full">
                                 <Image src={menuIcon} width={32} height={32} alt='' />
                             </PopoverButton>
                             <PopoverPanel anchor="bottom">
@@ -109,7 +109,7 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
                                 </motion.div>
                             </PopoverPanel>
                         </Popover>
-                        <button disabled={loading} onClick={resetFromDb} className='p-2 w-full bg-indigo-400 text-gray-700 font-bold rounded-3xl disabled:bg-indigo-200' type='submit'>
+                        <button disabled={loading} onClick={resetFromDb} className='p-2 w-full bg-indigo-400 text-gray-700 dark:bg-white font-bold rounded-3xl disabled:bg-indigo-200' type='submit'>
                             <Image onClick={resetFromDb} className='cursor-pointer mx-auto' src={resetIcon} width={20} height={20} alt='res' />
                         </button>
                     </form>

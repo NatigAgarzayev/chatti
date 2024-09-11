@@ -56,12 +56,12 @@ export default function EditHabit() {
                         ease: [0, 0.71, 0.2, 1.01]
                     }}
                 >
-                    <DialogPanel className="max-w-lg space-y-4 border bg-white p-6 rounded-3xl w-[370px]">
-                        <DialogTitle className="text-gray-700 font-bold text-center text-xl">Edit Habit #{editHabitId}</DialogTitle>
+                    <DialogPanel className="max-w-lg space-y-4 border bg-white p-6 rounded-3xl dark:bg-gray-800 w-[370px]">
+                        <DialogTitle className="text-gray-700 font-bold text-center text-xl dark:text-gray-100">Edit Habit #{editHabitId}</DialogTitle>
                         <form action={editHabitHandler} className='min-w-40 w-full flex flex-col gap-4'>
-                            <label htmlFor="habit" className='-mb-2 font-xl font-semibold'>Habit title:</label>
+                            <label htmlFor="habit" className='-mb-2 font-xl font-semibold dark:text-gray-100'>Habit title:</label>
                             <input id="habit" ref={inputRef1} placeholder='max 20 letters' maxLength={20} type="text" name='habit' className='border-2 p-1 pl-3 py-2 outline-none border-gray-700 rounded-3xl' />
-                            <button disabled={editHabitLoading} className={`p-2 bg-indigo-400 text-gray-700 font-bold rounded-3xl disabled:bg-indigo-200 ${editHabitLoading && "animate-pulse"} `} type='submit'>{editHabitLoading ? "Process..." : "Update"}</button>
+                            <button disabled={editHabitLoading} className={`p-2 bg-indigo-400 text-gray-700 font-bold rounded-3xl dark:bg-gray-100 disabled:bg-indigo-200 ${editHabitLoading && "animate-pulse"} `} type='submit'>{editHabitLoading ? "Process..." : "Update"}</button>
                         </form>
                     </DialogPanel>
                 </motion.div>

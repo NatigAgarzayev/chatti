@@ -1,5 +1,4 @@
-// import { GeistSans } from "geist/font/sans";
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { Montserrat } from "next/font/google"
 import NextTopLoader from "nextjs-toploader";

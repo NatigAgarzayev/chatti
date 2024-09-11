@@ -66,7 +66,7 @@ export default function HabitController({ visible, id, count }: { visible: boole
 
     return (
         <>
-            <div className='text-center font-bold flex justify-center items-center text-xl mb-3'>{countRapid}</div>
+            <div className='text-center font-bold flex justify-center items-center text-xl mb-3 dark:text-white'>{countRapid}</div>
             {
                 visible &&
                 <motion.div
@@ -80,7 +80,7 @@ export default function HabitController({ visible, id, count }: { visible: boole
                 >
                     <form className='flex item-center justify-between gap-2'>
                         <Popover>
-                            <PopoverButton className="cursor-pointer outline-none bg-indigo-400 p-3 rounded-full">
+                            <PopoverButton className="cursor-pointer outline-none bg-indigo-400 dark:bg-white p-3 rounded-full">
                                 <Image src={menuIcon} width={32} height={32} alt='' />
                             </PopoverButton>
                             <PopoverPanel anchor="bottom">
@@ -114,7 +114,7 @@ export default function HabitController({ visible, id, count }: { visible: boole
                                 </motion.div>
                             </PopoverPanel>
                         </Popover>
-                        <button disabled={loading} onClick={increase} className='p-2 w-full bg-indigo-400 text-gray-700 font-bold rounded-3xl disabled:bg-indigo-200' type='submit'>+1</button>
+                        <button disabled={loading} onClick={increase} className='p-2 w-full bg-indigo-400 text-gray-700 dark:bg-white font-bold rounded-3xl disabled:bg-indigo-200' type='submit'>+1</button>
                     </form>
                 </motion.div>
 

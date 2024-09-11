@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import HabitInterface from './HabitInterface'
 import CreateHabit from './CreateHabit'
 import SubmitCreateHabit from './SubmitCreateHabit'
@@ -10,6 +10,8 @@ import ConfirmDeleteHabit from './ConfirmDeleteHabit'
 import EditHabit from './EditHabit'
 
 export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
+
+   
 
     const statisticModal = useStore(state => state.statisticModal)
     const modalId = useStore(state => state.modalId)
@@ -25,7 +27,7 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
                         <HabitInterface key={item.id} data={item} />
                     ))
                     :
-                    <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 rounded-3xl'>
+                    <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 dark:border-gray-200 rounded-3xl'>
                         Let's create a new habit!
                     </div>
             }

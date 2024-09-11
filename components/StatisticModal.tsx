@@ -24,9 +24,9 @@ export default function StatisticModal({ data }: { data: Habit }) {
                         ease: [0, 0.71, 0.2, 1.01]
                     }}
                 >
-                    <DialogPanel className="space-y-4 border bg-white p-6 rounded-3xl">
-                        <DialogTitle className="font-bold">Analytics of {data.title} ({data.count})</DialogTitle>
-                        <Description>{`1 Jan ${new Date().getFullYear()} - 31 Dec ${new Date().getFullYear()}`}</Description>
+                    <DialogPanel className="space-y-4 border bg-white p-6 rounded-3xl dark:bg-gray-800">
+                        <DialogTitle className="font-bold dark:text-gray-100">Analytics of {data.title} ({data.count})</DialogTitle>
+                        <Description className="dark:text-gray-100">{`1 Jan ${new Date().getFullYear()} - 31 Dec ${new Date().getFullYear()}`}</Description>
                         <div className='h-[200px] w-[1000px]'>
                             <NivoResponsiveCalendar data={data.records} />
                         </div>

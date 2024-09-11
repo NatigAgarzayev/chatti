@@ -29,8 +29,8 @@ export default function ClockTabs() {
     return (
         <TabGroup manual selectedIndex={selectedIndex} onChange={setSelectedIndex}>
             <TabList className="flex gap-4">
-                <Tab onClick={() => router.push("?tab=stopwatch")} className="data-[selected]:bg-indigo-400 bg-indigo-200 p-4 rounded-3xl font-bold text-gray-700 outline-none">Stopwatch</Tab>
-                <Tab onClick={() => router.push("?tab=timer")} className="data-[selected]:bg-indigo-400 bg-indigo-200 p-4 rounded-3xl font-bold text-gray-700 outline-none">Timer</Tab>
+                <Tab onClick={() => router.push("?tab=stopwatch")} className="data-[selected]:bg-indigo-400 bg-indigo-200 dark:data-[selected]:bg-gray-100 dark:bg-gray-400 p-4 rounded-3xl font-bold text-gray-700 outline-none">Stopwatch</Tab>
+                <Tab onClick={() => router.push("?tab=timer")} className="data-[selected]:bg-indigo-400 bg-indigo-200 dark:data-[selected]:bg-gray-100 dark:bg-gray-400 p-4 rounded-3xl font-bold text-gray-700 outline-none">Timer</Tab>
             </TabList>
             <TabPanels className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <TabPanel >

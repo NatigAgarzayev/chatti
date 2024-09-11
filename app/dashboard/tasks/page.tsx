@@ -15,7 +15,7 @@ export default async function page() {
 
     return (
         <Suspense fallback={<Loading />}>
-            <div className='flex-auto p-4 h-full'>
+            <div className='flex-auto p-4 h-full dark:bg-gray-900'>
                 <Kanban kanbanData={kanbanData ?? []} />
             </div>
         </Suspense>

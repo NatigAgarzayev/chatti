@@ -17,6 +17,22 @@
   }
 }
 
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+  
+}
+
+.dark{
+  animation: appear 0.3s ease 1;
+}
+
+
+
 ::-webkit-scrollbar {
   width: 0; /* Adjust width of the scrollbar */
   height: 0; /* Adjust height of the scrollbar */

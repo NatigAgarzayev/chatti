@@ -105,7 +105,7 @@ export default function Timer() {
         >
             {
                 !isTimerOn ?
-                    <div className='flex gap-4 items-center'>
+                    <div className='flex gap-4 items-center dark:text-gray-200'>
                         <input onKeyDown={(event) => {
                             if (event.key === 'Enter' && isPaused && (values.val1 || values.val2 || values.val3)) {
                                 handlePlay()
@@ -120,7 +120,7 @@ export default function Timer() {
                             }
                         }
 
-                        } type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700' placeholder='00' />
+                        } type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
                         <div className='text-[48px]'>:</div>
                         <input onKeyDown={(event) => {
                             if (event.key === 'Enter' && isPaused && (values.val1 || values.val2 || values.val3)) {
@@ -135,7 +135,7 @@ export default function Timer() {
                             if (e.target.value.length === 2) {
                                 valRef3.current?.focus()
                             }
-                        }} type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700' placeholder='00' />
+                        }} type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
                         <div className='text-[48px]'>:</div>
                         <input onKeyDown={(event) => {
                             console.log(event.key)
@@ -147,27 +147,27 @@ export default function Timer() {
                             }
                         }} ref={valRef3} value={values.val3} onChange={(e) => {
                             setValues(prev => ({ ...prev, val3: e.target.value.replace(/[^0-9]/g, '') }))
-                        }} type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700' placeholder='00' />
+                        }} type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
                     </div>
                     :
-                    <div className='text-[96px] text-gray-700' >
+                    <div className='text-[96px] text-gray-700 dark:text-gray-200'>
                         <DisplayTime />
                     </div>
             }
             <div className='flex gap-4 items-center justify-center mt-5'>
-                <div onClick={handleEdit} className='p-4 rounded-3xl bg-indigo-400 w-fit cursor-pointer'>
+                <div onClick={handleEdit} className='p-4 rounded-3xl bg-indigo-400 dark:bg-gray-200 w-fit cursor-pointer'>
                     <Image src={editIcon} width={32} height={32} alt='' className='text-4xl' />
                 </div>
-                <div onClick={handleReset} className='p-4 rounded-3xl bg-indigo-400 w-fit cursor-pointer'>
+                <div onClick={handleReset} className='p-4 rounded-3xl bg-indigo-400 dark:bg-gray-200 w-fit cursor-pointer'>
                     <Image src={resetBtn} width={32} height={32} alt='' className='text-4xl' />
                 </div>
                 {
                     isPaused ?
-                        <button disabled={values.val1 === '' && values.val2 === '' && values.val3 === ''} type='submit' onClick={handlePlay} className='p-4 rounded-3xl bg-indigo-400 w-fit cursor-pointer disabled:bg-indigo-200'>
+                        <button disabled={values.val1 === '' && values.val2 === '' && values.val3 === ''} type='submit' onClick={handlePlay} className='p-4 rounded-3xl bg-indigo-400 dark:bg-gray-200 w-fit cursor-pointer dark:disabled:bg-gray-400 disabled:bg-indigo-200'>
                             <Image src={playIcon} width={32} height={32} alt='' className='text-4xl' />
                         </button>
                         :
-                        <div onClick={handlePause} className='p-4 rounded-3xl bg-indigo-400 w-fit cursor-pointer'>
+                        <div onClick={handlePause} className='p-4 rounded-3xl bg-indigo-400 dark:bg-gray-200 w-fit cursor-pointer'>
                             <Image src={pauseIcon} width={32} height={32} alt='' className='text-4xl' />
                         </div>
                 }
