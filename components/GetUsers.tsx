@@ -4,25 +4,31 @@ import HabitInterface from './HabitInterface'
 import CreateHabit from './CreateHabit'
 import SubmitCreateHabit from './SubmitCreateHabit'
 import { Habit } from '@/types'
-import { useStore } from '@/store/store'
+import { useHabit, useStore } from '@/store/store'
 import StatisticModal from './StatisticModal'
 import ConfirmDeleteHabit from './ConfirmDeleteHabit'
 import EditHabit from './EditHabit'
+import ConfirmNotToday from './ConfirmNotToday'
 
 export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
-
-   
 
     const statisticModal = useStore(state => state.statisticModal)
     const modalId = useStore(state => state.modalId)
     const confirmDeleteHabitModal = useStore(state => state.confirmDeleteHabitModal)
     const editHabit = useStore(state => state.editHabit)
+    const editNotToday = useStore(state => state.editNotToday)
+    const updateHabits = useHabit((state: any) => state.updateHabits)
+    const habits = useHabit((state: any) => state.habits)
+
+    useEffect(() => {
+        updateHabits(habitsAll)
+    }, [habitsAll])
 
     return (
         <ul className='flex flex-wrap'>
             {
-                habitsAll.length > 0 ? habitsAll
-                    ?.sort((a, b) => a.id < b.id ? -1 : 1)
+                habits.length > 0 ? habits
+                    ?.sort((a: { id: number }, b: { id: number }) => a.id < b.id ? -1 : 1)
                     ?.map((item: Habit) => (
                         <HabitInterface key={item.id} data={item} />
                     ))
@@ -32,23 +38,27 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
                     </div>
             }
             {
-                habitsAll.length < 5 &&
+                habits.length < 5 &&
                 <CreateHabit>
                     <SubmitCreateHabit />
                 </CreateHabit>
             }
             {
                 statisticModal &&
-                <StatisticModal data={habitsAll.filter(item => item.id === modalId)[0]} />
+                <StatisticModal data={habits.filter((item: Habit) => item.id === modalId)[0]} />
             }
             {
                 confirmDeleteHabitModal &&
                 <ConfirmDeleteHabit />
             }
             {
-                editHabit && <EditHabit />
+                editHabit && 
+                <EditHabit />
             }
-
+            {
+                editNotToday &&
+                <ConfirmNotToday />
+            }   
         </ul>
     )
 }

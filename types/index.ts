@@ -21,6 +21,7 @@ export interface Store {
     editTaskId: number
     editHabit: boolean
     editHabitId: number
+    editNotToday: boolean
     updateCreateModal: (createModal: boolean) => void
     updateHabitLoading: (habitLoading: boolean) => void
     updateTaskModal: (createTaskModal: boolean) => void
@@ -33,6 +34,7 @@ export interface Store {
     updateEditTaskId: (editTaskId: number) => void
     updateEditHabit: (editHabit: boolean) => void
     updateEditHabitId: (editHabitId: number) => void
+    updateNotToday: (editNotToday: boolean) => void
 }
 
 export default interface Kanban {

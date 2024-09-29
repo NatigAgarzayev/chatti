@@ -7,7 +7,6 @@ import Moment from 'react-moment'
 import menuIcon from "../public/images/menu.svg"
 import { motion } from 'framer-motion';
 import deleteIcon from "../public/images/delete.svg"
-import undoIcon from "../public/images/undo.svg"
 import statIcon from "../public/images/chart.svg"
 import { resetTimerHabit } from '@/api/habitClient'
 import resetIcon from "../public/images/reset.svg"

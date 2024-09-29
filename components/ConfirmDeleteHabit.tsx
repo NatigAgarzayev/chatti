@@ -1,28 +1,34 @@
 'use client'
 import { deleteHabit } from '@/api/habitClient'
-import { useStore } from '@/store/store'
-import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { useHabit, useStore } from '@/store/store'
+import { Habit } from '@/types'
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 export default function ConfirmDeleteHabit() {
 
-    const router = useRouter()
 
     const [loadingDelete, setLoadingDelete] = useState(false)
 
     const confirmDeleteModal = useStore(state => state.confirmDeleteHabitModal)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteHabitModal)
+    const habits = useHabit((state) => state.habits)
+    const updateHabits = useHabit((state: any) => state.updateHabits)
 
     const habitId = useStore(state => state.modalId)
 
     const deleteHandler = async () => {
         setLoadingDelete(true)
         await deleteHabit({ id: habitId })
+
+        let newHabitArr = [...habits]
+        newHabitArr = newHabitArr.filter((item: Habit) => item.id !== habitId)
+
+        updateHabits(newHabitArr)
+        
         setLoadingDelete(false)
         updateConfirmDeleteModal(false)
-        router.refresh()
     }
 
     return (

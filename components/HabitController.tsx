@@ -4,27 +4,37 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import moment from 'moment'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import menuIcon from "../public/images/menu.svg"
 import { motion } from 'framer-motion';
 import deleteIcon from "../public/images/delete.svg"
 import undoIcon from "../public/images/undo.svg"
-import { useStore } from '@/store/store'
+import { useHabit, useStore } from '@/store/store'
 import statIcon from "../public/images/chart.svg"
 import editIcon from "../public/images/edit-icon.svg"
+import notTodayIcon from "../public/images/nottoday.svg"
+import { Habit } from '@/types'
 
 export default function HabitController({ visible, id, count }: { visible: boolean, id: number, count: number }) {
 
     const router = useRouter()
 
-    const [countRapid, setCountRapid] = useState(count)
+    const [countRapid, setCountRapid] = useState(0)
     const [loading, setLoading] = useState(false)
-
+    const habits = useHabit((state: any) => state.habits)
+    const updateHabits = useHabit((state: any) => state.updateHabits)
     const updateStatisticModal = useStore(state => state.updateStatisticModal)
     const updateModalId = useStore(state => state.updateModalId)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteHabitModal)
     const updateEditHabit = useStore(state => state.updateEditHabit)
     const updateEditHabitId = useStore(state => state.updateEditHabitId)
+    const updateNotToday = useStore(state => state.updateNotToday)
+
+
+    useEffect(() => {
+        const index = habits.findIndex((item: Habit) => item.id === id)
+        setCountRapid(habits[index].count)
+    }, [habits])
 
     const deleteFromDb = () => {
         updateConfirmDeleteModal(true)
@@ -44,8 +54,15 @@ export default function HabitController({ visible, id, count }: { visible: boole
             setLoading(false)
             return
         }
-        setCountRapid(curr => curr - 1)
-        await decreaseHabitCount({ id: id, count: countRapid, time: moment().format() })
+        // setCountRapid(curr => curr - 1)
+
+        const newHabitArr = [...habits]
+        const index = habits.findIndex((item: Habit) => item.id === id)
+        const count = habits[index].count
+        newHabitArr[index].count = count - 1
+        updateHabits(newHabitArr)
+        
+        await decreaseHabitCount({ id: id, count: count, time: moment().format() })
         router.refresh()
         setLoading(false)
     }
@@ -53,14 +70,26 @@ export default function HabitController({ visible, id, count }: { visible: boole
     const increase = async (e: FormEvent) => {
         e.preventDefault()
         setLoading(true)
-        setCountRapid(curr => curr + 1)
-        await increaseHabitCount({ id: id, count: countRapid, time: moment().format() })
+        // setCountRapid(curr => curr + 1)
+
+        const newHabitArr = [...habits]
+        const index = habits.findIndex((item: Habit) => item.id === id)
+        const count = habits[index].count
+        newHabitArr[index].count = count + 1
+        updateHabits(newHabitArr)
+
+        await increaseHabitCount({ id: id, count: count, time: moment().format() })
         router.refresh()
         setLoading(false)
     }
 
     const editHabit = () => {
         updateEditHabit(true)
+        updateEditHabitId(id)
+    }
+
+    const notToday = () => {
+        updateNotToday(true)
         updateEditHabitId(id)
     }
 
@@ -97,6 +126,10 @@ export default function HabitController({ visible, id, count }: { visible: boole
                                         <li onClick={decrease} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
                                             <Image src={undoIcon} width={16} height={16} alt='' />
                                             <p>-1</p>
+                                        </li>
+                                        <li onClick={notToday} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
+                                            <Image src={notTodayIcon} width={18} height={18} alt='' />
+                                            <p>Not today</p>
                                         </li>
                                         <li onClick={editHabit} className='p-3 flex item-center gap-2 hover:bg-gray-100'>
                                             <Image onClick={editHabit} className='cursor-pointer' src={editIcon} width={20} height={20} alt='stat' />

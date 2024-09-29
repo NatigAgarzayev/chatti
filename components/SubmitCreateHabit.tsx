@@ -1,6 +1,6 @@
 'use client'
 import { createUserHabit } from '@/api/habitClient'
-import { useStore } from '@/store/store'
+import { useHabit, useStore } from '@/store/store'
 import { useAuth } from '@clerk/nextjs'
 import moment from 'moment'
 import { useRouter } from 'next/navigation'
@@ -15,6 +15,8 @@ export default function SubmitCreateHabit() {
     const updateCreateModal = useStore(state => state.updateCreateModal)
     const habitLoading = useStore(state => state.habitLoading)
     const updateHabitLoading = useStore(state => state.updateHabitLoading)
+    const habits = useHabit((state) => state.habits)
+    const updateHabits = useHabit((state) => state.updateHabits)
     const [radioValue, setRadioValue] = useState("count")
     const { userId } = useAuth()
     const router = useRouter()
@@ -27,8 +29,18 @@ export default function SubmitCreateHabit() {
         }
         updateHabitLoading(true)
         const timezoneDefine = getUserTimezone()
-        await createUserHabit({ title: habit + "", user: userId + "", type: type + "", count: +count, timer: timer === "" ? moment().format() + "" : timer, timezone: timezoneDefine })
-        router.refresh()
+        const res = await createUserHabit({ 
+            title: habit + "", 
+            user: userId + "",
+            type: type + "", 
+            count: +count, 
+            timer: timer === "" ? moment().format() + "" : timer, 
+            timezone: timezoneDefine 
+        })
+        if(res){
+            const newHabitArr = [...habits, res[0]]
+            updateHabits(newHabitArr)
+        }
         updateHabitLoading(false)
         updateCreateModal(false)
     }

@@ -12,25 +12,26 @@ import EditTask from './EditTask'
 const boards = ["Todo", "Doing", "Done"]
 
 export default function Kanban({ loading, kanbanData }: { loading?: boolean, kanbanData: KanbanType[] }) {
-    const [storage, setStorage] = useState<KanbanType[]>(kanbanData.sort((a, b) => a.id < b.id ? -1 : 1))
+    const [storage, setStorage] = useState<KanbanType[]>([])
     const [, forceUpdate] = useReducer(x => x + 1, 0)
     const confirmDeleteTaskModal = useStore(state => state.confirmDeleteTaskModal)
     const editTask = useStore(state => state.editTask)
 
     useEffect(() => {
         if (kanbanData !== storage) {
-            setStorage(kanbanData.sort((a, b) => a.id < b.id ? -1 : 1))
+            setStorage(kanbanData.sort((a, b) => (a.id) < (b.id) ? -1 : 1))
         }
     }, [kanbanData])
 
-    const move = (list: KanbanType[], stepName: number, elementId: number) => {
+    const move = (list: KanbanType[], stepName: number, elementId: number, index: number) => {
         const newArray = list
+        console.log('order:', index)
         let needObj: KanbanType = {
             id: 0,
             content: '',
             created_at: '',
             author_id: '',
-            progress: 0
+            progress: 0,
         }
         for (let i = 0; i < newArray.length; i++) {
             if (newArray[i].id == elementId) {
@@ -41,6 +42,7 @@ export default function Kanban({ loading, kanbanData }: { loading?: boolean, kan
         }
         needObj.progress = stepName
         newArray.push(needObj)
+        newArray.sort((a, b) => (a.id) < (b.id) ? -1 : 1)
         setStorage(newArray)
         updateTaskProgress(elementId, stepName)
         forceUpdate()
@@ -48,6 +50,7 @@ export default function Kanban({ loading, kanbanData }: { loading?: boolean, kan
 
     const onDragEnd = (result: { destination: any; source: any; draggableId: any }) => {
         const { destination, source, draggableId } = result
+
 
         if (!destination) return
 
@@ -58,13 +61,13 @@ export default function Kanban({ loading, kanbanData }: { loading?: boolean, kan
             return
         }
         if (destination.droppableId === "droppable1") {
-            move(storage, 1, draggableId)
+            move(storage, 1, draggableId, destination.index)
         }
         else if (destination.droppableId === "droppable2") {
-            move(storage, 2, draggableId)
+            move(storage, 2, draggableId, destination.index)
         }
         else if (destination.droppableId === "droppable3") {
-            move(storage, 3, draggableId)
+            move(storage, 3, draggableId, destination.index)
         }
     }
 
