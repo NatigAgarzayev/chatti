@@ -11,20 +11,21 @@ import statIcon from "../public/images/chart.svg"
 import { resetTimerHabit } from '@/api/habitClient'
 import resetIcon from "../public/images/reset.svg"
 import { useRouter } from 'next/navigation'
-import { useStore } from '@/store/store'
+import { useHabit, useStore } from '@/store/store'
 import editIcon from "../public/images/edit-icon.svg"
 
 
 export default function HabitStopwatch({ visible, id, timer }: { visible: boolean, id: number, timer: string }) {
     const [now, setNow] = useState(moment())
     const [loading, setLoading] = useState(false)
-    const router = useRouter()
 
     const updateStatisticModal = useStore(state => state.updateStatisticModal)
     const updateModalId = useStore(state => state.updateModalId)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteHabitModal)
     const updateEditHabit = useStore(state => state.updateEditHabit)
     const updateEditHabitId = useStore(state => state.updateEditHabitId)
+    const habits = useHabit(state => state.habits)
+    const updateHabits = useHabit(state => state.updateHabits)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -50,8 +51,16 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
 
     const resetFromDb = async () => {
         setLoading(true)
-        await resetTimerHabit({ id: id })
-        router.refresh()
+        const res = await resetTimerHabit({ id: id })
+        console.log(res)
+
+        const newHabitArr = [...habits]
+        const index = newHabitArr.findIndex(habit => habit.id === id)
+        if(res){
+            newHabitArr[index] = res[0]
+            updateHabits(newHabitArr)
+        }
+
         setLoading(false)
     }
 

@@ -152,6 +152,8 @@ export const resetTimerHabit = async ({ id }: { id: number }) => {
     if (data) {
         handleArrayOfObjects(data[0].records, id, offeredTime, data[0].count, 1)
     }
+
+    return data
 }
 
 export const updateHabit = async ({id, title, type, created_at, habitRecord, actionType, addCount}: {id:number, title: string, type: string, created_at: string, habitRecord: Array<any>, actionType: string, addCount: number}) => {
@@ -163,6 +165,9 @@ export const updateHabit = async ({id, title, type, created_at, habitRecord, act
             created_at: created_at
         })
         .eq("id", id)
+        .select()
+        
+        return data
     }
     else {
         let countOperation = 0
