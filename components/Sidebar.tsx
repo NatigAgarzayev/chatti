@@ -43,7 +43,7 @@ export default function Sidebar() {
         <aside className={
             clsx(
                 "relative h-full bg-gray-100 dark:bg-gray-800 rounded-r-3xl dark:rounded-none",
-                faze === "long" ? "flex-240" : "flex-0 w-16"
+                faze === "long" ? "flex-240" : "flex-0 max-w-16 min-w-16"
             )
         }>
             <div className={clsx('w-[90%] mx-auto flex items-center mt-4', faze === "long" ? "justify-between" : "justify-center")}> 
@@ -64,8 +64,11 @@ export default function Sidebar() {
                     {
                         pathname === "/dashboard/tasks" &&
                         <ul className='mx-6 mt-2'>
-                            <li onClick={() => updateTaskModal(true)} className={clsx('ml-8 text-gray-500 font-semibold cursor-pointer flex items-center gap-1', faze === "short" && "ml-0")}>    
-                                <Image src={addTaskIcon} alt="add task" width={18} height={18} />
+                            <li onClick={() => updateTaskModal(true)} className={clsx(
+                                    'text-gray-500 font-semibold cursor-pointer flex items-center gap-1', 
+                                    faze === "long" ? "ml-8" : "ml-0 gap-0"
+                                )}>
+                                <Image src={addTaskIcon} alt="add task" width={20} />
                                 <p className={clsx(faze === "short" && "hidden")}>Create</p>
                             </li>
                         </ul>
