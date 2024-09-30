@@ -8,9 +8,13 @@ import Image from 'next/image'
 import { SignedIn, UserButton, useUser } from '@clerk/nextjs'
 import lightIcon from "../public/images/light.svg"
 import darkIcon from "../public/images/dark.svg"
+import burgerIcon from "../public/images/burger.svg"
+import burgerDarkIcon from "../public/images/burger-dark.svg"
+import clsx from 'clsx'
 
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
+    const [faze, setFaze] = useState("long")
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -27,31 +31,52 @@ export default function Sidebar() {
     const pathname = usePathname()
     const { user } = useUser()
 
+    const fazeHandler = () => {
+        if(faze === "long"){
+            setFaze("short")
+        } else {
+            setFaze("long")
+        }
+    }
+
     return (
-        <aside className="relative flex-240 h-full bg-gray-100 dark:bg-gray-800 rounded-r-3xl dark:rounded-none">
-            <h1 className="text-center mt-4 font-bold text-2xl text-gray-700 dark:text-gray-200">Chatti Tracking</h1>
+        <aside className={
+            clsx(
+                "relative h-full bg-gray-100 dark:bg-gray-800 rounded-r-3xl dark:rounded-none",
+                faze === "long" ? "flex-240" : "flex-0 w-16"
+            )
+        }>
+            <div className={clsx('w-[90%] mx-auto flex items-center mt-4', faze === "long" ? "justify-between" : "justify-center")}> 
+                <h1 className={clsx("font-bold text-lg text-gray-700 dark:text-gray-200", faze === "short" && "hidden")}>Chatti Tracking</h1>
+                {
+                    theme === "light" ?
+                    <Image onClick={fazeHandler} className='cursor-pointer' src={burgerIcon} width={24} alt='burger'/>
+                    :
+                    <Image onClick={fazeHandler} className='cursor-pointer' src={burgerDarkIcon} width={24} alt='burger'/>
+                }
+            </div>
             <ul className='mt-8'>
                 <li className='mt-4'>
-                    <NavLink link={"/dashboard/habits"} content={"Habits"} pathname={pathname} />
+                    <NavLink link={"/dashboard/habits"} faze={faze} theme={theme} img={0} content={"Habits"} pathname={pathname} />
                 </li>
                 <li className='mt-4'>
-                    <NavLink link={"/dashboard/tasks"} content={"Tasks"} pathname={pathname} />
+                    <NavLink link={"/dashboard/tasks"} faze={faze} theme={theme} img={1} content={"Tasks"} pathname={pathname} />
                     {
                         pathname === "/dashboard/tasks" &&
                         <ul className='mx-6 mt-2'>
-                            <li onClick={() => updateTaskModal(true)} className='ml-8 text-gray-500 font-semibold cursor-pointer flex items-center gap-1'>
+                            <li onClick={() => updateTaskModal(true)} className={clsx('ml-8 text-gray-500 font-semibold cursor-pointer flex items-center gap-1', faze === "short" && "ml-0")}>    
                                 <Image src={addTaskIcon} alt="add task" width={18} height={18} />
-                                Create
+                                <p className={clsx(faze === "short" && "hidden")}>Create</p>
                             </li>
                         </ul>
                     }
                 </li>
                 <li className='mt-4'>
-                    <NavLink link={"/dashboard/timetracker"} content={"Time Tracker"} pathname={pathname} />
+                    <NavLink link={"/dashboard/timetracker"} faze={faze} theme={theme} img={2}  content={"Time Tracker"}  pathname={pathname} />
                 </li>
             </ul>
             <div className='absolute bottom-4 left-1/4 -translate-x-1/2 text-gray-700'>
-                <div className='flex item-center gap-2'>
+                <div className={clsx('flex item-center gap-2', faze === "short" && "hidden")}>
                     <SignedIn>
                         <UserButton />
                         <p className='dark:text-white w-14 overflow-hidden text-ellipsis'>
