@@ -14,7 +14,7 @@ import clsx from 'clsx'
 
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
-    const [faze, setFaze] = useState("long")
+    const [faze, setFaze] = useState(localStorage.faze || "long")
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -27,6 +27,14 @@ export default function Sidebar() {
         
       }, [theme]);
 
+    useEffect(() => {
+        if (localStorage.faze === 'long' || (!('faze' in localStorage))) {
+            setFaze("long")
+          } else {
+            setFaze("short")
+          }
+    }, [])
+
     const updateTaskModal = useStore(state => state.updateTaskModal)
     const pathname = usePathname()
     const { user } = useUser()
@@ -34,8 +42,10 @@ export default function Sidebar() {
     const fazeHandler = () => {
         if(faze === "long"){
             setFaze("short")
+            localStorage.setItem('faze', 'short')
         } else {
             setFaze("long")
+            localStorage.setItem('faze', 'long')
         }
     }
 
