@@ -3,6 +3,7 @@ import Kanban from '@/components/Kanban'
 import { auth } from '@clerk/nextjs/server'
 import { Suspense } from 'react'
 import Loading from "./loading"
+import { redirect } from 'next/navigation'
 
 export default async function page() {
     const { userId }: { userId: string | null } = auth()
@@ -11,6 +12,9 @@ export default async function page() {
 
     if (userId) {
         kanbanData = await getUserKanban({ id: userId }) || []
+    }
+    else{
+        redirect("/sign-in")
     }
 
     return (

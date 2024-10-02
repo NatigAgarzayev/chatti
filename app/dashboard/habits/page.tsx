@@ -4,6 +4,7 @@ import { getUserHabits } from '@/api/habit'
 import { Habit } from '@/types'
 import { auth } from '@clerk/nextjs/server'
 import Loading from "./loading"
+import { redirect } from 'next/navigation'
 
 export default async function page() {
     const { userId }: { userId: string | null } = auth()
@@ -12,6 +13,9 @@ export default async function page() {
 
     if (userId) {
         habitsAll = await getUserHabits({ id: userId }) || []
+    }
+    else{
+        redirect("/sign-in")
     }
 
     return (
