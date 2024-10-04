@@ -11,6 +11,7 @@ import darkIcon from "../public/images/dark.svg"
 import burgerIcon from "../public/images/burger.svg"
 import burgerDarkIcon from "../public/images/burger-dark.svg"
 import clsx from 'clsx'
+import { loadStripe } from '@stripe/stripe-js'
 
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
@@ -47,6 +48,24 @@ export default function Sidebar() {
             setFaze("long")
             localStorage.setItem('faze', 'long')
         }
+    }
+
+    const stripeHandler = async () => {
+        const stripe = await loadStripe(
+            process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
+        )
+        console.log("stripe", stripe)
+        if(!stripe) return
+        const response = await fetch('/api/stripe', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ priceId: process.env.NEXT_PRICE_ID as string }),
+          });
+        const data = await response.json();
+
+        console.log("data", data)
     }
 
     return (
@@ -88,6 +107,9 @@ export default function Sidebar() {
                     <NavLink link={"/dashboard/timetracker"} faze={faze} theme={theme} img={2}  content={"Time Tracker"}  pathname={pathname} />
                 </li>
             </ul>
+            <div>
+                <button onClick={stripeHandler} className={clsx('w-[90%] absolute bottom-16 left-1/2 -translate-x-1/2 p-4 rounded-md bg-gray-300 font-bold hover:bg-gray-100')}>UPGRADE</button>
+            </div>
             <div className='absolute bottom-4 left-1/4 -translate-x-1/2 text-gray-700'>
                 <div className={clsx('flex item-center gap-2', faze === "short" && "hidden")}>
                     <SignedIn>

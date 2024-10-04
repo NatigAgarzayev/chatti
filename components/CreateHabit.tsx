@@ -12,7 +12,7 @@ export default function CreateHabit({ children }: { children: ReactElement }) {
         <>
             <button onClick={() => {
                 updateCreateModal(true)
-            }} className=' w-14 h-14 flex justify-center items-center my-auto border-gray-700 rounded-full bg-gray-100 hover:bg-gray-200'>+</button>
+            }} className=' w-14 h-14 text-2xl text-gray-700 flex justify-center items-center my-auto border-gray-700 rounded-full bg-gray-100 hover:bg-gray-200'>+</button>
             <Dialog open={createModalCondition} onClose={() => updateCreateModal(false)} className="relative z-50">
                 <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
                     <motion.div
