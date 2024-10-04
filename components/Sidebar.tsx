@@ -107,7 +107,7 @@ export default function Sidebar() {
                 </li>
             </ul>
             <div>
-                <button onClick={stripeHandler} className={clsx('w-[90%] absolute bottom-16 left-1/2 -translate-x-1/2 p-4 rounded-md bg-gray-300 font-bold hover:bg-gray-100')}>UPGRADE</button>
+                <button onClick={stripeHandler} className={clsx('w-[90%] absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-gray-300 font-bold hover:bg-gray-100')}>UPGRADE</button>
             </div>
             <div className='absolute bottom-4 left-1/4 -translate-x-1/2 text-gray-700'>
                 <div className={clsx('flex item-center gap-2', faze === "short" && "hidden")}>
