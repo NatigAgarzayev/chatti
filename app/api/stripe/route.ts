@@ -13,8 +13,8 @@ export async function POST(request: NextRequest) {
           }
         ],
         mode: 'payment',
-        success_url: `https://chatti-jade.vercel.app/dashboard/habits`,
-        cancel_url: `https://chatti-jade.vercel.app/dashboard/habits`,
+        success_url: 'https://chatti-jade.vercel.app/dashboard/habits',
+        cancel_url: 'https://chatti-jade.vercel.app/dashboard/habits',
         metadata: {
         //   userId: userId,
           priceId: "price_1Q6APGHP9wN4meCvIjuZ7YHo",

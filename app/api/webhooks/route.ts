@@ -3,9 +3,7 @@ import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 export const config = {
-  api: {
-    bodyParser: false, // Disable bodyParser to use raw body for Stripe signature verification
-  },
+    runtime: 'nodejs',
 };
 
 // Helper function to buffer the request body
