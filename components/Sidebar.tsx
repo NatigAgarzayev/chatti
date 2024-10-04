@@ -58,14 +58,13 @@ export default function Sidebar() {
         if(!stripe) return
         const response = await fetch('/api/stripe', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ priceId: process.env.NEXT_PRICE_ID as string }),
           });
         const data = await response.json();
 
-        console.log("data", data)
+        if(data){
+            console.log("data", data)
+            window.location.href = data.result.url;
+        }
     }
 
     return (

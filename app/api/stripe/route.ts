@@ -3,27 +3,21 @@ import { NextRequest, NextResponse } from 'next/server';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 export async function POST(request: NextRequest) {
   try {
-    // you can implement some basic check here like, is user valid or not
-    const data = await request.json();
-    console.log("data", data)
-    const priceId = data.priceId;
-    const userId = data.userId; // Assuming userId is sent in the request
-
     const checkoutSession: Stripe.Checkout.Session =
       await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [
           {
-            price: priceId,
-            quantity: 1
+            price: "price_1Q6APGHP9wN4meCvIjuZ7YHo",
+            quantity: 1,
           }
         ],
         mode: 'payment',
-        success_url: `${process.env.NEXT_BASE_URL}/billing`,
-        cancel_url: `${process.env.NEXT_BASE_URL}/billing`,
+        success_url: `https://chatti-jade.vercel.app/dashboard/habits`,
+        cancel_url: `https://chatti-jade.vercel.app/dashboard/habits`,
         metadata: {
-          userId: userId,
-          priceId
+        //   userId: userId,
+          priceId: "price_1Q6APGHP9wN4meCvIjuZ7YHo",
         }
       });
     return NextResponse.json({ result: checkoutSession, ok: true });
