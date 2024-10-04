@@ -2,9 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-export const config = {
-    runtime: 'nodejs',
-};
 
 // Helper function to buffer the request body
 const buffer = async (readable: any) => {
