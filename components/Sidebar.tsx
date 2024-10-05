@@ -51,6 +51,12 @@ export default function Sidebar() {
     }
 
     const stripeHandler = async () => {
+        if(!user) return
+        user.update({
+            unsafeMetadata: {
+              paid: true
+            },
+          })
         const stripe = await loadStripe(
             process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
         )
