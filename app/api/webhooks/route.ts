@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       const session = event.data.object as Stripe.Checkout.Session;
       console.log(`Payment was successful for session ID: ${session.id}`);
       // Process the session or update your database here.
-      const userId = session.metadata?.userId;
+      const userId = session.metadata?.userId || 'user_2kbeVlEvHUAj35OGinSns4FktxF';
 
       console.log(`User ID: ${userId}`);
 
