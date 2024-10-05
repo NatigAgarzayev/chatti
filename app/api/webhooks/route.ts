@@ -27,10 +27,14 @@ export async function POST(request: NextRequest) {
             paid: true, 
             paymentId: session.id,
           },
-        });
-        // Update Clerk user with payment information using clerkClient
+        })
       } else {
         console.error('User ID not found in session metadata');
+        await clerkClient.users.updateUserMetadata(userId, {
+          publicMetadata: {
+            message: "pizdes naxuy blet"
+          },
+        })
       }
     }
 
