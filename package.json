@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^5.0.48",
     "@clerk/nextjs": "^5.3.0",
     "@headlessui/react": "^2.0.4",
     "@nivo/calendar": "^0.87.0",
