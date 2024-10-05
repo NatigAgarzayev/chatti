@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
-import { createClerkClient } from '@clerk/clerk-sdk-node'
-const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY as string })
+import { clerkClient } from '@clerk/nextjs/server'
 
 export async function POST(request: NextRequest) {
   try {
