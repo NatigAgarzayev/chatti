@@ -22,15 +22,16 @@ export async function POST(request: NextRequest) {
 
       if (userId) {
         await clerkClient.users.updateUserMetadata(userId, {
-          publicMetadata: {
+          unsafeMetadata: {
             paid: true, 
             paymentId: session.id,
           },
         })
       } else {
         console.error('User ID not found in session metadata');
-        await clerkClient.users.updateUserMetadata(userId, {
-          publicMetadata: {
+        await clerkClient.users.updateUserMetadata("user_2kbeVlEvHUAj35OGinSns4FktxF", {
+          unsafeMetadata: {
+            paid: false, 
             message: "pizdes naxuy blet"
           },
         })
