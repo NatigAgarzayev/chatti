@@ -15,7 +15,12 @@ import { loadStripe } from '@stripe/stripe-js'
 
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
-    const [faze, setFaze] = useState(localStorage.faze || "long")
+    const [faze, setFaze] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('faze') || "long"
+        }
+        return "long"
+    })
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -39,7 +44,7 @@ export default function Sidebar() {
     const updateTaskModal = useStore(state => state.updateTaskModal)
     const pathname = usePathname()
     const { user } = useUser()
-
+    
     const fazeHandler = () => {
         if(faze === "long"){
             setFaze("short")
@@ -52,11 +57,6 @@ export default function Sidebar() {
 
     const stripeHandler = async () => {
         if(!user) return
-        user.update({
-            unsafeMetadata: {
-              paid: true
-            },
-          })
         const stripe = await loadStripe(
             process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
         )
@@ -81,7 +81,7 @@ export default function Sidebar() {
             )
         }>
             <div className={clsx('w-[90%] mx-auto flex items-center mt-4', faze === "long" ? "justify-between" : "justify-center")}> 
-                <h1 className={clsx("font-bold text-lg text-gray-700 dark:text-gray-200", faze === "short" && "hidden")}>Chatti Tracking</h1>
+                <h1 className={clsx("font-bold text-lg text-gray-700 dark:text-gray-200", faze === "short" && "hidden")}>Chatti Tracking {user?.publicMetadata.paid ? "Pro" : null}</h1>
                 {
                     theme === "light" ?
                     <Image onClick={fazeHandler} className='cursor-pointer' src={burgerIcon} width={24} alt='burger'/>
@@ -112,7 +112,7 @@ export default function Sidebar() {
                     <NavLink link={"/dashboard/timetracker"} faze={faze} theme={theme} img={2}  content={"Time Tracker"}  pathname={pathname} />
                 </li>
             </ul>
-            <div>
+            <div className={clsx(user?.publicMetadata.paid ? "hidden" : "block")}>
                 <button onClick={stripeHandler} className={clsx('w-[90%] absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-gray-300 font-bold hover:bg-gray-100')}>UPGRADE</button>
             </div>
             <div className='absolute bottom-4 left-1/4 -translate-x-1/2 text-gray-700'>

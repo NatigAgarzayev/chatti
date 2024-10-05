@@ -9,6 +9,7 @@ import StatisticModal from './StatisticModal'
 import ConfirmDeleteHabit from './ConfirmDeleteHabit'
 import EditHabit from './EditHabit'
 import ConfirmNotToday from './ConfirmNotToday'
+import { useUser } from '@clerk/nextjs'
 
 export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
 
@@ -19,6 +20,7 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
     const editNotToday = useStore(state => state.editNotToday)
     const updateHabits = useHabit((state: any) => state.updateHabits)
     const habits = useHabit((state: any) => state.habits)
+    const {user} = useUser()
 
     useEffect(() => {
         updateHabits(habitsAll)
@@ -38,7 +40,7 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
                     </div>
             }
             {
-                habits.length < 5 &&
+                habits.length < (user?.publicMetadata.paid ? 10 : 5) &&
                 <CreateHabit>
                     <SubmitCreateHabit />
                 </CreateHabit>
