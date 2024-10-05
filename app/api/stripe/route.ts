@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
         payment_method_types: ['card'],
         line_items: [
           {
-            price: "price_1Q6T7kHP9wN4meCvX6zODHh8",
+            price: "price_1Q6CYqHP9wN4meCvzklGUQbx",
             quantity: 1,
           }
         ],
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
         cancel_url: 'https://chatti-jade.vercel.app/dashboard/habits',
         metadata: {
           userId: userId,
-          priceId: "price_1Q6T7kHP9wN4meCvX6zODHh8",
+          priceId: "price_1Q6CYqHP9wN4meCvzklGUQbx",
         }
       });
     return NextResponse.json({ result: checkoutSession, ok: true });
