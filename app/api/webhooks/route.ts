@@ -19,14 +19,16 @@ export async function POST(request: NextRequest) {
       // Process the session or update your database here.
       const userId = session.metadata?.userId;
 
+      console.log(`User ID: ${userId}`);
+
       if (userId) {
-        // Update Clerk user with payment information using clerkClient
         await clerkClient.users.updateUser(userId, {
           publicMetadata: {
-            paid: true, // Mark the user as having paid
-            paymentId: session.id, // Optionally, store the Stripe payment session ID
+            paid: true, 
+            paymentId: session.id,
           },
         });
+        // Update Clerk user with payment information using clerkClient
       } else {
         console.error('User ID not found in session metadata');
       }

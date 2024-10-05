@@ -5,6 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 export async function POST(request: NextRequest) {
   try {
     const { userId } = auth()
+    console.log("userId = ", userId)
     const checkoutSession: Stripe.Checkout.Session =
       await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -15,8 +16,10 @@ export async function POST(request: NextRequest) {
           }
         ],
         mode: 'payment',
-        success_url: 'https://chatti-jade.vercel.app/dashboard/habits',
-        cancel_url: 'https://chatti-jade.vercel.app/dashboard/habits',
+        // success_url: 'https://chatti-jade.vercel.app/dashboard/habits',
+        success_url: 'http://localhost:3000/dashboard/habits',
+        // cancel_url: 'https://chatti-jade.vercel.app/dashboard/habits',
+        cancel_url: 'http://localhost:3000/dashboard/habits',
         metadata: {
           userId: userId,
           priceId: "price_1Q6CYqHP9wN4meCvzklGUQbx",
