@@ -10,11 +10,13 @@ import lightIcon from "../public/images/light.svg"
 import darkIcon from "../public/images/dark.svg"
 import burgerIcon from "../public/images/burger.svg"
 import burgerDarkIcon from "../public/images/burger-dark.svg"
+import crownIcon from "../public/images/crown.svg"
 import clsx from 'clsx'
 import { loadStripe } from '@stripe/stripe-js'
 
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
+    const [rdrct, setRdrct] = useState(false)
     const [faze, setFaze] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('faze') || "long"
@@ -57,6 +59,7 @@ export default function Sidebar() {
 
     const stripeHandler = async () => {
         if(!user) return
+        setRdrct(true)
         const stripe = await loadStripe(
             process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
         )
@@ -66,7 +69,8 @@ export default function Sidebar() {
             method: 'POST',
           });
         const data = await response.json();
-
+        
+        setRdrct(false)
         if(data){
             console.log("data", data)
             window.location.href = data.result.url;
@@ -112,9 +116,18 @@ export default function Sidebar() {
                     <NavLink link={"/dashboard/timetracker"} faze={faze} theme={theme} img={2}  content={"Time Tracker"}  pathname={pathname} />
                 </li>
             </ul>
-            <div className={clsx(user?.publicMetadata.paid ? "hidden" : "block")}>
-                <button onClick={stripeHandler} className={clsx('w-[90%] absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-gray-300 font-bold hover:bg-gray-100')}>UPGRADE</button>
-            </div>
+            {
+                user?.publicMetadata.paid ? null : (
+                    <div>
+                        <button onClick={stripeHandler} className={clsx('w-[90%] flex justify-center gap-2 absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-amber-500 font-bold', faze === "short" && "w-[60%] p-[8px]")}>
+                            <Image src={crownIcon} width={22} height={22} alt='crown'/>
+                            <p className={clsx(faze === "short" && "hidden")}>
+                                {rdrct && faze === "long" ? "Redirecting.." : "Get Chatti PRO"}
+                            </p>
+                        </button>
+                    </div>
+                )
+            }
             <div className='absolute bottom-4 left-1/4 -translate-x-1/2 text-gray-700'>
                 <div className={clsx('flex item-center gap-2', faze === "short" && "hidden")}>
                     <SignedIn>
@@ -125,7 +138,7 @@ export default function Sidebar() {
                     </SignedIn>
                 </div>
             </div>
-            <div className='absolute bottom-3 right-4'>
+            <div className={clsx('absolute bottom-3 right-4', faze === "short" && "right-3")}>
                 <div className='w-10 h-10 rounded-full bg-white flex items-center justify-center cursor-pointer border border-gray-300'>
                     {
                         theme === "light" ?

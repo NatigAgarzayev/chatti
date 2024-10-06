@@ -35,7 +35,7 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
                         <HabitInterface key={item.id} data={item} />
                     ))
                     :
-                    <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 dark:border-gray-200 rounded-3xl'>
+                    <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 dark:border-gray-200 dark:text-gray-200 rounded-3xl'>
                         Let's create a new habit!
                     </div>
             }
