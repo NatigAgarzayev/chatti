@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/server"
+import {createClient} from "@/utils/supabase/server"
 
 export const createUserHabit = async ({ title, user }: { title: string, user: string }) => {
     const supabase = createClient()
@@ -23,3 +23,4 @@ export const getUserHabits = async ({ id }: { id: string }) => {
 
     return data
 }
+

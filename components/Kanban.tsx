@@ -74,23 +74,23 @@ export default function Kanban({ loading, kanbanData }: { loading?: boolean, kan
     return (
         <>
             <CreateTask />
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <div className='flex h-sfit gap-5 justify-between'>
-                        <div className='flex-33'>
-                            <h3 className='text-xl dark:text-white font-semibold text-center mb-2'>{boards[0]}({storage?.filter(x => x.progress === 1).length})</h3>
-                            <KanbanBoard loading={loading} dropId={`droppable1`} innerItems={storage?.filter(x => x.progress === 1)} />
-                        </div>
-                        <div className='flex-33'>
-                            <h3 className='text-xl dark:text-white font-semibold text-center mb-2'>{boards[1]}({storage?.filter(x => x.progress === 2).length})</h3>
-                            <KanbanBoard loading={loading} dropId={`droppable2`} innerItems={storage?.filter(x => x.progress === 2)} />
-                        </div>
-                        <div className='flex-33'>
-                            <h3 className='text-xl dark:text-white font-semibold text-center mb-2'>{boards[2]}({storage?.filter(x => x.progress === 3).length})</h3>
-                            <KanbanBoard loading={loading} dropId={`droppable3`} innerItems={storage?.filter(x => x.progress === 3)} />
-                        </div>
-
+            <DragDropContext onDragEnd={onDragEnd}>
+                <div className='flex flex-col h-sfit gap-10 md:gap-5 justify-between md:flex-row'>
+                    <div className='h-1/3 md:flex-33 md:h-full'>
+                        <h3 className='text-xl dark:text-white font-semibold text-center mb-2'>{boards[0]}({storage?.filter(x => x.progress === 1).length})</h3>
+                        <KanbanBoard loading={loading} dropId={`droppable1`} innerItems={storage?.filter(x => x.progress === 1)} />
                     </div>
-                </DragDropContext>
+                    <div className='h-1/3 md:flex-33 md:h-full'>
+                        <h3 className='text-xl dark:text-white font-semibold text-center mb-2'>{boards[1]}({storage?.filter(x => x.progress === 2).length})</h3>
+                        <KanbanBoard loading={loading} dropId={`droppable2`} innerItems={storage?.filter(x => x.progress === 2)} />
+                    </div>
+                    <div className='h-1/3 md:flex-33 md:h-full'>
+                        <h3 className='text-xl dark:text-white font-semibold text-center mb-2'>{boards[2]}({storage?.filter(x => x.progress === 3).length})</h3>
+                        <KanbanBoard loading={loading} dropId={`droppable3`} innerItems={storage?.filter(x => x.progress === 3)} />
+                    </div>
+
+                </div>
+            </DragDropContext>
             {
                 confirmDeleteTaskModal &&
                 <ConfirmDeleteTask />

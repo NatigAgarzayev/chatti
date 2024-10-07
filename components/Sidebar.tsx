@@ -1,18 +1,18 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import NavLink from './NavLink'
-import { usePathname } from 'next/navigation'
-import { useStore } from '@/store/store'
+import {usePathname} from 'next/navigation'
+import {useStore} from '@/store/store'
 import addTaskIcon from "../public/images/add-task.svg"
 import Image from 'next/image'
-import { SignedIn, UserButton, useUser } from '@clerk/nextjs'
+import {SignedIn, UserButton, useUser} from '@clerk/nextjs'
 import lightIcon from "../public/images/light.svg"
 import darkIcon from "../public/images/dark.svg"
 import burgerIcon from "../public/images/burger.svg"
 import burgerDarkIcon from "../public/images/burger-dark.svg"
 import crownIcon from "../public/images/crown.svg"
 import clsx from 'clsx'
-import { loadStripe } from '@stripe/stripe-js'
+import {loadStripe} from '@stripe/stripe-js'
 
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
@@ -26,11 +26,11 @@ export default function Sidebar() {
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark');
-          setTheme("dark")
+            document.documentElement.classList.add('dark');
+            setTheme("dark")
         } else {
-          document.documentElement.classList.remove('dark');
-          setTheme("light")
+            document.documentElement.classList.remove('dark');
+            setTheme("light")
         }
         
       }, [theme]);
@@ -66,7 +66,7 @@ export default function Sidebar() {
         console.log("stripe", stripe)
         if(!stripe) return
         const response = await fetch('/api/stripe', {
-            method: 'POST',
+            "method": 'POST',
           });
         const data = await response.json();
         
@@ -119,7 +119,7 @@ export default function Sidebar() {
             {
                 user?.publicMetadata.paid ? null : (
                     <div>
-                        <button onClick={stripeHandler} className={clsx('w-[90%] flex justify-center gap-2 absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-amber-500 font-bold', faze === "short" && "w-[60%] p-[8px]")}>
+                        <button onClick={stripeHandler} className={clsx('w-[90%] flex justify-center gap-2 absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-amber-500 font-bold', faze === "short" && "w-[65%] p-[8px]")}>
                             <Image src={crownIcon} width={22} height={22} alt='crown'/>
                             <p className={clsx(faze === "short" && "hidden")}>
                                 {rdrct && faze === "long" ? "Redirecting.." : "Get Chatti PRO"}
@@ -138,7 +138,7 @@ export default function Sidebar() {
                     </SignedIn>
                 </div>
             </div>
-            <div className={clsx('absolute bottom-3 right-4', faze === "short" && "right-3")}>
+            <div className={clsx('absolute bottom-3 right-4', faze === "short" && "right-[12px]")}>
                 <div className='w-10 h-10 rounded-full bg-white flex items-center justify-center cursor-pointer border border-gray-300'>
                     {
                         theme === "light" ?

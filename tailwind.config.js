@@ -8,7 +8,9 @@ module.exports = {
   theme: {
     extend: {
       height: {
-        'sfit': 'calc(100vh - 68px)'
+        'sfit': 'calc(100dvh - 68px)',
+        'fullcalc': 'calc(100% - 36px)',
+        'third': 'calc(100dvh / 3)',
       },
       flex: {
         '33': '0 1 33.333%',
