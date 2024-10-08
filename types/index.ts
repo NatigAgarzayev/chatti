@@ -3,9 +3,10 @@ export interface Habit {
     title: string
     created_at: string
     author_id: string
-    count: number,
-    type: string,
-    records: NivoDataset[]
+    count: number
+    type: string
+    records: NivoDataset[],
+    streak?: number
 }
 
 export interface Store {

@@ -1,8 +1,9 @@
-import { createClient } from "@/utils/supabase/client"
+import {createClient} from "@/utils/supabase/client"
 import Moment from "react-moment"
 import moment from 'moment-timezone'
-import { getUserTimezone } from "@/components/SubmitCreateHabit"
-import { NivoDataset } from "@/types"
+import momentReal from 'moment'
+import {getUserTimezone} from "@/components/SubmitCreateHabit"
+import {NivoDataset} from "@/types"
 
 const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime: string, count: number, operation: number) => {
     const supabase = createClient()
@@ -11,7 +12,6 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
 
     if (arr[dataRecordsLength - 1]?.day === offeredTime) {
         // when we already have record for the same 
-        console.log("asdasdasdasdasdasd")
         let newArray = arr
         const val = newArray[dataRecordsLength - 1]?.value
         if (val + operation <= 0) {
@@ -27,13 +27,10 @@ const handleArrayOfObjects = async (arr: NivoDataset[], id: number, offeredTime:
     }
     else {
         let newArray = arr
-        console.log("newarr = ", newArray)
         if (newArray.length === 0) {
-            console.log("asd2")
             newArray.push({ day: offeredTime, value: count + operation })
         }
         else if (newArray.length > 0 && newArray[dataRecordsLength - 1]?.day !== offeredTime) {
-            console.log("asd3")
             newArray.push({ day: offeredTime, value: 1 })
         }
         const { data: recordResponse, error: recordError } = await supabase
@@ -56,7 +53,7 @@ export const increaseHabitCount = async ({ id, count, time }: { id: number, coun
 
     const offeredTime = moment.tz(time, timezone).format('YYYY-MM-DD')
     if (data) {
-        handleArrayOfObjects(data[0].records, id, offeredTime, count, 1)
+        await handleArrayOfObjects(data[0].records, id, offeredTime, count, 1)
     }
 }
 export const decreaseHabitCount = async ({ id, count, time }: { id: number, count: number, time: string }) => {
@@ -111,7 +108,7 @@ export const createUserHabit = async ({ title, user, type, count, timer, timezon
         .select()
     if (data && type === 'count' && count > 0) {
         const offeredTime = moment.tz(timer, timezone).format('YYYY-MM-DD')
-        handleArrayOfObjects(data[0].records, data[0].id, offeredTime, count, 0)
+        await handleArrayOfObjects(data[0].records, data[0].id, offeredTime, count, 0)
     }
     return data
 }
@@ -144,15 +141,26 @@ export const getUserHabitById = async ({id}: {id: number}) => {
 
 export const resetTimerHabit = async ({ id }: { id: number }) => {
     const supabase = createClient()
-    const { data, error } = await supabase.from('habits').update({ created_at: moment().format() }).eq('id', id).select()
-    console.log("data == ", data)
+    const { data, error } = await supabase.from('habits').update({ created_at: moment().format()}).eq('id', id).select()
+    let maxStreak = 0
+    if(data && data[0].records.length >= 2){
+        //adding streak: calculating the difference between last to records and identifying a maximum streak value
+        const habitRecords = [...data[0].records]
+        const lastTime = momentReal(habitRecords.pop().day.split('-').map((item: string) => +item))
+        const secondLastTime = momentReal(habitRecords.pop().day.split('-').map((item: string) => +item))
+        console.log(lastTime, secondLastTime)
+        const result = lastTime.diff(secondLastTime, 'days')
+        console.log("res=", result)
+        maxStreak = Math.max(result, data[0].streak)
+        const {} = await supabase.from('habits').update({streak: maxStreak || 0}).eq('id', id)
+    }
+    // const { data, error } = await supabase.from('habits').update({ created_at: moment().format(), streak: maxStreak || 0 }).eq('id', id).select()
     const timezone = getUserTimezone()
     const timer = moment().format()
     const offeredTime = moment.tz(timer, timezone).format('YYYY-MM-DD')
     if (data) {
-        handleArrayOfObjects(data[0].records, id, offeredTime, data[0].count, 1)
+        await handleArrayOfObjects(data[0].records, id, offeredTime, data[0].count, 1)
     }
-
     return data
 }
 
@@ -171,7 +179,6 @@ export const updateHabit = async ({id, title, type, created_at, habitRecord, act
     }
     else {
         let countOperation = 0
-        console.log(habitRecord)
         let arrayToPush: any[] = []
         const {data: dataR} = await supabase.from('habits').select().eq('id', id)
         if(dataR){
@@ -195,13 +202,10 @@ export const updateHabit = async ({id, title, type, created_at, habitRecord, act
         }
         else if(actionType === "delete" && arrayToPush.length > 0){
             if(dataR){
-                console.log("worked for delete")
-
                 habitRecord.forEach((el: {day: string, value: number}) => {
                     arrayToPush = arrayToPush.filter((item: {day: string, value: number}) => item.day !== el.day)        
                     countOperation -= el.value                
                 })
-                console.log(arrayToPush)
             }
         }
         const {data, error} = await supabase.from('habits')

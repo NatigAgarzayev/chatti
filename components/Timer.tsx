@@ -84,7 +84,6 @@ export default function Timer() {
 
     const handlePause = () => {
         setIsPaused(true)
-        // clearInterval(interval)
     }
 
     const DisplayTime = () => {
