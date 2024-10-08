@@ -1,13 +1,14 @@
 'use client'
 import moment from 'moment';
-import React, { useEffect, useRef, useState } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import resetBtn from "../public/images/reset.svg"
 import Image from 'next/image';
 import pauseIcon from "../public/images/pause-icon.svg"
 import playIcon from "../public/images/play-icon.svg"
 import editIcon from "../public/images/edit-icon.svg"
 import "moment-duration-format"
-import { motion } from "framer-motion"
+import {motion} from "framer-motion"
+
 export default function Timer() {
 
     const endSound = new Audio("/audio/notify.mp3")
@@ -105,7 +106,7 @@ export default function Timer() {
         >
             {
                 !isTimerOn ?
-                    <div className='flex gap-4 items-center dark:text-gray-200'>
+                    <div className='flex gap-0 md:gap-4 items-center dark:text-gray-200'>
                         <input onKeyDown={(event) => {
                             if (event.key === 'Enter' && isPaused && (values.val1 || values.val2 || values.val3)) {
                                 handlePlay()
@@ -120,7 +121,7 @@ export default function Timer() {
                             }
                         }
 
-                        } type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
+                        } type="text" maxLength={2} className='text-4xl md:text-[96px] text-center bg-transparent w-[64px] md:w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
                         <div className='text-[48px]'>:</div>
                         <input onKeyDown={(event) => {
                             if (event.key === 'Enter' && isPaused && (values.val1 || values.val2 || values.val3)) {
@@ -135,8 +136,8 @@ export default function Timer() {
                             if (e.target.value.length === 2) {
                                 valRef3.current?.focus()
                             }
-                        }} type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
-                        <div className='text-[48px]'>:</div>
+                        }} type="text" maxLength={2} className='text-4xl md:text-[96px] text-center bg-transparent w-[64px] md:w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
+                        <div className='text-[48px] flex align-baseline'>:</div>
                         <input onKeyDown={(event) => {
                             console.log(event.key)
                             if (event.key === 'Enter' && isPaused && (values.val1 || values.val2 || values.val3)) {
@@ -147,10 +148,10 @@ export default function Timer() {
                             }
                         }} ref={valRef3} value={values.val3} onChange={(e) => {
                             setValues(prev => ({ ...prev, val3: e.target.value.replace(/[^0-9]/g, '') }))
-                        }} type="text" maxLength={2} className='text-[96px] text-center bg-transparent w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
+                        }} type="text" maxLength={2} className='text-4xl md:text-[96px] text-center bg-transparent w-[64px] md:w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
                     </div>
                     :
-                    <div className='text-[96px] text-gray-700 dark:text-gray-200'>
+                    <div className='text-4xl md:text-[96px] text-gray-700 dark:text-gray-200'>
                         <DisplayTime />
                     </div>
             }

@@ -1,11 +1,11 @@
 'use client'
 import moment from 'moment';
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import resetBtn from "../public/images/reset.svg"
 import Image from 'next/image';
 import pauseIcon from "../public/images/pause-icon.svg"
 import playIcon from "../public/images/play-icon.svg"
-import { motion } from "framer-motion"
+import {motion} from "framer-motion"
 
 export default function Stopwatch() {
 
@@ -55,7 +55,7 @@ export default function Stopwatch() {
                 ease: [0, 0.71, 0.2, 1.01]
             }}
         >
-            <div className='text-[96px] text-center text-gray-700 dark:text-gray-200'>
+            <div className='text-4xl md:text-[96px] text-center text-gray-700 dark:text-gray-200'>
                 {
                     <DisplayTime />
                 }
