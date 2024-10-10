@@ -1,8 +1,6 @@
 'use client'
 import React, {useEffect} from 'react'
 import HabitInterface from './HabitInterface'
-import CreateHabit from './CreateHabit'
-import SubmitCreateHabit from './SubmitCreateHabit'
 import {Habit} from '@/types'
 import {useHabit, useStore} from '@/store/store'
 import StatisticModal from './StatisticModal'
@@ -27,7 +25,7 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
     }, [habitsAll])
 
     return (
-        <ul className='flex flex-wrap'>
+        <ul className='flex flex-wrap w-full'>
             {
                 habits.length > 0 ? habits
                     ?.sort((a: { id: number }, b: { id: number }) => a.id < b.id ? -1 : 1)
@@ -38,12 +36,6 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
                     <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 dark:border-gray-200 dark:text-gray-200 rounded-3xl'>
                         Let's create a new habit!
                     </div>
-            }
-            {
-                habits.length < (user?.publicMetadata.paid ? 10 : 5) &&
-                <CreateHabit>
-                    <SubmitCreateHabit />
-                </CreateHabit>
             }
             {
                 statisticModal &&
