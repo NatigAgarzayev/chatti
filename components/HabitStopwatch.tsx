@@ -1,17 +1,16 @@
 'use client'
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
+import {Popover, PopoverButton, PopoverPanel} from '@headlessui/react'
 import moment from 'moment'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import Moment from 'react-moment'
 import menuIcon from "../public/images/menu.svg"
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 import deleteIcon from "../public/images/delete.svg"
 import statIcon from "../public/images/chart.svg"
-import { resetTimerHabit } from '@/api/habitClient'
+import {resetTimerHabit} from '@/api/habitClient'
 import resetIcon from "../public/images/reset.svg"
-import { useRouter } from 'next/navigation'
-import { useHabit, useStore } from '@/store/store'
+import {useHabit, useStore} from '@/store/store'
 import editIcon from "../public/images/edit-icon.svg"
 
 
@@ -52,7 +51,7 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
     const resetFromDb = async () => {
         setLoading(true)
         const res = await resetTimerHabit({ id: id })
-        console.log(res)
+        console.log('resetted = ', res)
 
         const newHabitArr = [...habits]
         const index = newHabitArr.findIndex(habit => habit.id === id)

@@ -1,12 +1,13 @@
 'use client'
-import { getUserHabitById, updateHabit } from '@/api/habitClient'
-import { useHabit, useStore } from '@/store/store'
-import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
-import { motion } from 'framer-motion'
+import {getUserHabitById, updateHabit} from '@/api/habitClient'
+import {useHabit, useStore} from '@/store/store'
+import {Dialog, DialogPanel, DialogTitle} from '@headlessui/react'
+import {motion} from 'framer-motion'
 import moment from 'moment'
-import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
-import { Habit } from '../types/index'
+import {useRouter} from 'next/navigation'
+import {useEffect, useRef, useState} from 'react'
+import {Habit} from "@/types"
+
 export default function EditHabit() {
 
     const router = useRouter()
@@ -22,12 +23,13 @@ export default function EditHabit() {
     const [habitType, setHabitType] = useState<string>("")
     const [habitInfo, setHabitInfo] = useState<Habit>( {
         id: 0,
-        title: "Undesfined",
+        title: "Undefined",
         created_at: "No time",
         author_id: "None",
         count: 0,
         type: "timer",
-        records: []
+        records: [],
+        streak: 0,
     })
     const [radioValue, setRadioValue] = useState<string>("delete")
 

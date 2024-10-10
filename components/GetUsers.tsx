@@ -1,15 +1,15 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import HabitInterface from './HabitInterface'
 import CreateHabit from './CreateHabit'
 import SubmitCreateHabit from './SubmitCreateHabit'
-import { Habit } from '@/types'
-import { useHabit, useStore } from '@/store/store'
+import {Habit} from '@/types'
+import {useHabit, useStore} from '@/store/store'
 import StatisticModal from './StatisticModal'
 import ConfirmDeleteHabit from './ConfirmDeleteHabit'
 import EditHabit from './EditHabit'
 import ConfirmNotToday from './ConfirmNotToday'
-import { useUser } from '@clerk/nextjs'
+import {useUser} from '@clerk/nextjs'
 
 export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
 
@@ -47,7 +47,7 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
             }
             {
                 statisticModal &&
-                <StatisticModal data={habits.filter((item: Habit) => item.id === modalId)[0]} />
+                <StatisticModal dataId={habits.filter((item: Habit) => item.id === modalId)[0].id} />
             }
             {
                 confirmDeleteHabitModal &&

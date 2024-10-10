@@ -5,8 +5,8 @@ export interface Habit {
     author_id: string
     count: number
     type: string
-    records: NivoDataset[],
-    streak?: number
+    records: NivoDataset[]
+    streak: number
 }
 
 export interface Store {

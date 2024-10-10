@@ -1,7 +1,7 @@
 'use client'
-import { NivoDataset } from '@/types'
-import { ResponsiveCalendar } from '@nivo/calendar'
-import React, { useEffect, useState } from 'react'
+import {ResponsiveCalendar} from '@nivo/calendar'
+import React, {useEffect, useState} from 'react'
+import {NivoDataset} from "@/types";
 
 export default function NivoResponsiveCalendar({ data }: { data: NivoDataset[] }) {
 

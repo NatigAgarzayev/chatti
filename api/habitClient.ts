@@ -141,27 +141,36 @@ export const getUserHabitById = async ({id}: {id: number}) => {
 
 export const resetTimerHabit = async ({ id }: { id: number }) => {
     const supabase = createClient()
-    const { data, error } = await supabase.from('habits').update({ created_at: moment().format()}).eq('id', id).select()
+    let saveCreatedAt
+    const {data: timeCreated} = await supabase.from('habits').select('created_at').eq('id', id)
+    const { data } = await supabase.from('habits').update({ created_at: moment().format()}).eq('id', id).select()
     let maxStreak = 0
     if(data && data[0].records.length >= 2){
         //adding streak: calculating the difference between last to records and identifying a maximum streak value
         const habitRecords = [...data[0].records]
         const lastTime = momentReal(habitRecords.pop().day.split('-').map((item: string) => +item))
         const secondLastTime = momentReal(habitRecords.pop().day.split('-').map((item: string) => +item))
-        console.log(lastTime, secondLastTime)
         const result = lastTime.diff(secondLastTime, 'days')
-        console.log("res=", result)
         maxStreak = Math.max(result, data[0].streak)
         const {} = await supabase.from('habits').update({streak: maxStreak || 0}).eq('id', id)
     }
-    // const { data, error } = await supabase.from('habits').update({ created_at: moment().format(), streak: maxStreak || 0 }).eq('id', id).select()
     const timezone = getUserTimezone()
     const timer = moment().format()
     const offeredTime = moment.tz(timer, timezone).format('YYYY-MM-DD')
     if (data) {
+        saveCreatedAt = data[0].created_at
         await handleArrayOfObjects(data[0].records, id, offeredTime, data[0].count, 1)
     }
-    return data
+    const { data: dataR } = await supabase.from('habits').select('*').eq('id', id)
+    //Also implement logic for data[0].records.length === 1
+    if(dataR && timeCreated && dataR[0].records.length === 1){
+        const habitRecords = [...dataR[0].records]
+        const singleRecord = momentReal(habitRecords.pop().day.split('-').map((item: string) => +item))
+        const result = singleRecord.diff(momentReal(timeCreated[0].created_at).format('YYYY-MM-DD').split('-').map((item: string) => +item), 'days')
+        maxStreak = Math.max(result, dataR[0].streak)
+        const {} = await supabase.from('habits').update({streak: maxStreak || 0}).eq('id', id)
+    }
+    return dataR
 }
 
 export const updateHabit = async ({id, title, type, created_at, habitRecord, actionType, addCount}: {id:number, title: string, type: string, created_at: string, habitRecord: Array<any>, actionType: string, addCount: number}) => {
