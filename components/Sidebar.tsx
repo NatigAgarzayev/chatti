@@ -17,6 +17,7 @@ import {loadStripe} from '@stripe/stripe-js'
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
     const [rdrct, setRdrct] = useState(false)
+    const [proPopover, setProPopover] = useState(false)
     const [faze, setFaze] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('faze') || "long"
@@ -119,7 +120,26 @@ export default function Sidebar() {
             {
                 user?.publicMetadata.paid ? null : (
                     <div>
-                        <button onClick={stripeHandler} className={clsx('w-[90%] flex justify-center gap-2 absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-amber-500 font-bold', faze === "short" && "w-[65%] p-[8px]")}>
+                        <div className={
+                            clsx(
+                                'transition-opacity absolute w-[80%] p-2 rounded-md bottom-36 bg-gray-300 left-1/2 -translate-x-1/2',
+                                faze === 'long' && proPopover ? 'opacity-1' : 'opacity-0',
+                            )
+                        }>
+                            <p className='text-sm'>You will get in Chatti Pro:</p>
+                            <ul className='text-sm list-disc ml-8'>
+                                <li>15 habit slots (+10)</li>
+                            </ul>
+                            <div className=" absolute
+                              left-1/2 -translate-x-1/2
+                              -bottom-4 w-0 h-0
+                              border-l-[12px] border-l-transparent
+                              border-t-[16px] border-t-gray-300
+                              border-r-[12px] border-r-transparent">
+                            </div>
+                        </div>
+                        <button onMouseEnter={() => setProPopover(true)} onMouseLeave={() => setProPopover(false)}
+                                onClick={stripeHandler} className={clsx('w-[90%] flex justify-center gap-2 absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-amber-500 font-bold', faze === "short" && "w-[65%] p-[8px]")}>
                             <Image src={crownIcon} width={22} height={22} alt='crown'/>
                             <p className={clsx(faze === "short" && "hidden")}>
                                 {rdrct && faze === "long" ? "Redirecting.." : "Get Chatti PRO"}
