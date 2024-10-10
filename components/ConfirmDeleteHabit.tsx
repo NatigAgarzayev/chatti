@@ -1,14 +1,15 @@
 'use client'
-import { deleteHabit } from '@/api/habitClient'
-import { useHabit, useStore } from '@/store/store'
-import { Habit } from '@/types'
-import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
-import { motion } from 'framer-motion'
-import React, { useState } from 'react'
+import {deleteHabit} from '@/api/habitClient'
+import {useHabit, useStore} from '@/store/store'
+import {Habit} from '@/types'
+import {Dialog, DialogPanel, DialogTitle} from '@headlessui/react'
+import {motion} from 'framer-motion'
+import React, {useState} from 'react'
+import {useRouter} from "next/navigation";
 
 export default function ConfirmDeleteHabit() {
 
-
+    const router = useRouter()
     const [loadingDelete, setLoadingDelete] = useState(false)
 
     const confirmDeleteModal = useStore(state => state.confirmDeleteHabitModal)
@@ -26,7 +27,7 @@ export default function ConfirmDeleteHabit() {
         newHabitArr = newHabitArr.filter((item: Habit) => item.id !== habitId)
 
         updateHabits(newHabitArr)
-        
+        router.refresh()
         setLoadingDelete(false)
         updateConfirmDeleteModal(false)
     }

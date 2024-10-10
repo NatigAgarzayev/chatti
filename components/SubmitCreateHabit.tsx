@@ -1,10 +1,10 @@
 'use client'
-import { createUserHabit } from '@/api/habitClient'
-import { useHabit, useStore } from '@/store/store'
-import { useAuth } from '@clerk/nextjs'
+import {createUserHabit} from '@/api/habitClient'
+import {useHabit, useStore} from '@/store/store'
+import {useAuth} from '@clerk/nextjs'
 import moment from 'moment'
-import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import {useRouter} from 'next/navigation'
+import React, {useState} from 'react'
 
 export const getUserTimezone = () => {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -12,6 +12,7 @@ export const getUserTimezone = () => {
 
 
 export default function SubmitCreateHabit() {
+
     const updateCreateModal = useStore(state => state.updateCreateModal)
     const habitLoading = useStore(state => state.habitLoading)
     const updateHabitLoading = useStore(state => state.updateHabitLoading)
@@ -40,6 +41,7 @@ export default function SubmitCreateHabit() {
         if(res){
             const newHabitArr = [...habits, res[0]]
             updateHabits(newHabitArr)
+            router.refresh()
         }
         updateHabitLoading(false)
         updateCreateModal(false)
