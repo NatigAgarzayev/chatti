@@ -51,11 +51,11 @@ export default function StatisticModal({ dataId }: { dataId: number }) {
                 >
                     <DialogPanel className="space-y-4 border bg-white p-6 rounded-3xl dark:bg-gray-800">
                         <DialogTitle className="font-bold dark:text-gray-100">
-                            Analytics of {stat?.title}
+                            Analytics of {stat?.title + ' '}
                             ({stat?.type === 'timer' ?
-                            (noRecords ?  <>max streak: <Moment diff={stat?.created_at} unit="days"/> days </>
+                            (noRecords ? <> Streak: <Moment diff={stat?.created_at} unit="days"/> days </>
 
-                                    : 'max streak2: ' + Math.max(stat?.streak, moment().diff(stat?.created_at, 'days')) + ' days')
+                                    : 'Streak: ' + Math.max(stat?.streak, moment().diff(stat?.created_at, 'days')) + ' days')
                             :
                             'count: ' + stat?.count})
                         </DialogTitle>
