@@ -7,6 +7,7 @@ import {Habit} from '@/types'
 import {motion} from 'framer-motion'
 import Moment from "react-moment";
 import {getUserHabitById} from "@/api/habitClient";
+import moment from "moment";
 
 
 export default function StatisticModal({ dataId }: { dataId: number }) {
@@ -54,7 +55,7 @@ export default function StatisticModal({ dataId }: { dataId: number }) {
                             ({stat?.type === 'timer' ?
                             (noRecords ?  <>max streak: <Moment diff={stat?.created_at} unit="days"/> days </>
 
-                                    : 'max streak2: ' + stat?.streak + ' days')
+                                    : 'max streak2: ' + Math.max(stat?.streak, moment().diff(stat?.created_at, 'days')) + ' days')
                             :
                             'count: ' + stat?.count})
                         </DialogTitle>
