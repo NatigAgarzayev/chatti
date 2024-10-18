@@ -7,6 +7,7 @@ export interface Habit {
     type: string
     records: NivoDataset[]
     streak: number
+    pinned?: boolean
 }
 
 export interface Store {

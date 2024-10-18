@@ -81,7 +81,7 @@ export default function EditHabit() {
             newHabitArr[index] = res[0]
             updateHabits(newHabitArr)
         }
-
+        router.refresh()
         setEditHabitLoading(false);
         updateEditHabit(false);
     };

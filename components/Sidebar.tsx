@@ -129,6 +129,7 @@ export default function Sidebar() {
                             <p className='text-sm'>You will get in Chatti Pro:</p>
                             <ul className='text-sm list-disc ml-8'>
                                 <li>15 habit slots (+10)</li>
+                                <li>pin habits (no limits)</li>
                             </ul>
                             <div className=" absolute
                               left-1/2 -translate-x-1/2

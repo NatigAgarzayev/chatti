@@ -252,3 +252,9 @@ export const confirmNotToday = async ({id, created_at, addCount}: {id: number, c
         .select()
     return data
 }
+
+export const handlePinnedCondition = async ({id, pinned}: {id: number, pinned: boolean}) => {
+    const supabase = createClient()
+    const {data, error} = await supabase.from('habits').update({pinned: pinned}).eq('id', id).select()
+    return data
+}

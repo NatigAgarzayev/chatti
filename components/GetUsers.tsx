@@ -27,15 +27,15 @@ export default function GetUsers({ habitsAll }: { habitsAll: Array<Habit> }) {
     return (
         <ul className='flex flex-wrap w-full'>
             {
-                habits.length > 0 ? habits
-                    ?.sort((a: { id: number }, b: { id: number }) => a.id < b.id ? -1 : 1)
-                    ?.map((item: Habit) => (
-                        <HabitInterface key={item.id} data={item} />
-                    ))
-                    :
-                    <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 dark:border-gray-200 dark:text-gray-200 rounded-3xl'>
-                        Let's create a new habit!
-                    </div>
+                habits.length > 0 ? (
+                        habits
+                            .sort((a: Habit, b: Habit) => a.pinned === b.pinned ? a.id - b.id : a.pinned ? -1 : 1)
+                            .map((item: Habit) => <HabitInterface key={item.id} data={item} />)
+                    ) : (
+                        <div className='relative text-center w-60 h-fit m-6 p-4 border-2 border-gray-700 dark:border-gray-200 dark:text-gray-200 rounded-3xl'>
+                            Let's create a new habit!
+                        </div>
+                    )
             }
             {
                 statisticModal &&
