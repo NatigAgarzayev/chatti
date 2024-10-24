@@ -1,19 +1,19 @@
 'use client'
-import { decreaseHabitCount, increaseHabitCount } from '@/api/habitClient'
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
+import {decreaseHabitCount, increaseHabitCount} from '@/api/habitClient'
+import {Popover, PopoverButton, PopoverPanel} from '@headlessui/react'
 import moment from 'moment'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import React, { FormEvent, useEffect, useState } from 'react'
+import {useRouter} from 'next/navigation'
+import React, {FormEvent, useEffect, useState} from 'react'
 import menuIcon from "../public/images/menu.svg"
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 import deleteIcon from "../public/images/delete.svg"
 import undoIcon from "../public/images/undo.svg"
-import { useHabit, useStore } from '@/store/store'
+import {useHabit, useStore} from '@/store/store'
 import statIcon from "../public/images/chart.svg"
 import editIcon from "../public/images/edit-icon.svg"
 import notTodayIcon from "../public/images/nottoday.svg"
-import { Habit } from '@/types'
+import {Habit} from '@/types'
 
 export default function HabitController({ visible, id, count }: { visible: boolean, id: number, count: number }) {
 
@@ -62,7 +62,7 @@ export default function HabitController({ visible, id, count }: { visible: boole
         newHabitArr[index].count = count - 1
         updateHabits(newHabitArr)
         
-        await decreaseHabitCount({ id: id, count: count, time: moment().format() })
+        await decreaseHabitCount({ id: id, count: count})
         router.refresh()
         setLoading(false)
     }
