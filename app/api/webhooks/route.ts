@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       if (userId) {
         await clerkClient.users.updateUserMetadata(userId, {
           publicMetadata: {
-            paid: true, 
+            paid: true,
             paymentId: session.id,
           },
         })

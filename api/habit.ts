@@ -3,7 +3,7 @@ import {createClient} from "@/utils/supabase/server"
 export const createUserHabit = async ({ title, user }: { title: string, user: string }) => {
     const supabase = createClient()
 
-    const { data } = await supabase
+    const {} = await supabase
         .from('habits')
         .insert([
             {

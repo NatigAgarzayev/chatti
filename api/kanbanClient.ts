@@ -3,7 +3,7 @@ import { createClient } from "@/utils/supabase/client"
 export const getUserKanban = async ({ id }: { id: string }) => {
     const supabase = createClient()
     
-    const { data: kanban, error } = await supabase
+    const { data: kanban } = await supabase
         .from('kanban')
         .select("*")
         .eq('author_id', id)
@@ -13,7 +13,7 @@ export const getUserKanban = async ({ id }: { id: string }) => {
 export const createTask = async (task: string, author_id: string) => {
     const supabase = createClient()
 
-    const { data, error } = await supabase
+    const {} = await supabase
         .from('kanban')
         .insert([
             {
@@ -26,13 +26,13 @@ export const createTask = async (task: string, author_id: string) => {
 
 export const deleteTask = async (id: number) => {
     const supabase = createClient()
-    const { error } = await supabase.from('kanban').delete().eq('id', id)
+    const {} = await supabase.from('kanban').delete().eq('id', id)
 }
 
 export const updateTaskProgress = async (id: number, progress: number) => {
     const supabase = createClient()
 
-    const { error } = await supabase
+    const {} = await supabase
         .from('kanban')
         .update({
             progress: progress,
@@ -43,7 +43,7 @@ export const updateTaskProgress = async (id: number, progress: number) => {
 export const getQuillContent = async (id: number) => {
     const supabase = createClient()
 
-    const { data, error } = await supabase
+    const { data } = await supabase
         .from("kanban")
         .select("*")
         .eq("id", id)
@@ -55,7 +55,7 @@ export const getQuillContent = async (id: number) => {
 
 export const updateQuillContent = async (id: number, content: string) => {
     const supabase = createClient()
-    const { error } = await supabase
+    const {} = await supabase
         .from('kanban')
         .update({
             content: content,
