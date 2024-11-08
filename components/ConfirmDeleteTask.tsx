@@ -2,6 +2,7 @@
 import { deleteTask } from '@/api/kanbanClient'
 import { useStore } from '@/store/store'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -14,12 +15,17 @@ export default function ConfirmDeleteTask() {
 
     const confirmDeleteModal = useStore(state => state.confirmDeleteTaskModal)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteTaskModal)
+    const mutation = useMutation({
+        mutationFn: async (id: number) => {
+            await deleteTask(id)
+        }
+    })
 
     const taskId = useStore(state => state.modalId)
 
     const deleteHandler = async () => {
         setLoadingDelete(true)
-        await deleteTask(taskId)
+        mutation.mutate(taskId)
         setLoadingDelete(false)
         updateConfirmDeleteModal(false)
         router.refresh()

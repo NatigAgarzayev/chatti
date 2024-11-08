@@ -2,6 +2,7 @@ import {ClerkProvider} from "@clerk/nextjs"
 import "./globals.css"
 import {Montserrat} from "next/font/google"
 import NextTopLoader from "nextjs-toploader"
+import ClientQueryProvider from "@/utils/providers/ClientQueryProvider"
 
 const montserrat = Montserrat({
   weight: '400',
@@ -26,12 +27,14 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={montserrat.className}>
-        <body className=" text-foreground">
-          <NextTopLoader color="rgb(129 140 248)" />
-          {children}
-        </body>
-      </html>
+      <ClientQueryProvider>
+        <html lang="en" className={montserrat.className}>
+          <body className=" text-foreground">
+            <NextTopLoader color="rgb(129 140 248)" />
+            {children}
+          </body>
+        </html>
+      </ClientQueryProvider>
     </ClerkProvider>
   );
 }

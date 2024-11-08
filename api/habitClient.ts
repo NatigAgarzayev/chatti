@@ -119,8 +119,6 @@ export const getUserHabits = async ({ id }: { id: string }) => {
         .eq('author_id', id)
         .select()
     
-    console.log("data == ", data)
-
     return data
 }
 

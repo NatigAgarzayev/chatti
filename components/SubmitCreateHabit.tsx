@@ -2,9 +2,11 @@
 import {createUserHabit} from '@/api/habitClient'
 import {useHabit, useStore} from '@/store/store'
 import {useAuth} from '@clerk/nextjs'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
 import {useRouter} from 'next/navigation'
 import React, {useState} from 'react'
+import Moment from 'react-moment'
 
 export const getUserTimezone = () => {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -20,7 +22,28 @@ export default function SubmitCreateHabit() {
     const updateHabits = useHabit((state) => state.updateHabits)
     const [radioValue, setRadioValue] = useState("count")
     const { userId } = useAuth()
-    const router = useRouter()
+    const queryClient = useQueryClient()
+
+    const mutation = useMutation({
+        mutationFn: async ({ title, user, type, count, timer, timezone }: {title: string, user: string, type: string, count: number, timer?: Moment | FormDataEntryValue, timezone: string }) => {
+            const res = await createUserHabit({
+                title,
+                user,
+                type,
+                count,
+                timer,
+                timezone,
+            })
+            return res
+        },
+        onSuccess: (res) => {
+            if(res){
+                const newHabitArr = [...habits, res[0]]
+                updateHabits(newHabitArr)
+            }
+            queryClient.invalidateQueries({ queryKey: ['habits'] })
+        }
+    })
 
     const createHabit = async (formData: FormData) => {
         const { habit, type, count, timer } = Object.fromEntries(formData)
@@ -30,7 +53,7 @@ export default function SubmitCreateHabit() {
         }
         updateHabitLoading(true)
         const timezoneDefine = getUserTimezone()
-        const res = await createUserHabit({ 
+        mutation.mutate({ 
             title: habit + "", 
             user: userId + "",
             type: type + "", 
@@ -38,11 +61,6 @@ export default function SubmitCreateHabit() {
             timer: timer === "" ? moment().format() + "" : timer, 
             timezone: timezoneDefine 
         })
-        if(res){
-            const newHabitArr = [...habits, res[0]]
-            updateHabits(newHabitArr)
-            router.refresh()
-        }
         updateHabitLoading(false)
         updateCreateModal(false)
     }
@@ -74,4 +92,5 @@ export default function SubmitCreateHabit() {
             </div>
         </form>
     )
+
 }

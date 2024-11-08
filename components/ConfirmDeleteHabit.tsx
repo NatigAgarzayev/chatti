@@ -6,6 +6,7 @@ import {Dialog, DialogPanel, DialogTitle} from '@headlessui/react'
 import {motion} from 'framer-motion'
 import React, {useState} from 'react'
 import {useRouter} from "next/navigation";
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export default function ConfirmDeleteHabit() {
 
@@ -19,9 +20,20 @@ export default function ConfirmDeleteHabit() {
 
     const habitId = useStore(state => state.modalId)
 
+    const queryClient = useQueryClient()
+
+    const mutation = useMutation({
+        mutationFn: async (id: number) => {
+            await deleteHabit({ id: id })
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['habits'] })
+        }
+    })
+
     const deleteHandler = async () => {
         setLoadingDelete(true)
-        await deleteHabit({ id: habitId })
+        mutation.mutate(habitId)
 
         let newHabitArr = [...habits]
         newHabitArr = newHabitArr.filter((item: Habit) => item.id !== habitId)
