@@ -3,6 +3,7 @@ import { createTask } from '@/api/kanbanClient'
 import { useStore } from '@/store/store'
 import { useAuth } from '@clerk/nextjs'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -19,15 +20,25 @@ export default function CreateTask() {
     const [quillText, setQuillText] = useState('')
     const router = useRouter()
 
+    const queryClient = useQueryClient()
+
+    const mutation = useMutation({
+        mutationFn: async (text: string) => {
+            await createTask(text, userId + "")
+        },
+        onSuccess:() => {
+            queryClient.invalidateQueries({ queryKey: ['tasks'] })
+        }
+    })
+
     const createTaskHandler = async () => {
         if (quillText.toString().trim() === "") {
             alert("Fill required input")
             return
         }
         updateTaskLoading(true)
-        await createTask(quillText + '', userId + "")
+        mutation.mutate(quillText.toString())
         setQuillText('')
-        router.refresh()
         updateTaskLoading(false)
         updateTaskModal(false)
     }

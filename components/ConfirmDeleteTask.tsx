@@ -12,12 +12,16 @@ export default function ConfirmDeleteTask() {
     const router = useRouter()
 
     const [loadingDelete, setLoadingDelete] = useState(false)
+    const queryClient = useQueryClient()
 
     const confirmDeleteModal = useStore(state => state.confirmDeleteTaskModal)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteTaskModal)
     const mutation = useMutation({
         mutationFn: async (id: number) => {
             await deleteTask(id)
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['tasks'] })
         }
     })
 
@@ -28,7 +32,6 @@ export default function ConfirmDeleteTask() {
         mutation.mutate(taskId)
         setLoadingDelete(false)
         updateConfirmDeleteModal(false)
-        router.refresh()
     }
 
     return (
