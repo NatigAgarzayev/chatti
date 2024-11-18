@@ -6,7 +6,7 @@ import { getUserKanban } from '@/api/kanbanClient'
 
 export default function Tasks({user}: {user: any}) {
 
-    const {data:kanbanData, isLoading: kanbanLoading} = useQuery({
+    const {data: kanbanData, isLoading: kanbanLoading} = useQuery({
         queryKey: ['tasks'],
         queryFn: async () => {
             const res = await getUserKanban({ id: user.id })

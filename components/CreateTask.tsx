@@ -18,8 +18,6 @@ export default function CreateTask() {
     const createTaskLoading = useStore(state => state.createTaskLoading)
     const updateTaskLoading = useStore(state => state.updateTaskLoading)
     const [quillText, setQuillText] = useState('')
-    const router = useRouter()
-
     const queryClient = useQueryClient()
 
     const mutation = useMutation({

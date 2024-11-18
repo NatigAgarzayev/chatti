@@ -1,17 +1,12 @@
 'use client'
 import {deleteHabit} from '@/api/habitClient'
 import {useHabit, useStore} from '@/store/store'
-import {Habit} from '@/types'
 import {Dialog, DialogPanel, DialogTitle} from '@headlessui/react'
 import {motion} from 'framer-motion'
-import React, {useState} from 'react'
-import {useRouter} from "next/navigation";
+import React from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export default function ConfirmDeleteHabit() {
-
-    const router = useRouter()
-    const [loadingDelete, setLoadingDelete] = useState(false)
 
     const confirmDeleteModal = useStore(state => state.confirmDeleteHabitModal)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteHabitModal)
@@ -32,15 +27,13 @@ export default function ConfirmDeleteHabit() {
     })
 
     const deleteHandler = async () => {
-        setLoadingDelete(true)
         mutation.mutate(habitId)
 
-        let newHabitArr = [...habits]
-        newHabitArr = newHabitArr.filter((item: Habit) => item.id !== habitId)
+        // let newHabitArr = [...habits]
+        // newHabitArr = newHabitArr.filter((item: Habit) => item.id !== habitId)
 
-        updateHabits(newHabitArr)
-        router.refresh()
-        setLoadingDelete(false)
+        // updateHabits(newHabitArr)
+        // router.refresh()
         updateConfirmDeleteModal(false)
     }
 
@@ -59,7 +52,7 @@ export default function ConfirmDeleteHabit() {
                     <DialogPanel className="w-[340px] space-y-4 border bg-white dark:bg-gray-800 dark:border-gray-400 p-6 rounded-3xl text-center">
                         <DialogTitle className="font-bold text-xl dark:text-white">Delete?</DialogTitle>
                         <form className="flex gap-6 justify-center">
-                            <button disabled={loadingDelete} onClick={deleteHandler} className='px-4 py-2 bg-red-600 text-white font-bold rounded-3xl disabled:bg-red-300' >{loadingDelete ? "Processing..." : "Delete"}</button>
+                            <button disabled={mutation.isPending} onClick={deleteHandler} className='px-4 py-2 bg-red-600 text-white font-bold rounded-3xl disabled:bg-red-300' >{mutation.isPending ? "Processing..." : "Delete"}</button>
                             <button className='font-bold dark:text-white' onClick={() => updateConfirmDeleteModal(false)}>Cancel</button>
                         </form>
                     </DialogPanel>
