@@ -70,7 +70,7 @@ export default function HabitStopwatch({ visible, id, timer }: { visible: boolea
 
     return (
         <>
-            <div className='h-10 flex items-center justify-center text-xl dark:text-white'>
+            <div className='h-10 flex items-center justify-center text-xl dark:text-white timer-tabular font-bold'>
                 <Moment duration={timer} date={now} format="HH : mm : ss" />
             </div>
             {

@@ -150,7 +150,7 @@ export default function Timer() {
                         }} type="text" maxLength={2} className='text-4xl md:text-[96px] text-center bg-transparent w-[64px] md:w-[125px] outline-none text-gray-700 dark:text-gray-200' placeholder='00' />
                     </div>
                     :
-                    <div className='text-4xl xl:text-[96px] text-gray-700 dark:text-gray-200'>
+                    <div className='text-4xl xl:text-[96px] text-gray-700 dark:text-gray-200 timer-tabular'>
                         <DisplayTime />
                     </div>
             }

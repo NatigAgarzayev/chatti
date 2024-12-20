@@ -55,7 +55,7 @@ export default function Stopwatch() {
                 ease: [0, 0.71, 0.2, 1.01]
             }}
         >
-            <div className='text-4xl xl:text-[96px] text-center text-gray-700 dark:text-gray-200'>
+            <div className='leading-none text-4xl xl:text-[96px] text-center text-gray-700 dark:text-gray-200 timer-tabular'>
                 {
                     <DisplayTime />
                 }

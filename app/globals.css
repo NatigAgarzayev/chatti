@@ -66,5 +66,7 @@
   border-radius: 12px !important;
 }
 
-
-
+/* TAbular for the timers */
+.timer-tabular {
+  font-feature-settings: "tnum"; /* Enable tabular numbers */
+}
