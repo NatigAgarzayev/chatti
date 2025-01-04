@@ -70,3 +70,23 @@
 .timer-tabular {
   font-feature-settings: "tnum"; /* Enable tabular numbers */
 }
+
+
+.border-animate-pulse-red {
+  animation: border-pulse-red 2s 5;
+}
+
+.border-animate-pulse-orange {
+  animation: border-pulse-orange 2s 5;
+}
+
+@keyframes border-pulse-red {
+  50% { border-color: #ef4444; }
+  0%, 100% { border-color: #e5e7eb; }
+}
+
+@keyframes border-pulse-orange {
+  50% { border-color: #f97316; }
+  0%, 100% { border-color: #e5e7eb; }
+}
+

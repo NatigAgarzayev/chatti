@@ -13,11 +13,13 @@ import copyIcon from "../public/images/copy.svg"
 
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { motion } from 'framer-motion';
+import moment from 'moment';
+import clsx from 'clsx';
 
 export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: number }) {
 
     const [visible, setVisible] = useState(false)
-
+    console.log(cardInfo)
     const updateConfirmDeleteTaskModal = useStore(state => state.updateConfirmDeleteTaskModal)
     const updateModalId = useStore(state => state.updateModalId)
     const updateEditTask = useStore(state => state.updateEditTask)
@@ -41,6 +43,8 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
         setVisible(false)
     }
 
+    console.log(moment(cardInfo.deadline).diff(moment(), 'hours'))
+
     return (
         <Draggable
             draggableId={cardInfo.id.toString()}
@@ -49,8 +53,26 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
 
             {
                 (provided: any) => (
-
-                    <div onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)} className='relative flex-1 rounded-3xl mb-4 p-4 bg-indigo-200 dark:bg-gray-300' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} draggable={true}>
+                    <div
+                        onMouseEnter={() => setVisible(true)}
+                        onMouseLeave={() => setVisible(false)}
+                        className={clsx(
+                            'relative flex-1 rounded-3xl mb-4 p-4 pb-6 bg-indigo-200 dark:bg-gray-300 border-2',
+                            cardInfo.deadline && moment().isBefore(cardInfo.deadline) && cardInfo.progress !== 3 && moment(cardInfo.deadline).diff(moment(), 'hours') < 24 && moment(cardInfo.deadline).diff(moment(), 'hours') >= 1 && 'border-animate-pulse-orange',
+                            cardInfo.deadline && moment().isBefore(cardInfo.deadline) && cardInfo.progress !== 3 && moment(cardInfo.deadline).diff(moment(), 'hours') < 1 && 'border-animate-pulse-red',
+                        )}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                        draggable={true}
+                    >
+                        <div className='absolute bottom-1 right-4 text-xs text-gray-500 dark:text-gray-100'>
+                            {cardInfo.deadline ?
+                                moment().isBefore(cardInfo.deadline) ?
+                                    `in ${moment(cardInfo.deadline).fromNow(true)}` :
+                                    `${moment(cardInfo.deadline).fromNow(true)} ago`
+                                : "No deadline"}
+                        </div>
                         <div className='flex relative justify-between'>
                             <div className={`${classes.formattedText} flex-95`}>{htmlToReactParser.parse(cardInfo?.content)}</div>
                             {
@@ -91,7 +113,7 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
                     </div>
                 )
             }
-        </Draggable>
+        </Draggable >
 
     )
 }

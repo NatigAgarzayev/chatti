@@ -76,5 +76,3 @@ export default function StatisticModal({ dataId }: { dataId: number }) {
         </Dialog>
     )
 }
-// : oneRecord ?
-// (<>max streak(1): <Moment diff={data.created_at} to={moment(data.records[0].day, 'YYYY-MM-DD')} unit="days"/> days </>)

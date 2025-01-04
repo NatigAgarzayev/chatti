@@ -21,21 +21,22 @@ export default function CreateTask() {
     const queryClient = useQueryClient()
 
     const mutation = useMutation({
-        mutationFn: async (text: string) => {
-            await createTask(text, userId + "")
+        mutationFn: async ({ text, deadline }: { text: string, deadline: string }) => {
+            await createTask({ task: text, deadline: deadline, author_id: userId + "" })
         },
-        onSuccess:() => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['tasks'] })
         }
     })
 
-    const createTaskHandler = async () => {
+    const createTaskHandler = async (formData: FormData) => {
+        const deadline = formData.get('deadline') as string
         if (quillText.toString().trim() === "") {
             alert("Fill required input")
             return
         }
         updateTaskLoading(true)
-        mutation.mutate(quillText.toString())
+        mutation.mutate({ text: quillText.toString(), deadline: deadline })
         setQuillText('')
         updateTaskLoading(false)
         updateTaskModal(false)
@@ -71,11 +72,12 @@ export default function CreateTask() {
                         ease: [0, 0.71, 0.2, 1.01]
                     }}
                 >
-                    <DialogPanel className="max-w-lg space-y-4 border bg-white dark:bg-gray-800 p-6 rounded-3xl w-[370px]">
+                    <DialogPanel className="max-w-lg space-y-4 border bg-white dark:bg-gray-800 p-6 rounded-3xl md:w-[570px] w-[370px]">
                         <DialogTitle className="text-gray-700 font-bold text-center text-xl dark:text-gray-100">Create Task</DialogTitle>
                         <form action={createTaskHandler} className='min-w-40 w-full flex flex-col gap-4'>
-                            {/* <textarea placeholder='Write smth' name="task" className='border-2 p-1 pl-3 py-2 outline-none border-gray-700 rounded-3xl'></textarea> */}
                             <ReactQuill className='text-black dark:text-white' theme="snow" value={quillText} onChange={setQuillText} modules={modules} formats={formats} />
+                            <p className='text-gray-700 dark:text-gray-100 font-bold'>Deadline</p>
+                            <input name='deadline' type="datetime-local" className='border-2 p-1 pl-3 py-2 outline-none border-gray-700 rounded-3xl' />
                             <button disabled={createTaskLoading} className='p-2 bg-indigo-400 text-gray-700 font-bold rounded-3xl dark:bg-gray-100 disabled:bg-indigo-200' type='submit'>{createTaskLoading ? "Process..." : "Create"}</button>
                         </form>
                     </DialogPanel>
