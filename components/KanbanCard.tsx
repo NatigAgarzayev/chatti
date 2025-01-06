@@ -66,7 +66,7 @@ export default function KanbanCard({ cardInfo, index }: { cardInfo: any, index: 
                         ref={provided.innerRef}
                         draggable={true}
                     >
-                        <div className='absolute bottom-1 right-4 text-xs text-gray-500 dark:text-gray-100'>
+                        <div className='absolute bottom-1 right-4 text-xs text-gray-500'>
                             {cardInfo.deadline ?
                                 moment().isBefore(cardInfo.deadline) ?
                                     `in ${moment(cardInfo.deadline).fromNow(true)}` :

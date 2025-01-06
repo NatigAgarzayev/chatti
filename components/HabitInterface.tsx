@@ -1,36 +1,31 @@
 'use client'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import HabitController from './HabitController'
-import {Habit} from '@/types'
+import { Habit } from '@/types'
 import HabitStopwatch from './HabitStopwatch'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 import pinnedIcon from '../public/images/pin.svg'
 import pinnedActiveIcon from '../public/images/pin-active.svg'
 import Image from "next/image"
-import {useUser} from "@clerk/nextjs";
-import {useHabit} from "@/store/store";
-import {handlePinnedCondition} from "@/api/habitClient"
+import { useUser } from "@clerk/nextjs";
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { handlePinnedCondition } from "@/api/habitClient"
 
 export default function HabitInterface({ data }: { data: Habit }) {
-
+    const queryClient = useQueryClient()
     const [visible, setVisible] = useState(false)
-    const {user} = useUser()
-    const habits = useHabit(state => state.habits)
-    const updateHabit = useHabit(state => state.updateHabits)
+    const { user } = useUser()
+    const mutation = useMutation({
+        mutationFn: async ({ id, pinned }: { id: number, pinned: boolean }) => {
+            await handlePinnedCondition({ id, pinned })
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['habits'] })
+        }
+    })
 
     const handlePin = async () => {
-        const res = await handlePinnedCondition(
-            {
-                id: data.id,
-                pinned: !data.pinned
-            }
-        )
-        const index = habits.findIndex(habit => habit.id === data.id)
-        const newHabitArr = [...habits]
-        if(res) {
-            newHabitArr[index] = res[0]
-            updateHabit(newHabitArr)
-        }
+        mutation.mutate({ id: data.id, pinned: !data.pinned })
     }
 
     return (

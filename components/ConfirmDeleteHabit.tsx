@@ -1,8 +1,8 @@
 'use client'
-import {deleteHabit} from '@/api/habitClient'
-import {useHabit, useStore} from '@/store/store'
-import {Dialog, DialogPanel, DialogTitle} from '@headlessui/react'
-import {motion} from 'framer-motion'
+import { deleteHabit } from '@/api/habitClient'
+import { useHabit, useStore } from '@/store/store'
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { motion } from 'framer-motion'
 import React from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
