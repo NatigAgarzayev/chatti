@@ -1,18 +1,18 @@
 'use client'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import NavLink from './NavLink'
-import {usePathname} from 'next/navigation'
-import {useStore} from '@/store/store'
+import { usePathname } from 'next/navigation'
+import { useStore } from '@/store/store'
 import addTaskIcon from "../public/images/add-task.svg"
 import Image from 'next/image'
-import {SignedIn, UserButton, useUser} from '@clerk/nextjs'
+import { SignedIn, UserButton, useUser } from '@clerk/nextjs'
 import lightIcon from "../public/images/light.svg"
 import darkIcon from "../public/images/dark.svg"
 import burgerIcon from "../public/images/burger.svg"
 import burgerDarkIcon from "../public/images/burger-dark.svg"
 import crownIcon from "../public/images/crown.svg"
 import clsx from 'clsx'
-import {loadStripe} from '@stripe/stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
@@ -33,23 +33,23 @@ export default function Sidebar() {
             document.documentElement.classList.remove('dark');
             setTheme("light")
         }
-        
-      }, [theme]);
+
+    }, [theme]);
 
     useEffect(() => {
         if (localStorage.faze === 'long' || (!('faze' in localStorage))) {
             setFaze("long")
-          } else {
+        } else {
             setFaze("short")
-          }
+        }
     }, [])
 
     const updateTaskModal = useStore(state => state.updateTaskModal)
     const pathname = usePathname()
     const { user } = useUser()
-    
+
     const fazeHandler = () => {
-        if(faze === "long"){
+        if (faze === "long") {
             setFaze("short")
             localStorage.setItem('faze', 'short')
         } else {
@@ -59,20 +59,20 @@ export default function Sidebar() {
     }
 
     const stripeHandler = async () => {
-        if(!user) return
+        if (!user) return
         setRdrct(true)
         const stripe = await loadStripe(
             process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
         )
         console.log("stripe", stripe)
-        if(!stripe) return
+        if (!stripe) return
         const response = await fetch('/api/stripe', {
             "method": 'POST',
-          });
+        });
         const data = await response.json();
-        
+
         setRdrct(false)
-        if(data){
+        if (data) {
             console.log("data", data)
             window.location.href = data.result.url;
         }
@@ -85,13 +85,13 @@ export default function Sidebar() {
                 faze === "long" ? "flex-240 w-full" : "flex-0 max-w-16 min-w-16"
             )
         }>
-            <div className={clsx('w-[90%] mx-auto flex items-center mt-4', faze === "long" ? "justify-between" : "justify-center")}> 
+            <div className={clsx('w-[90%] mx-auto flex items-center mt-4', faze === "long" ? "justify-between" : "justify-center")}>
                 <h1 className={clsx("font-bold text-lg text-gray-700 dark:text-gray-200", faze === "short" && "hidden")}>Chatti Tracking {user?.publicMetadata.paid ? "Pro" : null}</h1>
                 {
                     theme === "light" ?
-                    <Image onClick={fazeHandler} className='cursor-pointer' src={burgerIcon} width={24} alt='burger'/>
-                    :
-                    <Image onClick={fazeHandler} className='cursor-pointer' src={burgerDarkIcon} width={24} alt='burger'/>
+                        <Image onClick={fazeHandler} className='cursor-pointer' src={burgerIcon} width={24} alt='burger' />
+                        :
+                        <Image onClick={fazeHandler} className='cursor-pointer' src={burgerDarkIcon} width={24} alt='burger' />
                 }
             </div>
             <ul className='mt-8'>
@@ -104,9 +104,9 @@ export default function Sidebar() {
                         pathname === "/dashboard/tasks" &&
                         <ul className='mx-6 mt-2'>
                             <li onClick={() => updateTaskModal(true)} className={clsx(
-                                    'text-gray-500 dark:text-gray-300 font-semibold cursor-pointer flex items-center gap-1', 
-                                    faze === "long" ? "ml-8" : "ml-0 gap-0"
-                                )}>
+                                'text-gray-500 dark:text-gray-300 font-semibold cursor-pointer flex items-center gap-1',
+                                faze === "long" ? "ml-8" : "ml-0 gap-0"
+                            )}>
                                 <Image src={addTaskIcon} alt="add task" width={20} />
                                 <p className={clsx(faze === "short" && "hidden")}>Create</p>
                             </li>
@@ -114,7 +114,10 @@ export default function Sidebar() {
                     }
                 </li>
                 <li className='mt-4'>
-                    <NavLink link={"/dashboard/timetracker"} faze={faze} theme={theme} img={2}  content={"Time Tracker"}  pathname={pathname} />
+                    <NavLink link={"/dashboard/timetracker"} faze={faze} theme={theme} img={2} content={"Time Tracker"} pathname={pathname} />
+                </li>
+                <li className='mt-4'>
+                    <NavLink link={"/dashboard/team"} faze={faze} theme={theme} img={2} content={"Team"} pathname={pathname} />
                 </li>
             </ul>
             {
@@ -140,8 +143,8 @@ export default function Sidebar() {
                             </div>
                         </div>
                         <button onMouseEnter={() => setProPopover(true)} onMouseLeave={() => setProPopover(false)}
-                                onClick={stripeHandler} className={clsx('w-[90%] flex justify-center gap-2 absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-amber-500 font-bold', faze === "short" && "w-[65%] p-[8px]")}>
-                            <Image src={crownIcon} width={22} height={22} alt='crown'/>
+                            onClick={stripeHandler} className={clsx('w-[90%] flex justify-center gap-2 absolute bottom-16 left-1/2 -translate-x-1/2 p-3 rounded-md bg-amber-500 font-bold', faze === "short" && "w-[65%] p-[8px]")}>
+                            <Image src={crownIcon} width={22} height={22} alt='crown' />
                             <p className={clsx(faze === "short" && "hidden")}>
                                 {rdrct && faze === "long" ? "Redirecting.." : "Get Chatti PRO"}
                             </p>

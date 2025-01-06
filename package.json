@@ -15,6 +15,7 @@
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "@tanstack/react-query": "^5.59.20",
+    "@types/jsonwebtoken": "^9.0.7",
     "autoprefixer": "10.4.17",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.28",

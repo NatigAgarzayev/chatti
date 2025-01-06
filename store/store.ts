@@ -1,5 +1,5 @@
 'use client'
-import { Store , Habit} from '@/types'
+import { Store, Habit } from '@/types'
 import { create } from 'zustand'
 
 
@@ -17,6 +17,8 @@ export const useStore = create<Store>((set) => ({
     editHabit: false,
     editHabitId: 0,
     editNotToday: false,
+    createTeamModal: false,
+    joinTeamModal: false,
     updateCreateModal: (createModal) => set({ createModal }),
     updateHabitLoading: (habitLoading) => set({ habitLoading }),
     updateTaskModal: (createTaskModal) => set({ createTaskModal }),
@@ -27,12 +29,14 @@ export const useStore = create<Store>((set) => ({
     updateConfirmDeleteTaskModal: (confirmDeleteTaskModal) => set({ confirmDeleteTaskModal }),
     updateEditTask: (editTask) => set({ editTask }),
     updateEditTaskId: (editTaskId) => set({ editTaskId }),
-    updateEditHabit: (editHabit) => set({editHabit}),
+    updateEditHabit: (editHabit) => set({ editHabit }),
     updateEditHabitId: (editHabitId) => set({ editHabitId }),
     updateNotToday: (editNotToday) => set({ editNotToday }),
+    updateCreateTeamModal: (createTeamModal) => set({ createTeamModal }),
+    updateJoinTeamModal: (joinTeamModal) => set({ joinTeamModal }),
 }))
 
-export const useHabit = create<{habits: Habit[], updateHabits: (habits: Habit[]) => void}>((set) => ({
+export const useHabit = create<{ habits: Habit[], updateHabits: (habits: Habit[]) => void }>((set) => ({
     habits: [],
     updateHabits: (habits: Habit[]) => set({ habits }),
 }))

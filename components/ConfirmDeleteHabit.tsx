@@ -10,8 +10,6 @@ export default function ConfirmDeleteHabit() {
 
     const confirmDeleteModal = useStore(state => state.confirmDeleteHabitModal)
     const updateConfirmDeleteModal = useStore(state => state.updateConfirmDeleteHabitModal)
-    const habits = useHabit((state) => state.habits)
-    const updateHabits = useHabit((state: any) => state.updateHabits)
 
     const habitId = useStore(state => state.modalId)
 
@@ -23,18 +21,12 @@ export default function ConfirmDeleteHabit() {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['habits'] })
+            updateConfirmDeleteModal(false)
         }
     })
 
     const deleteHandler = async () => {
         mutation.mutate(habitId)
-
-        // let newHabitArr = [...habits]
-        // newHabitArr = newHabitArr.filter((item: Habit) => item.id !== habitId)
-
-        // updateHabits(newHabitArr)
-        // router.refresh()
-        updateConfirmDeleteModal(false)
     }
 
     return (

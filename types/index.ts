@@ -24,6 +24,8 @@ export interface Store {
     editHabit: boolean
     editHabitId: number
     editNotToday: boolean
+    createTeamModal: boolean
+    joinTeamModal: boolean
     updateCreateModal: (createModal: boolean) => void
     updateHabitLoading: (habitLoading: boolean) => void
     updateTaskModal: (createTaskModal: boolean) => void
@@ -37,6 +39,8 @@ export interface Store {
     updateEditHabit: (editHabit: boolean) => void
     updateEditHabitId: (editHabitId: number) => void
     updateNotToday: (editNotToday: boolean) => void
+    updateCreateTeamModal: (createTeamModal: boolean) => void
+    updateJoinTeamModal: (joinTeamModal: boolean) => void
 }
 
 export default interface Kanban {
@@ -50,4 +54,29 @@ export default interface Kanban {
 export interface NivoDataset {
     day: string,
     value: number
+}
+
+interface Participant {
+    user_id: string
+    name: string
+    email: string
+}
+
+interface Record {
+    user_id: string
+    task_id: number
+    task_title: string
+    task_created_at: string
+    task_completed_at: string
+    task_description: string
+    task_progress: number
+}
+
+export interface Team {
+    team_id: number
+    team_name: string
+    created_at: string
+    team_lead_id: string
+    participants: Participant[]
+    records: Record[]
 }
