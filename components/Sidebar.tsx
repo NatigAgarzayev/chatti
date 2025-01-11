@@ -117,7 +117,7 @@ export default function Sidebar() {
                     <NavLink link={"/dashboard/timetracker"} faze={faze} theme={theme} img={2} content={"Time Tracker"} pathname={pathname} />
                 </li>
                 <li className='mt-4'>
-                    <NavLink link={"/dashboard/team"} faze={faze} theme={theme} img={2} content={"Team"} pathname={pathname} />
+                    <NavLink link={"/dashboard/team"} faze={faze} theme={theme} img={2} content={"Your Teams"} pathname={pathname} />
                 </li>
             </ul>
             {

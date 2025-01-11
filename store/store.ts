@@ -1,5 +1,5 @@
 'use client'
-import { Store, Habit } from '@/types'
+import { Store, Habit, Team } from '@/types'
 import { create } from 'zustand'
 
 
@@ -19,6 +19,7 @@ export const useStore = create<Store>((set) => ({
     editNotToday: false,
     createTeamModal: false,
     joinTeamModal: false,
+    createEventModal: false,
     updateCreateModal: (createModal) => set({ createModal }),
     updateHabitLoading: (habitLoading) => set({ habitLoading }),
     updateTaskModal: (createTaskModal) => set({ createTaskModal }),
@@ -34,6 +35,7 @@ export const useStore = create<Store>((set) => ({
     updateNotToday: (editNotToday) => set({ editNotToday }),
     updateCreateTeamModal: (createTeamModal) => set({ createTeamModal }),
     updateJoinTeamModal: (joinTeamModal) => set({ joinTeamModal }),
+    updateCreateEventModal: (createEventModal) => set({ createEventModal }),
 }))
 
 export const useHabit = create<{ habits: Habit[], updateHabits: (habits: Habit[]) => void }>((set) => ({

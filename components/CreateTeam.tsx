@@ -22,7 +22,7 @@ export default function CreateTeam({ userId, userName }: { userId: string, userN
         }
     })
 
-    const createTeamHandler = async (formData: FormData) => {
+    const createTeamHandler = (formData: FormData) => {
         const teamName = formData.get('teamName') as string
         mutation.mutate({
             teamName: teamName,
