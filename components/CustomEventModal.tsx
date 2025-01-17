@@ -1,5 +1,6 @@
 'use client'
 import { deleteEvent } from '@/api/teamClient';
+import { useStore } from '@/store/store';
 import { createEventsServicePlugin } from '@schedule-x/events-service';
 import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
@@ -7,16 +8,16 @@ import React from 'react'
 
 export default function CustomEventModal({ calendarEvent }: { calendarEvent: any }) {
     console.log("calendarEvent", calendarEvent)
-    const eventsServicePlugin = createEventsServicePlugin()
 
     const { slug } = useParams()
+    const updateDeleteEventId = useStore(state => state.updateDeleteEventId)
 
     const deleteEventMutation = useMutation({
         mutationFn: async (id: string) => {
             await deleteEvent(id, +slug)
         },
         onSuccess: (data, variables) => {
-            eventsServicePlugin.remove(variables)
+            updateDeleteEventId(variables)
         }
     })
 
@@ -34,7 +35,7 @@ export default function CustomEventModal({ calendarEvent }: { calendarEvent: any
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
                 </div>
-                <span className='text-sm text-gray-500'>{calendarEvent.start}-{calendarEvent.end}</span>
+                <span className='text-sm text-gray-500'>{calendarEvent.start} - {calendarEvent.end}</span>
             </li>
             <li className='flex items-center gap-2 py-1 px-4'>
                 <div>

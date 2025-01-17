@@ -5,12 +5,13 @@ import { Participant, Record } from '@/types'
 import { Dialog, DialogPanel, DialogTitle, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { useMutation } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React, { useId, useState } from 'react'
 
 
 export default function CreateEvent({ teamId, teamParticipants, calendar }: { teamId: number, teamParticipants: Participant[], calendar: any }) {
 
     const [selectedPeople, setSelectedPeople] = useState(teamParticipants)
+    const uID = useId()
 
     const createEventModal = useStore(state => state.createEventModal)
     const updateCreateEventModal = useStore(state => state.updateCreateEventModal)

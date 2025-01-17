@@ -20,6 +20,7 @@ export const useStore = create<Store>((set) => ({
     createTeamModal: false,
     joinTeamModal: false,
     createEventModal: false,
+    deleteEventId: "",
     updateCreateModal: (createModal) => set({ createModal }),
     updateHabitLoading: (habitLoading) => set({ habitLoading }),
     updateTaskModal: (createTaskModal) => set({ createTaskModal }),
@@ -36,6 +37,7 @@ export const useStore = create<Store>((set) => ({
     updateCreateTeamModal: (createTeamModal) => set({ createTeamModal }),
     updateJoinTeamModal: (joinTeamModal) => set({ joinTeamModal }),
     updateCreateEventModal: (createEventModal) => set({ createEventModal }),
+    updateDeleteEventId: (deleteEventId) => set({ deleteEventId }),
 }))
 
 export const useHabit = create<{ habits: Habit[], updateHabits: (habits: Habit[]) => void }>((set) => ({
