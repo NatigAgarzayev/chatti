@@ -6,6 +6,7 @@
   animation: animateIn 0.3s ease 0.15s both;
 }
 
+
 @keyframes animateIn {
   from {
     opacity: 0;
@@ -90,10 +91,8 @@
   0%, 100% { border-color: #e5e7eb; }
 }
 
-.sx-react-calendar-wrapper {
-  margin-top: 30px;
-  max-width: 100vw;
-  width: calc(100vw - 240px);
-  height: 800px;
-  max-height: 90vh;
+.sx-react-calendar-wrapper {  
+  margin-top: 20px !important;
+  width: 100%;
+  height: 90vh;
 }

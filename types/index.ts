@@ -30,6 +30,7 @@ export interface Store {
     deleteEventId: string
     editEventModal: boolean
     editEventId: string
+    theme: string
     updateCreateModal: (createModal: boolean) => void
     updateHabitLoading: (habitLoading: boolean) => void
     updateTaskModal: (createTaskModal: boolean) => void
@@ -49,6 +50,7 @@ export interface Store {
     updateDeleteEventId: (deleteEventId: string) => void
     updateEditEventModal: (editEventModal: boolean) => void
     updateEditEventId: (editEventId: string) => void
+    updateTheme: (theme: string) => void
 }
 
 export default interface Kanban {

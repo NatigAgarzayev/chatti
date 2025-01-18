@@ -32,7 +32,7 @@ export default function TeamDashboard() {
 
     return (
         team ? (
-            <div>
+            <div className='w-full h-full bg-white dark:bg-gray-900'>
                 <TeamDashboardContent team={team[0]} />
             </div>
         ) : (

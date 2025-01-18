@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNextCalendarApp, ScheduleXCalendar } from '@schedule-x/react'
 import { createCurrentTimePlugin } from '@schedule-x/current-time'
 import { createResizePlugin } from '@schedule-x/resize'
@@ -23,6 +23,7 @@ import EditEvent from './EditEvent'
 
 export default function Scheduler({ team }: { team: Team }) {
     const eventsServicePlugin = useState(() => createEventsServicePlugin())[0]
+    const theme = useStore(state => state.theme)
     const [eventObj, setEventObj] = useState<any>({
         calendarId: '',
         description: '',
@@ -64,6 +65,7 @@ export default function Scheduler({ team }: { team: Team }) {
                 description: record.description,
                 people: record.people
             })),
+            isDark: theme === 'dark',
             callbacks: {
                 onEventUpdate: (updatedEvent) => {
                     mutation.mutate({
@@ -89,7 +91,7 @@ export default function Scheduler({ team }: { team: Team }) {
     }, [editEventModal])
 
     return (
-        <div className=''>
+        <div className='w-[90%] mx-auto'>
             <CreateEvent teamId={team.team_id} teamParticipants={team.participants} calendar={calendar} />
             <EditEvent eventObj={eventObj} teamId={team.team_id} teamParticipants={team.participants} eventsServicePlugin={eventsServicePlugin} />
             <ScheduleXCalendar calendarApp={calendar} customComponents={{ eventModal: CustomEventModal }} />
