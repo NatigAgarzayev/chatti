@@ -1,29 +1,26 @@
 'use client'
 import { createEvent } from '@/api/teamClient'
 import { useStore } from '@/store/store'
-import { Participant, Record } from '@/types'
+import { Participant } from '@/types'
 import { Dialog, DialogPanel, DialogTitle, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { useMutation } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import React, { useId, useState } from 'react'
+import React, { useState } from 'react'
 
 
 export default function CreateEvent({ teamId, teamParticipants, calendar }: { teamId: number, teamParticipants: Participant[], calendar: any }) {
 
     const [selectedPeople, setSelectedPeople] = useState(teamParticipants)
-    const uID = useId()
 
     const createEventModal = useStore(state => state.createEventModal)
     const updateCreateEventModal = useStore(state => state.updateCreateEventModal)
     const mutation = useMutation({
         mutationFn: async ({ eventId, eventTitle, eventDescription, eventStart, eventEnd, selectedPeople }: { eventId: string, eventTitle: string, eventDescription: string, eventStart: string, eventEnd: string, selectedPeople: Participant[] }) => {
-            console.log("selectedPeople", selectedPeople)
             await createEvent(eventId, teamId, eventTitle, eventDescription, eventStart, eventEnd, selectedPeople)
         },
         onSuccess: (data, variables) => {
             const processedStart = variables.eventStart.replace('T', ' ')
             const processedEnd = variables.eventEnd.replace('T', ' ')
-            console.log("variables.selectedPeople", variables.selectedPeople)
             calendar.eventsService.add({
                 title: variables.eventTitle,
                 start: processedStart,
@@ -42,7 +39,6 @@ export default function CreateEvent({ teamId, teamParticipants, calendar }: { te
         const eventStart = formData.get('eventStart') as string
         const eventEnd = formData.get('eventEnd') as string
         const eventId = crypto.randomUUID()
-        console.log(eventTitle, eventDescription, eventStart, eventEnd)
         mutation.mutate({
             eventId,
             eventTitle,

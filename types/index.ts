@@ -28,6 +28,8 @@ export interface Store {
     joinTeamModal: boolean
     createEventModal: boolean
     deleteEventId: string
+    editEventModal: boolean
+    editEventId: string
     updateCreateModal: (createModal: boolean) => void
     updateHabitLoading: (habitLoading: boolean) => void
     updateTaskModal: (createTaskModal: boolean) => void
@@ -45,6 +47,8 @@ export interface Store {
     updateJoinTeamModal: (joinTeamModal: boolean) => void
     updateCreateEventModal: (createEventModal: boolean) => void
     updateDeleteEventId: (deleteEventId: string) => void
+    updateEditEventModal: (editEventModal: boolean) => void
+    updateEditEventId: (editEventId: string) => void
 }
 
 export default interface Kanban {
@@ -84,14 +88,13 @@ export interface Team {
 
 
 export interface Event {
-    calendarId?: string | undefined
-    description?: string
+    calendarId?: string
+    description: string
     end: string
     id: string
-    location?: string | undefined
-    people?: string[] | undefined
+    location?: string
+    people: string[]
     start: string
     title: string
-    _options?: any | undefined
-
+    _options?: any
 }

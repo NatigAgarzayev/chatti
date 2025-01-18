@@ -19,10 +19,21 @@ import { updateEvent } from '@/api/teamClient'
 import { useMutation } from '@tanstack/react-query'
 import CustomEventModal from './CustomEventModal'
 import { useStore } from '@/store/store'
+import EditEvent from './EditEvent'
 
 export default function Scheduler({ team }: { team: Team }) {
-    // const eventsServicePlugin = createEventsServicePlugin()
     const eventsServicePlugin = useState(() => createEventsServicePlugin())[0]
+    const [eventObj, setEventObj] = useState<any>({
+        calendarId: '',
+        description: '',
+        end: '',
+        id: '',
+        start: '',
+        title: '',
+        people: []
+    })
+    const editEventId = useStore(state => state.editEventId)
+    const editEventModal = useStore(state => state.editEventModal)
     const plugins = [eventsServicePlugin, createDragAndDropPlugin(), createEventModalPlugin(), createCurrentTimePlugin(), createResizePlugin()]
     const deleteEventId = useStore(state => state.deleteEventId)
     const mutation = useMutation({
@@ -38,14 +49,21 @@ export default function Scheduler({ team }: { team: Team }) {
                 end: processedEnd,
                 id: variables.updatedEvent.id,
                 description: variables.updatedEvent.description,
-                people: variables.updatedEvent.people || []
+                people: variables.updatedEvent.people
             })
         }
     })
     const calendar = useNextCalendarApp(
         {
             views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-            events: team.records,
+            events: team.records.map((record: any) => ({
+                title: record.title,
+                start: record.start,
+                end: record.end,
+                id: record.id,
+                description: record.description,
+                people: record.people
+            })),
             callbacks: {
                 onEventUpdate: (updatedEvent) => {
                     mutation.mutate({
@@ -63,9 +81,17 @@ export default function Scheduler({ team }: { team: Team }) {
         }
     }, [deleteEventId])
 
+    useEffect(() => {
+        if (editEventModal) {
+            const eventObject = eventsServicePlugin.get(editEventId)
+            setEventObj(eventObject)
+        }
+    }, [editEventModal])
+
     return (
         <div className=''>
             <CreateEvent teamId={team.team_id} teamParticipants={team.participants} calendar={calendar} />
+            <EditEvent eventObj={eventObj} teamId={team.team_id} teamParticipants={team.participants} eventsServicePlugin={eventsServicePlugin} />
             <ScheduleXCalendar calendarApp={calendar} customComponents={{ eventModal: CustomEventModal }} />
         </div>
     )
