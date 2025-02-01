@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 
 
-export default function EditEvent({ eventObj, teamId, teamParticipants, eventsServicePlugin }: { eventObj: Event, teamId: number, teamParticipants: Participant[], eventsServicePlugin: any }) {
+export default function EditEvent({ eventObj, teamId, teamParticipants, eventsServicePlugin }: { eventObj: Event, teamId: string, teamParticipants: Participant[], eventsServicePlugin: any }) {
 
     const [selectedPeople, setSelectedPeople] = useState(eventObj.people)
     console.log("eventPEOPLE", eventObj.people)

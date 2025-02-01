@@ -1,18 +1,33 @@
 import { Participant } from "@/types"
 import { createClient } from "@/utils/supabase/client"
-import { verify } from 'jsonwebtoken'
+import { useUser } from '@clerk/nextjs'
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 export const createTeam = async (teamName: string, userId: string, participnatName: string) => {
     const supabase = createClient()
 
     const firstParticipant = [{ id: userId, name: participnatName }]
+    const teamId = crypto.randomUUID()
 
-    const { data } = await supabase.from('teams').insert({ team_name: teamName, team_lead_id: userId, participants: firstParticipant })
+    const res = await fetch(`${BASE_URL}/api/clerk/create-team`, {
+        method: "POST",
+        body: JSON.stringify({ userId, teamId }),
+    }).then(res => res.json())
+
+    if (!res.success) return
+
+    const { data } = await supabase.from('teams').insert({ team_id: teamId, team_name: teamName, team_lead_id: userId, participants: firstParticipant })
     return data
 }
 
-export const getUserTeam = async (user_id: string) => {
+export const getUserTeam = async (userId: string) => {
     const supabase = createClient()
-    const { data: team } = await supabase.from('teams').select("*").eq('team_lead_id', user_id)
+    const res = await fetch(`${BASE_URL}/api/clerk/get-team`, {
+        method: "POST",
+        body: JSON.stringify({ userId }),
+    }).then(res => res.json())
+
+    if (!res.success) return
+    const { data: team } = await supabase.from('teams').select("*").in('team_id', res.teams)
     return team
 }
 
@@ -30,7 +45,20 @@ export const getUserTeamById = async (team_id: string, user_id: string) => {
     }
 }
 
-export const createEvent = async (eventId: string, teamId: number, eventTitle: string, eventDescription: string, eventStart: string, eventEnd: string, eventPeople: Participant[]) => {
+export const deleteTeam = async (userId: string, teamId: string) => {
+    const supabase = createClient()
+
+    const res = await fetch(`${BASE_URL}/api/clerk/delete-team`, {
+        method: "POST",
+        body: JSON.stringify({ userId, teamId }),
+    }).then(res => res.json())
+
+    if (!res.success) return
+    const { data } = await supabase.from('teams').delete().eq('team_id', teamId)
+    return data
+}
+
+export const createEvent = async (eventId: string, teamId: string, eventTitle: string, eventDescription: string, eventStart: string, eventEnd: string, eventPeople: Participant[]) => {
     const supabase = createClient()
     try {
         const { data: teamRecords } = await supabase.from('teams').select("records").eq('team_id', teamId)
@@ -56,7 +84,7 @@ export const createEvent = async (eventId: string, teamId: number, eventTitle: s
     }
 }
 
-export const updateEvent = async (eventId: string, teamId: number, eventTitle: string, eventDescription: string, eventStart: string, eventEnd: string, eventPeople: string[]) => {
+export const updateEvent = async (eventId: string, teamId: string, eventTitle: string, eventDescription: string, eventStart: string, eventEnd: string, eventPeople: string[]) => {
     const supabase = createClient()
     const { data } = await supabase.from('teams').select("*").eq('team_id', teamId)
     const processedStart = eventStart.replace('T', ' ')
@@ -83,4 +111,36 @@ export const deleteEvent = async (eventId: string, teamId: number) => {
         const { data: updatedData } = await supabase.from('teams').update({ records: updatedRecords }).eq('team_id', teamId)
         return updatedData
     }
+}
+
+export const joinTeamByCode = async (user: any, teamId: string) => {
+    const supabase = createClient()
+    const { data: team } = await supabase.from('teams').select("*").eq('team_id', teamId) // Here is the problem, it returns empty array
+    if (!team) return
+    if (!user) return
+    if (team[0].participants.some((participant: { id: string }) => participant.id === user.id)) return
+    const res = await fetch(`${BASE_URL}/api/clerk/create-team`, {
+        method: "POST",
+        body: JSON.stringify({ userId: user.id, teamId }),
+    }).then(res => res.json())
+
+    if (!res.success) return
+    const teamList = [...team[0].participants, { id: user.id, name: user.username }]
+    const { data } = await supabase.from('teams').update({ participants: teamList }).eq('team_id', teamId)
+    return data
+}
+
+export const leaveTeam = async (userId: string, teamId: string) => {
+    const supabase = createClient()
+    const { data: team } = await supabase.from('teams').select("*").eq('team_id', teamId)
+    if (!team) return
+    if (!userId) return
+    const res = await fetch(`${BASE_URL}/api/clerk/delete-team`, {
+        method: "POST",
+        body: JSON.stringify({ userId, teamId }),
+    }).then(res => res.json())
+    if (!res.success) return
+    const teamList = team[0].participants.filter((participant: { id: string }) => participant.id !== userId)
+    const { data } = await supabase.from('teams').update({ participants: teamList }).eq('team_id', teamId)
+    return data
 }

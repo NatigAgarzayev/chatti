@@ -3,22 +3,31 @@ import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '@/store/store'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useMutationState, useQueryClient } from '@tanstack/react-query'
+import { joinTeamByCode } from '@/api/teamClient'
+import { useUser } from '@clerk/nextjs'
 
 export default function JoinTeam() {
 
     const joinTeamModal = useStore((state) => state.joinTeamModal)
     const updateJoinTeamModal = useStore((state) => state.updateJoinTeamModal)
+    const queryClient = useQueryClient()
+    const { user } = useUser()
 
-    const mutation = useMutation({
-        onSuccess: () => {
+    const { mutate, isPending, isError } = useMutation({
+        mutationFn: async ({ user, teamCode }: { user: any, teamCode: string }) => {
+            updateJoinTeamModal(true)
+            await joinTeamByCode(user, teamCode)
             updateJoinTeamModal(false)
+        },
+        onSuccess: async () => {
+            queryClient.invalidateQueries({ queryKey: ['teams'] })
         }
     })
 
     const joinTeamHandler = async (formData: FormData) => {
-        const teamName = formData.get('teamName')
-        console.log(teamName)
+        const teamCode = formData.get('teamCode') as string
+        mutate({ user, teamCode })
     }
 
     return (
@@ -38,14 +47,18 @@ export default function JoinTeam() {
                         <DialogPanel className="md:w-[520px] w-[340px] space-y-4 border bg-white dark:bg-gray-800 dark:border-gray-400 p-6 rounded-3xl text-center">
                             <DialogTitle className="font-bold text-xl dark:text-white">Join to the team</DialogTitle>
                             <form action={joinTeamHandler} className="flex flex-col gap-3 justify-center">
-                                <input name='teamName' type="text" maxLength={30} placeholder='Invitation code' className='px-4 py-2 border border-gray-300 rounded-3xl' />
-                                <button disabled={mutation.isPending} type='submit' className='text-gray-700 px-4 py-2 dark:bg-gray-100 bg-indigo-400 font-bold rounded-3xl disabled:bg-indigo-300' >{mutation.isPending ? 'Joining...' : 'Join'}</button>
+                                <input name='teamCode' type="text" maxLength={30} placeholder='Invitation code' className='px-4 py-2 border border-gray-300 rounded-3xl' />
+                                <button disabled={isPending} type='submit' className='text-gray-700 px-4 py-2 dark:bg-gray-100 bg-indigo-400 font-bold rounded-3xl disabled:bg-indigo-300' >{isPending ? 'Joining...' : 'Join'}</button>
                                 <button className='px-4 py-2 font-bold border border-gray-300 rounded-3xl  dark:text-white' onClick={() => updateJoinTeamModal(false)}>Cancel</button>
+                                {
+                                    isError &&
+                                    <span className='text-red-500'>Something went wrong</span>
+                                }
                             </form>
                         </DialogPanel>
                     </motion.div>
                 </div>
-            </Dialog>
+            </Dialog >
         </>
     )
 }

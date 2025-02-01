@@ -24,6 +24,8 @@ export default function TeamDashboard() {
             }
         },
         enabled: !!params.slug,
+        refetchInterval: 5000,
+        refetchIntervalInBackground: false
     })
 
     if (isLoading) {

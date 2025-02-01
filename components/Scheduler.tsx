@@ -23,7 +23,7 @@ import EditEvent from './EditEvent'
 
 export default function Scheduler({ team }: { team: Team }) {
     const eventsServicePlugin = useState(() => createEventsServicePlugin())[0]
-    const theme = useStore(state => state.theme)
+    const theme = window.localStorage.getItem('theme')
     const [eventObj, setEventObj] = useState<any>({
         calendarId: '',
         description: '',

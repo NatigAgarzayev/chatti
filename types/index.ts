@@ -30,7 +30,10 @@ export interface Store {
     deleteEventId: string
     editEventModal: boolean
     editEventId: string
-    theme: string
+    deleteTeamId: string
+    deleteTeamModal: boolean
+    leaveTeamModal: boolean
+    leaveTeamId: string
     updateCreateModal: (createModal: boolean) => void
     updateHabitLoading: (habitLoading: boolean) => void
     updateTaskModal: (createTaskModal: boolean) => void
@@ -50,7 +53,10 @@ export interface Store {
     updateDeleteEventId: (deleteEventId: string) => void
     updateEditEventModal: (editEventModal: boolean) => void
     updateEditEventId: (editEventId: string) => void
-    updateTheme: (theme: string) => void
+    updateDeleteTeamId: (deleteTeamId: string) => void
+    updateDeleteTeamModal: (deleteTeamModal: boolean) => void
+    updateLeaveTeamModal: (leaveTeamModal: boolean) => void
+    updateLeaveTeamId: (leaveTeamId: string) => void
 }
 
 export default interface Kanban {
@@ -80,7 +86,7 @@ export interface Record {
 }
 
 export interface Team {
-    team_id: number
+    team_id: string
     team_name: string
     created_at: string
     team_lead_id: string

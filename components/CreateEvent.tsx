@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import React, { useState } from 'react'
 
 
-export default function CreateEvent({ teamId, teamParticipants, calendar }: { teamId: number, teamParticipants: Participant[], calendar: any }) {
+export default function CreateEvent({ teamId, teamParticipants, calendar }: { teamId: string, teamParticipants: Participant[], calendar: any }) {
 
     const [selectedPeople, setSelectedPeople] = useState(teamParticipants)
 

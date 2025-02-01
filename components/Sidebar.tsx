@@ -16,7 +16,6 @@ import { loadStripe } from '@stripe/stripe-js'
 
 export default function Sidebar() {
     const [theme, setTheme] = useState("light")
-    const updateTheme = useStore(state => state.updateTheme)
     const [rdrct, setRdrct] = useState(false)
     const [proPopover, setProPopover] = useState(false)
     const [faze, setFaze] = useState(() => {
@@ -30,11 +29,9 @@ export default function Sidebar() {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
             setTheme("dark")
-            updateTheme("dark")
         } else {
             document.documentElement.classList.remove('dark');
             setTheme("light")
-            updateTheme("light")
         }
 
     }, [theme])

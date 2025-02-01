@@ -3,19 +3,25 @@ import React from 'react'
 import CreateTeam from './CreateTeam'
 import JoinTeam from './JoinTeam'
 import { getUserTeam } from '@/api/teamClient'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import TeamList from './TeamList'
 import MainSkeleton from './MainSkeleton'
+import ConfirmDeleteTeam from './ConfirmDeleteTeam'
+import ConfirmLeaveTeam from './ConfirmLeaveTeam'
 
 export default function Team({ user }: { user: any }) {
 
     const { data: teams, isLoading: teamLoading } = useQuery({
         queryKey: ['teams'],
         queryFn: async () => {
-            const teams = await getUserTeam(user.id)
-            return teams
+            try {
+                return await getUserTeam(user.id)
+            } catch (error) {
+                console.error("Fetching teams failed:", error)
+                throw error
+            }
         },
-        enabled: !!user
+        enabled: !!user,
     })
 
     if (teamLoading) {
@@ -33,6 +39,8 @@ export default function Team({ user }: { user: any }) {
                 teams && teams.length > 0 ? (
                     <div>
                         <TeamList teams={teams} user={user} />
+                        <ConfirmDeleteTeam />
+                        <ConfirmLeaveTeam />
                     </div>
                 ) : (
                     <div className='flex flex-col items-center justify-center h-full'>
