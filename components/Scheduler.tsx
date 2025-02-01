@@ -20,8 +20,10 @@ import { useMutation } from '@tanstack/react-query'
 import CustomEventModal from './CustomEventModal'
 import { useStore } from '@/store/store'
 import EditEvent from './EditEvent'
+import { useRouter } from 'next/navigation'
 
 export default function Scheduler({ team }: { team: Team }) {
+    const router = useRouter()
     const eventsServicePlugin = useState(() => createEventsServicePlugin())[0]
     const theme = window.localStorage.getItem('theme')
     const [eventObj, setEventObj] = useState<any>({
@@ -92,7 +94,13 @@ export default function Scheduler({ team }: { team: Team }) {
 
     return (
         <div className='w-[90%] mx-auto'>
-            <CreateEvent teamId={team.team_id} teamParticipants={team.participants} calendar={calendar} />
+            <div className='flex items-center gap-2 mt-5'>
+                <button onClick={() => router.push('/dashboard/team/')} className='flex items-center gap-2 text-blue-500 rounded-md p-2 bg-gray-500/10 hover:bg-gray-500/20 transition-all duration-300'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-left-from-line"><path d="m9 6-6 6 6 6" /><path d="M3 12h14" /><path d="M21 19V5" /></svg>
+                </button>
+                <CreateEvent teamId={team.team_id} teamParticipants={team.participants} calendar={calendar} />
+            </div>
+
             <EditEvent eventObj={eventObj} teamId={team.team_id} teamParticipants={team.participants} eventsServicePlugin={eventsServicePlugin} />
             <ScheduleXCalendar calendarApp={calendar} customComponents={{ eventModal: CustomEventModal }} />
         </div>

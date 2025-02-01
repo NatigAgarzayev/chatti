@@ -50,7 +50,7 @@ export default function CreateEvent({ teamId, teamParticipants, calendar }: { te
     }
 
     return (
-        <div className='mt-5'>
+        <div>
             <button onClick={() => updateCreateEventModal(true)} className='px-4 py-2 bg-indigo-400 text-gray-700 font-bold rounded-3xl dark:bg-gray-100 disabled:bg-indigo-200' type='submit'>Create an event</button>
             <Dialog open={createEventModal} onClose={() => updateCreateEventModal(false)} className="relative z-50">
                 <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
