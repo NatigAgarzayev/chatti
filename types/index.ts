@@ -34,6 +34,8 @@ export interface Store {
     deleteTeamModal: boolean
     leaveTeamModal: boolean
     leaveTeamId: string
+    showParticipantsModal: boolean
+    showParticipantsId: string
     updateCreateModal: (createModal: boolean) => void
     updateHabitLoading: (habitLoading: boolean) => void
     updateTaskModal: (createTaskModal: boolean) => void
@@ -57,6 +59,8 @@ export interface Store {
     updateDeleteTeamModal: (deleteTeamModal: boolean) => void
     updateLeaveTeamModal: (leaveTeamModal: boolean) => void
     updateLeaveTeamId: (leaveTeamId: string) => void
+    updateShowParticipantsModal: (showParticipantsModal: boolean) => void
+    updateShowParticipantsId: (showParticipantsId: string) => void
 }
 
 export default interface Kanban {

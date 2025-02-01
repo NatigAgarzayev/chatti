@@ -13,6 +13,8 @@ export default function TeamCard({ team }: { team: Team }) {
     const updateDeleteTeamId = useStore(state => state.updateDeleteTeamId)
     const updateLeaveTeamModal = useStore(state => state.updateLeaveTeamModal)
     const updateLeaveTeamId = useStore(state => state.updateLeaveTeamId)
+    const updateShowParticipantsModal = useStore(state => state.updateShowParticipantsModal)
+    const updateShowParticipantsId = useStore(state => state.updateShowParticipantsId)
     const handleDeleteTeam = () => {
         updateDeleteTeamModal(true)
         updateDeleteTeamId(team.team_id)
@@ -27,10 +29,15 @@ export default function TeamCard({ team }: { team: Team }) {
         updateLeaveTeamId(team.team_id)
     }
 
+    const handleShowParticipants = () => {
+        updateShowParticipantsId(team.team_id)
+        updateShowParticipantsModal(true)
+    }
+
     return (
         <div className='relative p-4 mt-4 md:w-[510px] w-[340px] border border-gray-200 dark:border-gray-700 rounded-3xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300'>
             <h2 className='text-xl text-gray-700 font-bold dark:text-gray-300'>{team.team_name}</h2>
-            <p className='mt-2 text-gray-500 dark:text-gray-400'>{team.participants.length} participant(s)</p>
+            <p onClick={handleShowParticipants} className='mt-2 text-gray-500 cursor-pointer dark:text-gray-400 hover:underline'>{team.participants.length} participant(s)</p>
             <div className='flex items-center gap-3 mt-5'>
                 <button onClick={() => router.push(`/dashboard/team/${team.team_id}`)} className='flex items-center gap-2 text-blue-500 rounded-md p-2 bg-gray-500/10 hover:bg-gray-500/20 transition-all duration-300'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className='stroke-gray-900 dark:stroke-gray-400 dark:hover:stroke-gray-300 lucide lucide-chevron-right hover:translate-x-1 hover:stroke-gray-700 duration-300' strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>

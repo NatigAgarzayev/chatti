@@ -8,6 +8,7 @@ import TeamList from './TeamList'
 import MainSkeleton from './MainSkeleton'
 import ConfirmDeleteTeam from './ConfirmDeleteTeam'
 import ConfirmLeaveTeam from './ConfirmLeaveTeam'
+import ShowPaticipants from './ShowParticipants'
 
 export default function Team({ user }: { user: any }) {
 
@@ -41,6 +42,7 @@ export default function Team({ user }: { user: any }) {
                         <TeamList teams={teams} user={user} />
                         <ConfirmDeleteTeam />
                         <ConfirmLeaveTeam />
+                        <ShowPaticipants />
                     </div>
                 ) : (
                     <div className='flex flex-col items-center justify-center h-full'>

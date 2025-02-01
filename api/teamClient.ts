@@ -144,3 +144,10 @@ export const leaveTeam = async (userId: string, teamId: string) => {
     const { data } = await supabase.from('teams').update({ participants: teamList }).eq('team_id', teamId)
     return data
 }
+
+export const getTeamParticipants = async (teamId: string) => {
+    const supabase = createClient()
+    const { data } = await supabase.from('teams').select("participants, team_lead_id").eq('team_id', teamId)
+    if (!data) return
+    return data[0]
+}
