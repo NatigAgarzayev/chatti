@@ -5,10 +5,9 @@ export default async function Index() {
 
   const { userId }: { userId: string | null } = auth();
 
-  console.log(userId)
-
   if (!userId) {
     redirect("/sign-in")
+    // return null
   }
   else {
     redirect("/dashboard/habits")

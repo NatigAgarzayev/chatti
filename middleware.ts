@@ -4,7 +4,6 @@ const isPublicRoute = createRouteMatcher(["/signin(.*)", "/signup(.*)"]);
 
 export default clerkMiddleware((auth, request) => {
   if (request.nextUrl.pathname.startsWith("/api/webhooks")) {
-    // Bypass Clerk authentication for the /api/webhooks route
     return;
   }
   if (!isPublicRoute(request)) {
